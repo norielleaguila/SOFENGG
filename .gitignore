@@ -70,3 +70,8 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+.metadata/.mylyn/.tasks.xml.zip
+*.zip
+*.zip
+.metadata/.mylyn/.tasks.xml.zip
+.metadata/.plugins/org.eclipse.core.resources/.projects/Vers1/.indexes/e4/6e/history.index
