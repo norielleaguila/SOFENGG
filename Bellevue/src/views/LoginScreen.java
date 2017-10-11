@@ -4,15 +4,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-public class LoginScreen {
-	private Scene scene;
+import javafx.scene.paint.Color;
+public class LoginScreen extends View {
 	private VBox layout;
 	
-	private Label[] textPrompts;
 	private TextField username;
 	private PasswordField password;
 	private Button loginBtn;
@@ -24,52 +25,45 @@ public class LoginScreen {
 		
 		addToLayout();
 		
-		scene = new Scene(layout);
+		scene = new Scene(layout, 800, 500);
 	}
 	
 	/*
 	 * setUpLayout initializes a new VBox element as the main layout of this view
 	 */
-	public void setUpLayout(){
+	protected void setUpLayout(){
 		layout = new VBox(10);
 		layout.setPadding(new Insets(25, 25, 25, 25));
-		layout.setAlignment(Pos.CENTER_LEFT);
+		layout.setAlignment(Pos.CENTER);
+		
+		layout.setBackground(new Background((new BackgroundFill(Color.PINK, CornerRadii.EMPTY, Insets.EMPTY))));
 	}
 	
 	/*
 	 * createElements instantiates the elements of this view 
 	 */
-	public void createElements(){
-		// initialize text prompts
-		textPrompts = new Label[]{new Label("Username:"), new Label("Password:")};
-		
+	protected void createElements(){
 		// create username field
 		username = new TextField();
-		username.setPrefSize(200, 20);
+		username.setPromptText("Username");
+		username.setMaxSize(200, 20);
 		
 		// create password field
 		password = new PasswordField();
-		password.setPrefSize(200, 20);
+		password.setPromptText("Password");
+		password.setMaxSize(200, 20);
 		
 		// create login button
-		loginBtn = new Button("Login");
-		loginBtn.setPrefSize(200, 20);
+		loginBtn = new Button("LOGIN");
+		loginBtn.setBackground(new Background((new BackgroundFill(Color.DARKSEAGREEN, CornerRadii.EMPTY, Insets.EMPTY))));
+		loginBtn.setTextFill(Color.WHITE);
+		loginBtn.setMaxSize(100, 20);
 	}
 	
-	public void addToLayout(){
-		layout.getChildren().add(textPrompts[0]);
+	protected void addToLayout(){
 		layout.getChildren().add(username);
-		layout.getChildren().add(textPrompts[1]);
 		layout.getChildren().add(password);
 		layout.getChildren().add(loginBtn);
-	}
-
-	public Scene getScene() {
-		return scene;
-	}
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
 	}
 
 	public VBox getLayout() {
