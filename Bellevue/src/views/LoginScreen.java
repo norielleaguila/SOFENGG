@@ -36,7 +36,7 @@ public class LoginScreen extends View {
 		layout.setPadding(new Insets(25, 25, 25, 25));
 		layout.setAlignment(Pos.CENTER);
 		
-		layout.setBackground(new Background((new BackgroundFill(Color.PINK, CornerRadii.EMPTY, Insets.EMPTY))));
+		layout.setBackground(new Background((new BackgroundFill(Color.LIGHTCORAL, CornerRadii.EMPTY, Insets.EMPTY))));
 	}
 	
 	/*
