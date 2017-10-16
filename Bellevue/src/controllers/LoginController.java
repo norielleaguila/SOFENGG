@@ -16,26 +16,26 @@ public class LoginController extends Controller{
 	}
 	
 	public void setUpButtons(){
-		String user = "admin", pass = "pass";
+		String user = "admin", pass = "123";
 		
 		view.getLoginBtn().setOnAction(e -> {
 			/* empty failure condition */
 			if(view.getUsername().getText().equals("") || view.getUsername().getText() == null){
 				view.setNotif("Username cannot be empty!");
-				view.resetLayout();
 			}
 			else if(view.getPassword().getText().equals("") || view.getPassword().getText() == null){
 				view.setNotif("Password cannot be empty!");
-				view.resetLayout();	
 			}
 			
 			/* invalid credentials condition */
-			else if(!view.getUsername().getText().equals(user) || !view.getPassword().equals(pass)){
+			else if(!view.getUsername().getText().equals(user) || !view.getPassword().getText().equals(pass)){
 				view.setNotif("Invalid login.");
-				view.resetLayout();
 			}
-				
 			
+			else{
+				view.setNotif("Welcome, " + view.getUsername().getText() + "!");
+			}
+			view.resetLayout();
 		});
 	}
 }
