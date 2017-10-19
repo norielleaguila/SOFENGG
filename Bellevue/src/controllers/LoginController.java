@@ -1,6 +1,9 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import javafx.scene.input.KeyCode;
+import models.Account;
 import views.LoginScreen;
 
 /**
@@ -10,12 +13,12 @@ import views.LoginScreen;
  */
 public class LoginController extends Controller{
 	private LoginScreen view;
-	private String user = "admin", pass = "123";
+//	private String user = "admin", pass = "123";
+	private ArrayList<Account> accounts;
 	
-	public LoginController(LoginScreen view){
+	public LoginController(ArrayList<Account> accounts, LoginScreen view){
+		this.accounts = accounts;
 		this.view = view;
-		setUpButtons();
-		onEnterLogin();
 	}
 	
 	public void onEnterLogin(){
@@ -33,6 +36,13 @@ public class LoginController extends Controller{
 	}
 	
 	public void validate(){
+		/* invalid credentials condition */
+		for(Account a : accounts){
+			if(!view.getUsername().getText().equals(a.getUsername()) || !view.getPassword().getText().equals(a.getPassword())){
+				view.setNotif("Invalid login.");
+			}
+		}
+		
 		/* empty failure condition */
 		if(view.getUsername().getText().equals("") || view.getUsername().getText() == null){
 			view.setNotif("Username cannot be empty!");
@@ -42,13 +52,15 @@ public class LoginController extends Controller{
 		}
 		
 		/* invalid credentials condition */
-		else if(!view.getUsername().getText().equals(user) || !view.getPassword().getText().equals(pass)){
-			view.setNotif("Invalid login.");
-		}
+//		else if(!view.getUsername().getText().equals(user) || !view.getPassword().getText().equals(pass)){
+//			view.setNotif("Invalid login.");
+//		}
 		
 		else{
 			view.setNotif("Welcome, " + view.getUsername().getText() + "!");
 		}
 		view.resetLayout();
+		
+		
 	}
 }

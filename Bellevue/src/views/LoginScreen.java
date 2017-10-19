@@ -61,18 +61,21 @@ public class LoginScreen extends View {
 		// create username field
 		username = new TextField();
 		username.setPromptText("Username");
-		username.setMaxSize(200, 20);
+		username.setMinSize(200, 20);
+		username.setMaxSize(200, 50);
 		
 		// create password field
 		password = new PasswordField();
 		password.setPromptText("Password");
-		password.setMaxSize(200, 20);
+		password.setMinSize(200, 20);
+		password.setMaxSize(200, 50);
 		
 		// create login button
 		loginBtn = new Button("LOGIN");
 		loginBtn.setBackground(new Background((new BackgroundFill(Color.rgb(184, 196, 128), CornerRadii.EMPTY, Insets.EMPTY))));
 		loginBtn.setTextFill(Color.WHITE);
-		loginBtn.setMaxSize(100, 20);
+		loginBtn.setMinSize(200, 20);
+		loginBtn.setMaxSize(200, 50);
 	}
 	
 	protected void addToLayout(){
