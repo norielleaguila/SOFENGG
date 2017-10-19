@@ -36,31 +36,34 @@ public class LoginController extends Controller{
 	}
 	
 	public void validate(){
-		/* invalid credentials condition */
-		for(Account a : accounts){
-			if(!view.getUsername().getText().equals(a.getUsername()) || !view.getPassword().getText().equals(a.getPassword())){
+		
+		boolean pass = false;
+		
+		/* checks if there is a matching account in the db */
+		int i = 0;
+		while(i < accounts.size() && !pass){
+			if(view.getUsername().getText().equals(accounts.get(i).getUsername()) && view.getPassword().getText().equals(accounts.get(i).getPassword())){
+				view.setNotif("Welcome, " + view.getUsername().getText() + "!");
+				pass = true;
+			}
+			i++;
+		}
+		
+		/* empty field failure condition */
+		if(!pass){
+			if(view.getUsername().getText().equals("") || view.getUsername().getText() == null){
+				view.setNotif("Username cannot be empty!");
+			}
+			else if(view.getPassword().getText().equals("") || view.getPassword().getText() == null){
+				view.setNotif("Password cannot be empty!");
+			}
+			else {
+				/* invalid credentials condition */
 				view.setNotif("Invalid login.");
 			}
 		}
 		
-		/* empty failure condition */
-		if(view.getUsername().getText().equals("") || view.getUsername().getText() == null){
-			view.setNotif("Username cannot be empty!");
-		}
-		else if(view.getPassword().getText().equals("") || view.getPassword().getText() == null){
-			view.setNotif("Password cannot be empty!");
-		}
-		
-		/* invalid credentials condition */
-//		else if(!view.getUsername().getText().equals(user) || !view.getPassword().getText().equals(pass)){
-//			view.setNotif("Invalid login.");
-//		}
-		
-		else{
-			view.setNotif("Welcome, " + view.getUsername().getText() + "!");
-		}
+		/* updates the view */
 		view.resetLayout();
-		
-		
 	}
 }
