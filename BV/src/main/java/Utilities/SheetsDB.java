@@ -65,7 +65,7 @@ public class SheetsDB {
     private static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-            SheetsDB.class.getResourceAsStream("/client_secret_528184461714-9fcj5mcnvftlqfelbh8fpj928nm46h3g.apps.googleusercontent.com.json");
+            SheetsDB.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
