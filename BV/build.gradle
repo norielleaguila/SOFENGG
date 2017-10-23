@@ -1,0 +1,36 @@
+import org.gradle.plugins.ide.eclipse.model.AccessRule
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+mainClassName = 'Quickstart'
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Main-Class': 'Driver'
+    }
+}
+repositories {
+    mavenCentral()
+	jcenter()
+}
+eclipse {
+    classpath {
+        file {
+            whenMerged {
+                def jre = entries.find { it.path.contains 'org.eclipse.jdt.launching.JRE_CONTAINER' }
+                jre.accessRules.add(new AccessRule('0', 'javafx/**'))
+            }
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.api-client:google-api-client:1.23.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    compile 'com.google.apis:google-api-services-sheets:v4-rev487-1.23.0'
+    
+    
+}
