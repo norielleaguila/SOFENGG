@@ -1,5 +1,11 @@
 package models;
 
+/** 
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
+
 public class Fees extends Model{
 	private int feeID;
 	private String feeName;

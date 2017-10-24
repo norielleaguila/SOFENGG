@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import views.View;
 
+/**
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
+
 public abstract class Model {
 	
 	private ArrayList<View> observers;

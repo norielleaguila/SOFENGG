@@ -3,7 +3,7 @@ package models;
 /**
  * Unit class
  * 
- * @author Aguila, Norielle
+ * @author AGUILA, Norielle
  *
  */
 

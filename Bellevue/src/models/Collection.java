@@ -2,6 +2,12 @@ package models;
 
 import java.util.GregorianCalendar;
 
+/**
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
+
 public class Collection extends Model{
 	private int unitNo;
 	private GregorianCalendar DatePaid;
