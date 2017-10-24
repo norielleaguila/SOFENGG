@@ -1,0 +1,22 @@
+.root{
+	-fx-background-color: rgb(252, 149, 134);
+}
+
+#loginBtn{
+	-fx-background-color: rgb(184, 196, 128);
+	-fx-text-fill: white;
+}
+
+#notifLbl, #notifLbl2{
+	-fx-background-color: transparent;
+	-fx-padding: 10;
+	-fx-background-radius: 4px;
+}
+
+#notifLbl2{
+	-fx-background-color: white;
+	-fx-border-radius: 3px;
+	-fx-border-color: #c0c0c0;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+}

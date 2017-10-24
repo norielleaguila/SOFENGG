@@ -35,6 +35,7 @@ public class Driver extends Application{
 
 		window = primaryStage;
 		window.setScene(loginScreen.getScene());
+		window.setMaximized(true);
 		window.show();
 	}
 	

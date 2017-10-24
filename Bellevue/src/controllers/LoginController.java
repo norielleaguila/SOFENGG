@@ -42,8 +42,8 @@ public class LoginController extends Controller{
 		/* checks if there is a matching account in the db */
 		int i = 0;
 		while(i < accounts.size() && !pass){
-			if(view.getUsername().getText().equals(accounts.get(i).getUsername()) && view.getPassword().getText().equals(accounts.get(i).getPassword())){
-				view.setNotif("Welcome, " + view.getUsername().getText() + "!");
+			if(view.getUsernameField().getText().equals(accounts.get(i).getUsername()) && view.getPasswordField().getText().equals(accounts.get(i).getPassword())){
+				view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
 				pass = true;
 			}
 			i++;
@@ -51,10 +51,10 @@ public class LoginController extends Controller{
 		
 		/* empty field failure condition */
 		if(!pass){
-			if(view.getUsername().getText().equals("") || view.getUsername().getText() == null){
+			if(view.getUsernameField().getText().equals("") || view.getUsernameField().getText() == null){
 				view.setNotif("Username cannot be empty!");
 			}
-			else if(view.getPassword().getText().equals("") || view.getPassword().getText() == null){
+			else if(view.getPasswordField().getText().equals("") || view.getPasswordField().getText() == null){
 				view.setNotif("Password cannot be empty!");
 			}
 			else {

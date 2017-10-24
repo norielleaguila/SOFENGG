@@ -21,11 +21,11 @@ import javafx.scene.paint.Color;
 public class LoginScreen extends View {
 	private VBox layout;
 	
-	private TextField username;
-	private PasswordField password;
+	private TextField usernameField;
+	private PasswordField passwordField;
 	private Button loginBtn;
 	
-	private Label notif;
+	private Label notifLbl;
 	
 	public LoginScreen(){
 		setUpLayout();
@@ -34,7 +34,7 @@ public class LoginScreen extends View {
 		
 		addToLayout();
 		
-		scene = new Scene(layout, 800, 500);
+		scene = new Scene(layout, 1024, 768);
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class LoginScreen extends View {
 		layout.setPadding(new Insets(25, 25, 25, 25));
 		layout.setAlignment(Pos.CENTER);
 		
-		layout.setBackground(new Background((new BackgroundFill(Color.rgb(252, 149, 134), CornerRadii.EMPTY, Insets.EMPTY))));
+		layout.getStylesheets().add("style.css");
 	}
 	
 	/**
@@ -53,35 +53,34 @@ public class LoginScreen extends View {
 	 */
 	protected void createElements(){
 		// create notif label
-		notif = new Label("");
-		notif.setMinSize(200, 20);
-		notif.setPadding(new Insets(10));
-		notif.setAlignment(Pos.CENTER);
+		notifLbl = new Label("");
+		notifLbl.setMinSize(200, 20);
+		notifLbl.setAlignment(Pos.CENTER);
+		notifLbl.setId("notifLbl");
 		
 		// create username field
-		username = new TextField();
-		username.setPromptText("Username");
-		username.setMinSize(200, 20);
-		username.setMaxSize(200, 50);
+		usernameField = new TextField();
+		usernameField.setPromptText("Username");
+		usernameField.setMinSize(200, 20);
+		usernameField.setMaxSize(200, 50);
 		
 		// create password field
-		password = new PasswordField();
-		password.setPromptText("Password");
-		password.setMinSize(200, 20);
-		password.setMaxSize(200, 50);
+		passwordField = new PasswordField();
+		passwordField.setPromptText("Password");
+		passwordField.setMinSize(200, 20);
+		passwordField.setMaxSize(200, 50);
 		
 		// create login button
 		loginBtn = new Button("LOGIN");
-		loginBtn.setBackground(new Background((new BackgroundFill(Color.rgb(184, 196, 128), CornerRadii.EMPTY, Insets.EMPTY))));
-		loginBtn.setTextFill(Color.WHITE);
 		loginBtn.setMinSize(200, 20);
 		loginBtn.setMaxSize(200, 50);
+		loginBtn.setId("loginBtn");
 	}
 	
 	protected void addToLayout(){
-		layout.getChildren().add(notif);
-		layout.getChildren().add(username);
-		layout.getChildren().add(password);
+		layout.getChildren().add(notifLbl);
+		layout.getChildren().add(usernameField);
+		layout.getChildren().add(passwordField);
 		layout.getChildren().add(loginBtn);
 	}
 
@@ -101,20 +100,12 @@ public class LoginScreen extends View {
 		this.layout = layout;
 	}
 
-	public TextField getUsername() {
-		return username;
+	public TextField getUsernameField() {
+		return usernameField;
 	}
 
-	public void setUsername(TextField username) {
-		this.username = username;
-	}
-
-	public PasswordField getPassword() {
-		return password;
-	}
-	
-	public void setPassword(PasswordField password) {
-		this.password = password;
+	public PasswordField getPasswordField() {
+		return passwordField;
 	}
 
 	public Button getLoginBtn() {
@@ -125,12 +116,12 @@ public class LoginScreen extends View {
 		this.loginBtn = loginBtn;
 	}
 	
-	public Label getNotif(){
-		return notif;
+	public Label getNotifLbl(){
+		return notifLbl;
 	}
 	
 	public void setNotif(String notif){
-		this.notif.setText(notif);
-		this.notif.setBackground(new Background((new BackgroundFill(Color.WHITE, new CornerRadii(2), Insets.EMPTY))));
+		this.notifLbl.setText(notif);
+		this.notifLbl.setId("notifLbl2");
 	}
 }
