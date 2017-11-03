@@ -3,8 +3,10 @@ package controllers;
 import java.util.ArrayList;
 
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import models.Account;
 import views.LoginScreen;
+import views.ProgramScreen;
 
 /**
  * 
@@ -13,12 +15,17 @@ import views.LoginScreen;
  */
 public class LoginController extends Controller{
 	private LoginScreen view;
-//	private String user = "admin", pass = "123";
 	private ArrayList<Account> accounts;
 	
-	public LoginController(ArrayList<Account> accounts, LoginScreen view){
+	public LoginController(ArrayList<Account> accounts, LoginScreen view, Stage window){
+		super(window);
+		
 		this.accounts = accounts;
 		this.view = view;
+		this.setScene(view.getScene());
+		
+		window.setMaximized(false);
+		window.setMaximized(true);
 	}
 	
 	public void onEnterLogin(){
@@ -65,5 +72,16 @@ public class LoginController extends Controller{
 		
 		/* updates the view */
 		view.resetLayout();
+		
+		if(pass)
+			openProgram();
+	}
+	
+	// switch to program on valid login
+	public void openProgram(){
+		ProgramScreen ps = new ProgramScreen();
+		ProgramController program = new ProgramController(ps, window);
+		
+		program.setUpButtons();
 	}
 }

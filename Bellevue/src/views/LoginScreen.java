@@ -1,5 +1,8 @@
 package views;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,11 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * LoginScreen is the view that greets users in order to access the program.
@@ -28,19 +27,21 @@ public class LoginScreen extends View {
 	private Label notifLbl;
 	
 	public LoginScreen(){
-		setUpLayout();
+		initLayout();
 		
 		createElements();
 		
 		addToLayout();
 		
-		scene = new Scene(layout, 1024, 768);
+		initScreen();		
+		
+		scene = new Scene(layout, WIDTH, HEIGHT);
 	}
 	
 	/**
 	 * setUpLayout initializes a new VBox element as the main layout of this view
 	 */
-	protected void setUpLayout(){
+	protected void initLayout(){
 		layout = new VBox(10);
 		layout.setPadding(new Insets(25, 25, 25, 25));
 		layout.setAlignment(Pos.CENTER);

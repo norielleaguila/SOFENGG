@@ -1,5 +1,30 @@
 .root{
 	-fx-background-color: rgb(252, 149, 134);
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.tab-pane, .tab:selected {
+	-fx-background-color: white;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.tab{
+	-fx-background-color: rgb(184, 196, 128);
+	-fx-padding: 10;
+}
+
+.tab, .tab .tab-label{
+	-fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label{
+	-fx-alignment: CENTER;
+    -fx-text-fill: grey;
 }
 
 #loginBtn{
@@ -19,4 +44,48 @@
 	-fx-border-color: #c0c0c0;
 	-fx-border-style: solid;
 	-fx-border-width: 1px;
+}
+
+#statusLbl, #unitRowLbl{
+	-fx-alignment: CENTER;
+	-fx-text-fill: white;
+	-fx-border-color: transparent;
+}
+
+#statusLbl{
+	-fx-border-radius: 200px;
+	-fx-background-radius: 200px;
+	-fx-padding: 0;
+	-fx-font-size: 14px;
+	-fx-background-color: green;
+}
+
+#unitRowLbl{
+	-fx-padding: 5;
+	-fx-font-size: 16px;
+	-fx-background-radius: 5;
+	-fx-border-radius: 5;
+	-fx-background-color: rgb(252, 149, 134);
+}
+
+#tableHeaderLbl{
+	-fx-font-size: 16px;
+}
+
+#viewBtn, #printBtn{
+	-fx-padding: 5;
+	-fx-font-size: 16px;
+	-fx-text-fill: white;
+	-fx-background-radius: 5;
+	-fx-border-radius: 5;
+	-fx-border-color: transparent;
+	-fx-alignment: CENTER;
+}
+
+#viewBtn{
+	-fx-background-color: rgb(184, 196, 128);	
+}
+
+#printBtn{
+	-fx-background-color: #9EA7FC;
 }

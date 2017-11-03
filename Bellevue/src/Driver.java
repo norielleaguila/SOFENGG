@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 
 import controllers.LoginController;
+import controllers.ProgramController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import models.Account;
 import views.LoginScreen;
+import views.ProgramScreen;
 
 /**
  * 
@@ -13,6 +15,7 @@ import views.LoginScreen;
  */
 
 public class Driver extends Application{
+	public static boolean validated = false;
 	private Stage window;
 	private ArrayList<Account> accounts;
 	
@@ -22,21 +25,20 @@ public class Driver extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		window = primaryStage;
+		window.show();
+		window.setTitle("Bellevue Systems");
+		window.setMaximized(true);
+		
 		accounts = new ArrayList<>();
 		
 		initAccounts();
 		
 		LoginScreen loginScreen = new LoginScreen();
-		LoginController login = new LoginController(accounts, loginScreen);
+		LoginController login = new LoginController(accounts, loginScreen, window);
 		
-
 		login.setUpButtons();
 		login.onEnterLogin();
-
-		window = primaryStage;
-		window.setScene(loginScreen.getScene());
-		window.setMaximized(true);
-		window.show();
 	}
 	
 	// temporary
