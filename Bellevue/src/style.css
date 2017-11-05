@@ -89,3 +89,7 @@
 #printBtn{
 	-fx-background-color: #9EA7FC;
 }
+
+#table{
+	-fx-background-color: white;
+}

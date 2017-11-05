@@ -27,6 +27,9 @@ public class UnitList extends VBox {
 		this.setMaxHeight(Double.MAX_VALUE);
 		this.setMaxWidth(Double.MAX_VALUE);
 		
+		this.getStylesheets().add("style.css");
+		this.setId("table");
+		
 	}
 	
 	public void addRow(UnitRow unit){
