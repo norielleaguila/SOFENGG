@@ -1,10 +1,8 @@
 package controllers;
 
-import java.util.ArrayList;
-
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import models.Account;
+import models.AccountList;
 import views.LoginScreen;
 import views.ProgramScreen;
 
@@ -15,12 +13,12 @@ import views.ProgramScreen;
  */
 public class LoginController extends Controller{
 	private LoginScreen view;
-	private ArrayList<Account> accounts;
+	private AccountList model;
 	
-	public LoginController(ArrayList<Account> accounts, LoginScreen view, Stage window){
+	public LoginController(AccountList model, LoginScreen view, Stage window){
 		super(window);
 		
-		this.accounts = accounts;
+		this.model = model;
 		this.view = view;
 		this.setScene(view.getScene());
 		
@@ -43,17 +41,14 @@ public class LoginController extends Controller{
 	}
 	
 	public void validate(){
-		
 		boolean pass = false;
 		
-		/* checks if there is a matching account in the db */
-		int i = 0;
-		while(i < accounts.size() && !pass){
-			if(view.getUsernameField().getText().equals(accounts.get(i).getUsername()) && view.getPasswordField().getText().equals(accounts.get(i).getPassword())){
+		// checks if there is a matching account in the db
+		for(int i = 0; i < model.getAccounts().size() && !pass; i++){
+			if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
 				view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
 				pass = true;
 			}
-			i++;
 		}
 		
 		/* empty field failure condition */
@@ -76,7 +71,7 @@ public class LoginController extends Controller{
 		if(pass)
 			openProgram();
 	}
-	
+
 	// switch to program on valid login
 	public void openProgram(){
 		ProgramScreen ps = new ProgramScreen();

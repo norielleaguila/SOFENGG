@@ -6,7 +6,7 @@ package models;
  *
  */
 
-public class Fees extends Model{
+public class Fees{
 	private int feeID;
 	private String feeName;
 	private String type;

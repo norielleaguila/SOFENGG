@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
 public class Account {
 	private String username;
 	private String password;
@@ -22,9 +27,23 @@ public class Account {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	public String getPassword() {
-		return password;
+/*
+ * V2.0
+ * Removed due to data security, replaced with verifyPassword()
+ */
+//	public String getPassword() {
+//		return password;
+//	}
+	
+	/**
+	 * Verifies the input password
+	 * @param password
+	 * @return true if given password matches, else false
+	 */
+	public boolean verifyPassword(String password){
+		if(this.password.equals(password))
+			return true;
+		return false;
 	}
 
 	public void setPassword(String password) {

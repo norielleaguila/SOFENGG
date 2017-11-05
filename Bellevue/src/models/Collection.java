@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  *
  */
 
-public class Collection extends Model{
+public class Collection{
 	private int unitNo;
 	private GregorianCalendar DatePaid;
 	private GregorianCalendar DateBilled;

@@ -7,7 +7,7 @@ package models;
  *
  */
 
-public class Unit extends Model {
+public class Unit{
 	private int unitNo;
 	private String billedTo;
 	private String tct;
