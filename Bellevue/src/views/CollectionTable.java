@@ -7,7 +7,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import models.Fees;
+import models.Fee;
+import models.FeeList;
 
 /**
  * @author AGUILA, Norielle
@@ -18,10 +19,10 @@ public class CollectionTable extends ScrollPane{
 	
 	private VBox tableContainter;
 	private ArrayList<VBox> tables;	// 1 VBox = 1 type
-	private ArrayList<Fees> fees; 	// the list is assumed to be sorted by type
+	private FeeList fees; 	// the list is assumed to be sorted by type
 	private ArrayList<Label> typeLbls;
 	
-	public CollectionTable(ArrayList<Fees> fees){
+	public CollectionTable(FeeList fees){
 		tableContainter = new VBox(10);
 		this.fees = fees;
 		
@@ -40,23 +41,14 @@ public class CollectionTable extends ScrollPane{
 	 */
 	public void initTypes(){
 		typeLbls = new ArrayList<Label>();
-
-		typeLbls.add(new Label(fees.get(0).getType()));
-
-		// start at index 1
-		for(int i = 1; i < fees.size() - 1; i++){
-			String curr = fees.get(i).getType();
-			String next = fees.get(i + 1).getType();
-
-			if(!curr.equals(next)){
-				typeLbls.add(new Label(next));
-			}
+		ArrayList<String> types = fees.sortByType();
+		
+		for(String type: types){
+			typeLbls.add(new Label(type));
 		}
+		
 	}
 	
-	/**
-	 * creates a separate table for each categorical type
-	 */
 	public void initTables(){
 		// create the vbox, then add the category/type label as a header
 		for(int i = 0; i < typeLbls.size(); i++){
@@ -70,8 +62,8 @@ public class CollectionTable extends ScrollPane{
 			type = typeLbls.get(i).getText();
 			
 			// assumes that the fees list is already sorted by type
-			for(int j = 0; j < fees.size() && fees.get(j).getType().equals(type); j++){
-				Fees curr = fees.get(j);
+			for(int j = 0; j < fees.getFees().size() && fees.getFee(j).getType().equals(type); j++){
+				Fee curr = fees.getFee(j);
 				
 				HBox row = new HBox(10);
 				

@@ -6,16 +6,24 @@ package models;
  *
  */
 
-public class Fees{
+public class Fee{
 	private int feeID;
 	private String feeName;
 	private String type;
 	private double price;
 	
-	public Fees(){
+	public Fee(){
 		super();
 	}
+	
+	public Fee(int feeID, String feeName, String type, double price){
+		this.feeID = feeID;
+		this.feeName = feeName;
+		this.type = type;
+		this.price = price;
+	}
 
+//	VERS 2.0 Removed for data security
 	public int getFeeID() {
 		return feeID;
 	}
