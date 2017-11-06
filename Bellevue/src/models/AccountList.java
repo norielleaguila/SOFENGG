@@ -61,5 +61,4 @@ public class AccountList extends Model{
 		accounts.add(new Account("secretary", "123"));
 	}
 	
-	
 }
