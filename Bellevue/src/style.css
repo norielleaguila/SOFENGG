@@ -93,3 +93,8 @@
 #table{
 	-fx-background-color: white;
 }
+
+#appNameLbl{
+	-fx-font-size: 30px;
+	-fx-text-fill: white;
+}

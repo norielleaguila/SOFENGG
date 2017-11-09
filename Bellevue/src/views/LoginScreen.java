@@ -24,6 +24,7 @@ public class LoginScreen extends View {
 	private PasswordField passwordField;
 	private Button loginBtn;
 	
+	private Label appNameLbl;
 	private Label notifLbl;
 	
 	public LoginScreen(){
@@ -53,6 +54,11 @@ public class LoginScreen extends View {
 	 * createElements instantiates the elements of this view 
 	 */
 	protected void createElements(){
+		// create program name label
+		appNameLbl = new Label("[Application Name]");
+		appNameLbl.setAlignment(Pos.CENTER);
+		appNameLbl.setId("appNameLbl");
+		
 		// create notif label
 		notifLbl = new Label("");
 		notifLbl.setMinSize(200, 20);
@@ -79,6 +85,7 @@ public class LoginScreen extends View {
 	}
 	
 	protected void addToLayout(){
+		layout.getChildren().add(appNameLbl);
 		layout.getChildren().add(notifLbl);
 		layout.getChildren().add(usernameField);
 		layout.getChildren().add(passwordField);

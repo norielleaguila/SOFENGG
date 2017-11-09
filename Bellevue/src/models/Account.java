@@ -8,6 +8,7 @@ package models;
 public class Account {
 	private String username;
 	private String password;
+	private String type;	// type of account
 	
 	public Account(){
 		this.username = "";
@@ -26,6 +27,14 @@ public class Account {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getType(){
+		return type;
+	}
+	
+	public void setType(String type){
+		this.type = type;
 	}
 /*
  * V2.0

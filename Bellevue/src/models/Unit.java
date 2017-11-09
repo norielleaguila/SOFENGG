@@ -61,11 +61,15 @@ public class Unit{
 	}
 	
 	// VERS. 2.0 DATA INTEGRITY
-	public void accessTCT(){
-		
+	public String accessTCT(int type){
+		if(type == 0)	// admin
+			return tct;
+		return null;
 	}
 	
-	public void accessLotArea(){
-		
+	public float accessLotArea(int type){
+		if(type == 0) 	// admin
+			return lotArea;
+		return Float.NaN;
 	}
 }
