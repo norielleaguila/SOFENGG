@@ -1,8 +1,5 @@
 package views;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

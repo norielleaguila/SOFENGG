@@ -24,7 +24,8 @@ public class Driver extends Application{
 		window = primaryStage;
 		window.show();
 		window.setTitle("Bellevue Systems");
-		window.setMaximized(true);
+//		window.setMaximized(true);
+		window.setFullScreen(true);
 		
 		LoginScreen loginScreen = new LoginScreen();
 		AccountList accounts = new AccountList();
