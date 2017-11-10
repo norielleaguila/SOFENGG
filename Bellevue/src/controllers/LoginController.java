@@ -45,9 +45,11 @@ public class LoginController extends Controller{
 		
 		// checks if there is a matching account in the db
 		for(int i = 0; i < model.getAccounts().size() && !pass; i++){
-			if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
-				view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
-				pass = true;
+			if(model.exists(view.getUsernameField().getText())){
+				if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
+					view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
+					pass = true;
+				}
 			}
 		}
 		
@@ -58,6 +60,9 @@ public class LoginController extends Controller{
 			}
 			else if(view.getPasswordField().getText().equals("") || view.getPasswordField().getText() == null){
 				view.setNotif("Password cannot be empty!");
+			}
+			else if(!model.exists(view.getUsernameField().getText())){
+				view.setNotif("User does not exist.");
 			}
 			else {
 				/* invalid credentials condition */

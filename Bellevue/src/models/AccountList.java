@@ -55,6 +55,17 @@ public class AccountList extends Model{
 		return getAccount(username).verifyPassword(password);
 	}
 	
+	/**
+	 * Checks if the user exists in the db
+	 * @param username
+	 * @return
+	 */
+	public boolean exists(String username){
+		if(getAccount(username) != null)
+			return true;
+		return false;
+	}
+	
 	// temporary
 	private void createDummyData(){
 		accounts.add(new Account("admin", "123"));
