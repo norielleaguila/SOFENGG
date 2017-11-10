@@ -3,6 +3,7 @@ package views;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import models.FeeList;
 
 /**
  * ProgramScreen is the view that contains all necessary information.
@@ -12,9 +13,12 @@ import javafx.stage.Stage;
 public class ProgramScreen extends View{
 	
 	private BorderPane layout;
+	private FeeList feesModel;
 	
-	public ProgramScreen(){
+	public ProgramScreen(FeeList feesModel){
 		super();
+		
+		this.feesModel = feesModel;
 		
 		initLayout();
 		
@@ -39,7 +43,7 @@ public class ProgramScreen extends View{
 
 	@Override
 	protected void addToLayout() {
-		layout.setCenter(new TabContainer());
+		layout.setCenter(new TabContainer(feesModel));
 	}
 
 	@Override

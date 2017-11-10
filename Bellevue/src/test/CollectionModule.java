@@ -2,8 +2,11 @@ package test;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import models.FeeList;
+import views.CollectionTab;
 import views.CollectionTable;
 
 public class CollectionModule extends Application{
@@ -19,9 +22,14 @@ public class CollectionModule extends Application{
 		window.setTitle("Bellevue Systems");
 		
 		fees = new FeeList();
-		CollectionTable table = new CollectionTable(fees);
 		
-		Scene scene = new Scene(table);
+		TabPane layout = new TabPane();
+		
+		CollectionTab tab = new CollectionTab(fees);
+		
+		layout.getTabs().add(new Tab("COLLECTION", tab));
+		
+		Scene scene = new Scene(layout);
 		
 		window.setScene(scene);
 		

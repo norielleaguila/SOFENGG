@@ -3,6 +3,7 @@ package controllers;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import models.AccountList;
+import models.FeeList;
 import views.LoginScreen;
 import views.ProgramScreen;
 
@@ -79,7 +80,7 @@ public class LoginController extends Controller{
 
 	// switch to program on valid login
 	public void openProgram(){
-		ProgramScreen ps = new ProgramScreen();
+		ProgramScreen ps = new ProgramScreen(getFeesModel());
 		ProgramController program = new ProgramController(ps, window);
 		
 		program.setUpButtons();

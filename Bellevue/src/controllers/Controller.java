@@ -3,6 +3,7 @@ package controllers;
 import views.View;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.FeeList;
 import models.Model;
 
 public abstract class Controller{
@@ -37,6 +38,14 @@ public abstract class Controller{
 	
 	public void setWindow(Stage window){
 		this.window = window;
+	}
+	
+	public FeeList getFeesModel(){
+		// query db
+		
+		FeeList model = new FeeList();
+		
+		return model;
 	}
 	
 	

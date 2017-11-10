@@ -24,12 +24,12 @@ public class CollectionTable extends ScrollPane{
 	
 	private VBox tableContainter;
 	private ArrayList<TableView> tables;	// 1 VBox = 1 type
-	private FeeList fees; 	// the list is assumed to be sorted by type
+	private FeeList model; 	// the list is assumed to be sorted by type
 	private ArrayList<String> types;
 	
-	public CollectionTable(FeeList fees){
+	public CollectionTable(FeeList model){
 		tableContainter = new VBox(10);
-		this.fees = fees;
+		this.model = model;
 		
 		initContainer();
 		
@@ -48,7 +48,7 @@ public class CollectionTable extends ScrollPane{
 	 */
 	public void initTypes(){
 		types = new ArrayList<String>();
-		ArrayList<String> types = fees.sortByType();
+		ArrayList<String> types = model.sortByType();
 		
 		for(String type: types){
 			this.types.add(type);
@@ -74,8 +74,8 @@ public class CollectionTable extends ScrollPane{
 			nameCol.setId("hiddenCol");
 			priceCol.setId("hiddenCol");
 			
-			for(int j = 0; j < fees.getFees().size() && fees.getFee(j).getType().equals(type); j++){
-				Fee curr = fees.getFee(j);
+			for(int j = 0; j < model.getFees().size() && model.getFee(j).getType().equals(type); j++){
+				Fee curr = model.getFee(j);
 				
 				ObservableList<String> data = 
 						FXCollections.observableArrayList(

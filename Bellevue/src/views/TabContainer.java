@@ -3,6 +3,7 @@ package views;
 import java.util.ArrayList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import models.FeeList;
 
 /**
  * @author AGUILA, Norielle
@@ -11,9 +12,13 @@ import javafx.scene.control.TabPane;
 public class TabContainer extends TabPane{
 	
 	private ArrayList<Tab> tabs;
+	FeeList feesModel;
 	
-	public TabContainer(){
+	public TabContainer(FeeList feesModel){
 		super();
+		
+		this.feesModel = feesModel;
+				
 		
 		initTabs();
 		
@@ -24,7 +29,7 @@ public class TabContainer extends TabPane{
 		tabs = new ArrayList<>();
 		
 		tabs.add(new Tab("UNITS", new UnitTab()));
-		tabs.add(new Tab("COLLECTION", new CollectionTab()));
+		tabs.add(new Tab("COLLECTION", new CollectionTab(feesModel)));
 		
 		for(int i = 0; i < tabs.size(); i++){
 			tabs.get(i).setClosable(false);
