@@ -14,6 +14,7 @@ public class ProgramScreen extends View{
 	
 	private BorderPane layout;
 	private FeeList feesModel;
+	private TabContainer tabContainer;
 	
 	public ProgramScreen(FeeList feesModel){
 		super();
@@ -38,17 +39,25 @@ public class ProgramScreen extends View{
 
 	@Override
 	protected void createElements() {
-		
+		tabContainer = new TabContainer(feesModel);
 	}
 
 	@Override
 	protected void addToLayout() {
-		layout.setCenter(new TabContainer(feesModel));
+		layout.setCenter(tabContainer);
 	}
 
 	@Override
 	public void resetLayout() {
 		
+	}
+	
+	public BorderPane getLayout(){
+		return layout;
+	}
+	
+	public TabContainer getTabContainer(){
+		return tabContainer;
 	}
 
 }

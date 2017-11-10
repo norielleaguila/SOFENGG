@@ -78,4 +78,7 @@ public class UnitList extends VBox {
 		this.getChildren().addAll(units);
 	}
 	
+	public UnitRow getRow(int index){
+		return units.get(index);
+	}
 }

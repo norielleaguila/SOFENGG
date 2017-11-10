@@ -24,4 +24,8 @@ public class UnitTab extends Tabs{
 		this.getChildren().add(table.getTableScroll());
 	}
 	
+	public UnitTable getTable(){
+		return table;
+	}
+	
 }

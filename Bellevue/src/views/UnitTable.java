@@ -100,4 +100,7 @@ public class UnitTable {
 		return tableScroll;
 	}
 	
+	public UnitList getUnitList(){
+		return units;
+	}
 }
