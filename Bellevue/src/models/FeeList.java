@@ -14,10 +14,12 @@ public class FeeList extends Model{
 	public FeeList(){
 		fees = new ArrayList<Fee>();
 		createDummyData();
+		sortByType();
 	}
 	
 	public FeeList(ArrayList<Fee> fees){
 		this.fees = fees;
+		sortByType();
 	}
 	
 	public Fee getFee(Fee fee){
@@ -52,7 +54,7 @@ public class FeeList extends Model{
 	 * Sorts the arraylist fees by type, in any order
 	 * returns an arraylist of strings, containing all types
 	 */
-	public ArrayList<String> sortByType(){
+	public ArrayList<String> getTypes(){
 		ArrayList<String> types = new ArrayList<>();
 		
 		types.add(fees.get(0).getType());
@@ -68,6 +70,14 @@ public class FeeList extends Model{
 		}
 
 		return types;
+	}
+	
+	public ArrayList<Fee> sortByType(){
+		fees.sort((f1, f2) -> {
+			return f1.getType().compareTo(f2.getType());
+		});
+		
+		return fees;
 	}
 	
 	/**
@@ -89,5 +99,7 @@ public class FeeList extends Model{
 	private void createDummyData(){
 		fees.add(new Fee(0, "Monthly Dues", "Basic Charges", 2500));
 		fees.add(new Fee(1, "Trash Bags", "Basic Charges", 100));
+		fees.add(new Fee(2, "Others", "Others", 0));
+		fees.add(new Fee(3, "Electricity", "Basic Charges", 5000));
 	}
 }

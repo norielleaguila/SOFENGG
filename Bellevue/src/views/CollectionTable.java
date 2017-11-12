@@ -2,8 +2,11 @@ package views;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -22,25 +25,31 @@ import models.FeeList;
 
 public class CollectionTable extends ScrollPane{
 	
-	private VBox tableContainter;
+	private VBox tableContainer;
 	private ArrayList<TableView> tables;	// 1 VBox = 1 type
 	private FeeList model; 	// the list is assumed to be sorted by type
 	private ArrayList<String> types;
 	
 	public CollectionTable(FeeList model){
-		tableContainter = new VBox(10);
+		tableContainer = new VBox(10);
 		this.model = model;
 		
 		initContainer();
 		
-		this.setContent(tableContainter);
+		this.setContent(tableContainer);
+		
+		this.setFitToHeight(true);
+		this.setFitToWidth(true);
 	}
 	
 	public void initContainer(){
 		initTypes();
 		initTables();
 		
-		tableContainter.getChildren().addAll(tables);
+		tableContainer.getChildren().addAll(tables);
+
+		tableContainer.setAlignment(Pos.TOP_CENTER);
+		tableContainer.setPadding(new Insets(100));
 	}
 	
 	/**
@@ -48,7 +57,7 @@ public class CollectionTable extends ScrollPane{
 	 */
 	public void initTypes(){
 		types = new ArrayList<String>();
-		ArrayList<String> types = model.sortByType();
+		ArrayList<String> types = model.getTypes();
 		
 		for(String type: types){
 			this.types.add(type);
@@ -68,28 +77,27 @@ public class CollectionTable extends ScrollPane{
 			TableColumn nameCol = new TableColumn("");
 			TableColumn priceCol = new TableColumn("");
 			
-			nameCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("name"));
+			nameCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("feeName"));
 			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("price"));
 			
+			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(types.get(i)));
+
 			nameCol.setId("hiddenCol");
 			priceCol.setId("hiddenCol");
 			
-			for(int j = 0; j < model.getFees().size() && model.getFee(j).getType().equals(type); j++){
-				Fee curr = model.getFee(j);
-				
-				ObservableList<String> data = 
-						FXCollections.observableArrayList(
-								curr.getFeeName(), 
-								curr.getPrice() + ""
-								);
-				
-				tables.get(i).setItems(data);
-			}
+			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.7));
+			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.3));
+			
+			tables.get(i).setItems(data);
 			
 			// create subcolumns
 			typeCol.getColumns().addAll(nameCol, priceCol);
 			
 			tables.get(i).getColumns().add(typeCol);
+			
+			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+			
+			tables.get(i).setPrefHeight(data.size() * 50 + 30);
 		}
 	}
 	

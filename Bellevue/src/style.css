@@ -27,6 +27,19 @@
     -fx-text-fill: grey;
 }
 
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+    -fx-pref-height: 0;
+}
+
+.table-row-cell {
+    -fx-cell-size: 50;
+}
+
 #loginBtn{
 	-fx-background-color: rgb(184, 196, 128);
 	-fx-text-fill: white;
@@ -97,4 +110,12 @@
 #appNameLbl{
 	-fx-font-size: 30px;
 	-fx-text-fill: white;
+}
+
+#hiddenCol{
+	-fx-pref-height: 0;
+}
+
+#CB{
+	-fx-text: "+";
 }

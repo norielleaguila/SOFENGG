@@ -7,7 +7,6 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import models.FeeList;
 import views.CollectionTab;
-import views.CollectionTable;
 
 public class CollectionModule extends Application{
 	private FeeList fees;
@@ -32,8 +31,6 @@ public class CollectionModule extends Application{
 		Scene scene = new Scene(layout);
 		
 		window.setScene(scene);
-		
 	}
-	
 	
 }

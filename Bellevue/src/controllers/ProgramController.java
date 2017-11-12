@@ -22,11 +22,11 @@ public class ProgramController extends Controller{
 
 	@Override
 	public void setUpButtons() {
-		ProgramScreen view = (ProgramScreen) this.view;
-		UnitTab tab = (UnitTab) view.getTabContainer().getTabs().get(0).getContent();
-		UnitList units = (UnitList) tab.getTable().getTableScroll().getContent();
-		Label unit = (Label) units.getRow(0).getChildren().get(1);
-		System.out.println(unit.getText());
+//		ProgramScreen view = (ProgramScreen) this.view;
+//		UnitTab tab = (UnitTab) view.getTabContainer().getTabs().get(0).getContent();
+//		UnitList units = (UnitList) tab.getTable().getTableScroll().getContent();
+//		Label unit = (Label) units.getRow(0).getChildren().get(1);
+//		System.out.println(unit.getText());
 	}
 
 }
