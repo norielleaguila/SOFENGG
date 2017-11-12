@@ -1,6 +1,9 @@
 package views;
 
 import java.util.ArrayList;
+
+import controllers.CollectionTabController;
+import controllers.UnitTabController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import models.FeeList;
@@ -12,14 +15,15 @@ import models.FeeList;
 public class TabContainer extends TabPane{
 	
 	private ArrayList<Tab> tabs;
-	FeeList feesModel;
+	private UnitTabController unitTabController;
+	private CollectionTabController collectionTabController;
 	
 	public TabContainer(FeeList feesModel){
 		super();
 		
-		this.feesModel = feesModel;
+		unitTabController = new UnitTabController();
+		collectionTabController = new CollectionTabController(feesModel);
 				
-		
 		initTabs();
 		
 		this.getStylesheets().add("style.css");
@@ -28,12 +32,11 @@ public class TabContainer extends TabPane{
 	public void initTabs(){
 		tabs = new ArrayList<>();
 		
-		tabs.add(new Tab("UNITS", new UnitTab()));
-		tabs.add(new Tab("COLLECTION", new CollectionTab(feesModel)));
+		tabs.add(new Tab("UNITS", unitTabController.getView()));
+		tabs.add(new Tab("COLLECTION", collectionTabController.getView()));
 		
 		for(int i = 0; i < tabs.size(); i++){
 			tabs.get(i).setClosable(false);
-			
 		}
 		
 		this.getTabs().addAll(tabs);

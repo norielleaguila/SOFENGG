@@ -20,6 +20,8 @@ public class UnitRow extends HBox {
 	private Button viewBtn;
 	private Button printBtn;
 	
+	private viewBtnlistener vbl;
+	
 	public UnitRow(int unitNum, String billedTo, String status){
 		super(20);
 		
@@ -67,6 +69,13 @@ public class UnitRow extends HBox {
 		viewBtn.setMaxWidth(150);
 		viewBtn.setId("viewBtn");
 		
+		viewBtn.setOnAction ((e) -> {
+			if(vbl != null){
+				int unitNum = Integer.parseInt(unitNumLbl.getText());
+				vbl.onAction (unitNum);
+			}
+		});
+		
 		printBtn.setMinWidth(150);
 		printBtn.setMaxWidth(150);
 		printBtn.setId("printBtn");
@@ -85,6 +94,14 @@ public class UnitRow extends HBox {
 		getChildren().add(billedToLbl);
 		getChildren().add(viewBtn);
 		getChildren().add(printBtn);
+	}
+
+	public interface viewBtnlistener {
+		public void onAction (int unitNo);
+	}
+
+	public void setViewBtnListener (viewBtnlistener vbl) {
+		this.vbl = vbl;
 	}
 	
 	/* GETTERS & SETTERS */

@@ -29,10 +29,10 @@ public class UnitTable {
 	public void initHeader(){
 		Label[] labels = new Label[]{new Label("Status"), new Label("Unit #"), new Label("Name"), new Label("Actions")};
 		
-		labels[0].setMinWidth(30);
-		labels[1].setMinWidth(105);
-		labels[2].setMinWidth(510);
-		labels[3].setMinWidth(310);
+		labels[0].setMinWidth(25);
+		labels[1].setMinWidth(110);
+		labels[2].setMinWidth(500);
+		labels[3].setMinWidth(330);
 		
 		for(int i = 0; i < labels.length; i++){
 			labels[i].setId("tableHeaderLbl");

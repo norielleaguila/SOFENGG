@@ -12,7 +12,6 @@ import views.LoginScreen;
  */
 
 public class Driver extends Application{
-	public static boolean validated = false;
 	private Stage window;
 	
 	public static void main(String[] args){

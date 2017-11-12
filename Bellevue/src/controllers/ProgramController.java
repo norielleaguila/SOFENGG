@@ -12,6 +12,7 @@ import views.UnitTab;
  */
 
 public class ProgramController extends Controller{
+	private ProgramScreen view;
 	
 	public ProgramController(ProgramScreen view, Stage window){
 		this.view = view;
@@ -27,6 +28,8 @@ public class ProgramController extends Controller{
 //		UnitList units = (UnitList) tab.getTable().getTableScroll().getContent();
 //		Label unit = (Label) units.getRow(0).getChildren().get(1);
 //		System.out.println(unit.getText());
+		
+		
 	}
 
 }
