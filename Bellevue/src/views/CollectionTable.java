@@ -50,6 +50,7 @@ public class CollectionTable extends ScrollPane{
 
 		tableContainer.setAlignment(Pos.TOP_CENTER);
 		tableContainer.setPadding(new Insets(100));
+		tableContainer.setId("tableContainer");
 	}
 	
 	/**
@@ -68,12 +69,10 @@ public class CollectionTable extends ScrollPane{
 	public void initTables(){
 		tables = new ArrayList<>();
 		
-		String type = "";
-		
 		// create tables
 		for(int i = 0; i < types.size(); i++){
 			tables.add(new TableView());
-			TableColumn typeCol = new TableColumn(types.get(i));
+			TableColumn typeCol = new TableColumn(types.get(i).toUpperCase());
 			TableColumn nameCol = new TableColumn("");
 			TableColumn priceCol = new TableColumn("");
 			
@@ -85,8 +84,14 @@ public class CollectionTable extends ScrollPane{
 			nameCol.setId("hiddenCol");
 			priceCol.setId("hiddenCol");
 			
-			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.7));
-			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.3));
+			nameCol.getStyleClass().add("nameCol");
+			priceCol.getStyleClass().add("priceCol");
+			
+
+			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+			
+			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.9));
+			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.1));
 			
 			tables.get(i).setItems(data);
 			
@@ -95,9 +100,7 @@ public class CollectionTable extends ScrollPane{
 			
 			tables.get(i).getColumns().add(typeCol);
 			
-			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-			
-			tables.get(i).setPrefHeight(data.size() * 50 + 30);
+			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 2);
 		}
 	}
 	
