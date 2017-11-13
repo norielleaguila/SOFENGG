@@ -12,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import views.UnitRow;
 import views.UnitTab;
@@ -39,12 +40,13 @@ public class UnitTabController extends Controller{
 					@Override
 					public void onAction(int unitNo) {
 						// place all action things here
-						Label unitnumLabel, ownerLabel, lotsizeLabel, totalfeeLabel;
+						Label unitnumLabel, ownerLabel, ownerLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
 						AnchorPane unitPane;
 						Scene unitScene;
 						Stage unitStage;
-						
+						Popup unitPopup;
 						unitPane = new AnchorPane();
+						unitPopup = new Popup();
 						
 						unitnumLabel = new Label("UNIT# " + unitNo);
 						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
@@ -52,8 +54,10 @@ public class UnitTabController extends Controller{
 						ownerLabel = new Label("Owner: ");
 						ownerLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
+						ownerLabel2 = new Label();
 						lotsizeLabel = new Label("Lot size: ");
 						lotsizeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+						
 						
 						totalfeeLabel = new Label("Total Fee");
 						totalfeeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
@@ -80,10 +84,15 @@ public class UnitTabController extends Controller{
 						unitPane.getChildren().addAll(unitHeader);
 						unitScene = new Scene(unitPane, 1250, 750);
 						
-						unitStage = new Stage();
-						unitStage.setScene(unitScene);
-						unitStage.initModality(Modality.APPLICATION_MODAL);
-						unitStage.show();
+						unitPopup.setX(300);
+						unitPopup.setY(200);
+						unitPopup.getContent().addAll(unitHeader,unitnumLabel);
+						//unitStage = new Stage();
+						//unitStage.setScene(unitScene);
+						//unitStage.initModality(Modality.APPLICATION_MODAL);
+						//unitStage.show();
+						
+						unitPopup.show(window);
 						System.out.println(unitNo);
 					}
 				});
