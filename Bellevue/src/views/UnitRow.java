@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import models.Unit;
 
 /**
  * @author AGUILA, Norielle
@@ -12,6 +14,8 @@ import javafx.scene.layout.HBox;
 public class UnitRow extends HBox {
 	
 	public static int rowNum = 0;
+	
+	private Unit unit;
 
 	private Label unitNumLbl;
 	private Label billedToLbl;
@@ -23,7 +27,7 @@ public class UnitRow extends HBox {
 	private viewBtnlistener vbl;
 	
 	public UnitRow(int unitNum, String billedTo, String status){
-		super(20);
+		super();
 		
 		this.setAlignment(Pos.CENTER);
 		this.setPadding(new Insets(5));
@@ -32,7 +36,19 @@ public class UnitRow extends HBox {
 		
 		unitNumLbl = new Label(unitNum + "");
 		billedToLbl = new Label(billedTo);
-		statusLbl = new Label(status);
+		statusLbl = new Label();
+		
+		switch(status.toLowerCase()){
+		case "p":
+			statusLbl.setId("paid");
+			break;
+		case "u":
+			statusLbl.setId("unpaid");
+			break;
+		case "o":
+			statusLbl.setId("overdue");
+			break;
+		}
 		
 		this.getStylesheets().add("style.css");
 		
@@ -40,23 +56,27 @@ public class UnitRow extends HBox {
 		
 	}
 	
+	public UnitRow(Unit unit){
+		this(unit.getUnitNo(), unit.getBilledTo(), "U");
+		this.unit = unit;
+	}
+	
 	public void initStatus(){
-		statusLbl.setId("statusLbl");
-		
+		HBox.setMargin(statusLbl, new Insets(0, 30, 0, 0));
 		statusLbl.setMinSize(30, 30);
 		statusLbl.setMaxSize(30, 30);
 	}
 	
 	public void initUnitNum(){
-		unitNumLbl.setId("unitRowLbl");
-		
+		unitNumLbl.setId("unitNumLbl");
+		HBox.setMargin(unitNumLbl, new Insets(0, 10, 0, 10));
 		unitNumLbl.setMinWidth(100);
 		unitNumLbl.setMaxWidth(100);
 	}
 	
 	public void initBilledTo(){
-		billedToLbl.setId("unitRowLbl");
-		
+		billedToLbl.setId("unitOwnerLbl");
+		HBox.setMargin(billedToLbl, new Insets(0, 10, 0, 10));
 		billedToLbl.setMinWidth(500);
 		billedToLbl.setMaxWidth(500);
 	}
@@ -71,8 +91,7 @@ public class UnitRow extends HBox {
 		
 		viewBtn.setOnAction ((e) -> {
 			if(vbl != null){
-				int unitNum = Integer.parseInt(unitNumLbl.getText());
-				vbl.onAction (unitNum);
+				vbl.onAction (unit);
 			}
 		});
 		
@@ -80,6 +99,8 @@ public class UnitRow extends HBox {
 		printBtn.setMaxWidth(150);
 		printBtn.setId("printBtn");
 		
+		HBox.setMargin(viewBtn, new Insets(0, 10, 0, 5));
+		HBox.setMargin(printBtn, new Insets(0, 5, 0, 0));
 	}
 	
 	public void initLayout(){
@@ -97,7 +118,8 @@ public class UnitRow extends HBox {
 	}
 
 	public interface viewBtnlistener {
-		public void onAction (int unitNo);
+//		public void onAction (int unitNo);
+		public void onAction (Unit unit);
 	}
 
 	public void setViewBtnListener (viewBtnlistener vbl) {

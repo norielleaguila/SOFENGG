@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.FeeList;
 import models.Model;
+import models.UnitList;
 
 public abstract class Controller{
 	protected Model model;
@@ -48,5 +49,12 @@ public abstract class Controller{
 		return model;
 	}
 	
+	public UnitList getUnitsModel(){
+		// query db
+		
+		UnitList model = new UnitList();
+		
+		return model;
+	}
 	
 }

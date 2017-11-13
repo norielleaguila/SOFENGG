@@ -4,14 +4,17 @@
 	-fx-faint-focus-color: transparent;
 }
 
+.root *{
+	-fx-font-family: "Segoe UI";
+}
+
 .scroll-pane{
 	-fx-background-color: white;
 	-fx-border-width: 0;
 }
 
-.vbox{
-	-fx-background-color: transparent;
-	-fx-border-width: 0;
+.tab-header-background{
+	-fx-background-color: rgb(252, 149, 134);
 }
 
 .tab-pane, .tab:selected {
@@ -23,6 +26,7 @@
 .tab{
 	-fx-background-color: rgb(184, 196, 128);
 	-fx-padding: 10;
+	-fx-bottom: -1;
 }
 
 .tab, .tab .tab-label{
@@ -54,6 +58,14 @@
 
 .table-row-cell {
     -fx-cell-size: 50;
+}
+
+.table-column-cell:empty {
+    -fx-background-color: red;
+}
+
+.table-column-cell:empty .table-cell{
+	-fx-pref-width: 0;
 }
 
 .table-cell{
@@ -91,30 +103,45 @@
 	-fx-border-width: 1px;
 }
 
-#statusLbl, #unitRowLbl{
+#paid, #unpaid, #overdue, #unitOwnerLbl, #unitNumLbl{
 	-fx-alignment: CENTER;
-	-fx-text-fill: white;
 	-fx-border-color: transparent;
+	-fx-background-color: transparent;
+	-fx-text-fill: #808080;
+	-fx-font-size: 12pt;
 }
 
-#statusLbl{
+#paid, #unpaid, #overdue{
 	-fx-border-radius: 200px;
 	-fx-background-radius: 200px;
-	-fx-padding: 0;
-	-fx-font-size: 14px;
-	-fx-background-color: #64c466;
 }
 
-#unitRowLbl{
-	-fx-padding: 5;
+#paid{
+	-fx-background-color: green;
+}
+
+#unpaid{
+	-fx-background-color: grey;
+}
+
+#overdue{
+	-fx-background-color: red;
+}
+
+#unitOwnerLbl{
+	-fx-padding: 6;
 	-fx-font-size: 16px;
 	-fx-background-radius: 5;
 	-fx-border-radius: 5;
-	-fx-background-color: rgb(252, 149, 134);
+	-fx-border-width: 1;
+	-fx-border-color: #a3a3a3;
 }
 
 #tableHeaderLbl{
 	-fx-font-size: 16px;
+	-fx-text-fill: rgb(252, 149, 134);
+	-fx-alignment: CENTER;
+	-fx-font-weight: bold;
 }
 
 #viewBtn, #printBtn{

@@ -8,6 +8,8 @@ package models;
  */
 
 public class Unit{
+	public static int NUM_UNITS = 0;
+	
 	private int unitNo;
 	private String billedTo;
 	private String tct;		// non-admin accounts cannot have access to this information
@@ -16,6 +18,19 @@ public class Unit{
 	private float lotArea; // non-admin accounts cannot have access to this information
 	private int phaseNo;
 	
+	
+	public Unit(int unitNo, String billedTo, String tct, int addressNo, String street, float lotArea, int phaseNo) {
+		super();
+		this.unitNo = unitNo;
+		this.billedTo = billedTo;
+		this.tct = tct;
+		this.addressNo = addressNo;
+		this.street = street;
+		this.lotArea = lotArea;
+		this.phaseNo = phaseNo;
+		
+		NUM_UNITS++;
+	}
 	/* GETTERS & SETTERS */
 	public int getUnitNo() {
 		return unitNo;

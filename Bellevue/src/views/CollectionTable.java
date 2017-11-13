@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -88,10 +89,12 @@ public class CollectionTable extends ScrollPane{
 			priceCol.getStyleClass().add("priceCol");
 			
 
-			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+//			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			
-			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.9));
-			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.1));
+			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.75));
+			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.24));
+			
+			tables.get(i).getStyleClass().add("collectionTable");	
 			
 			tables.get(i).setItems(data);
 			
@@ -100,7 +103,7 @@ public class CollectionTable extends ScrollPane{
 			
 			tables.get(i).getColumns().add(typeCol);
 			
-			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 2);
+			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 20);
 		}
 	}
 	

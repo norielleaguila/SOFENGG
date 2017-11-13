@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Unit;
+import models.UnitList;
 
 /**
  * @author AGUILA, Norielle
@@ -15,12 +16,12 @@ import models.Unit;
 public class UnitTable {
 	private HBox header;
 	private ScrollPane tableScroll;
-	private UnitList units;
+	private UnitRowList units;
 	
 	public UnitTable(){
-		header = new HBox(20);
+		header = new HBox();
 		tableScroll = new ScrollPane();
-		units = new UnitList();
+		units = new UnitRowList();
 		
 		initHeader();
 		initTable();
@@ -29,10 +30,11 @@ public class UnitTable {
 	public void initHeader(){
 		Label[] labels = new Label[]{new Label("Status"), new Label("Unit #"), new Label("Name"), new Label("Actions")};
 		
-		labels[0].setMinWidth(25);
-		labels[1].setMinWidth(110);
-		labels[2].setMinWidth(500);
-		labels[3].setMinWidth(330);
+		labels[0].setMinWidth(100);
+		labels[1].setMinWidth(120);
+		labels[2].setMinWidth(520);
+		labels[3].setMinWidth(350);
+		
 		
 		for(int i = 0; i < labels.length; i++){
 			labels[i].setId("tableHeaderLbl");
@@ -59,37 +61,9 @@ public class UnitTable {
 		units.addRow(new UnitRow(unitNum, billedTo, status));
 	}
 	
-	public void addDummyRows(){
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
-		addRow(123, "Alfonso Secuya", "P");
-		addRow(223, "Raafi Bandrang", "P");
-		addRow(323, "Norielle Aguila", "P");
+	public void addRow(Unit unit){
+		units.addRow(new UnitRow(unit));
+		System.out.println(unit.getUnitNo());
 	}
 	
 	public HBox getHeader(){
@@ -100,7 +74,14 @@ public class UnitTable {
 		return tableScroll;
 	}
 	
-	public UnitList getUnitList(){
+	public UnitRowList getUnitList(){
 		return units;
+	}
+	
+	/*
+	 * When a unit is updated in the db, call this method to update the table
+	 */
+	public void updateRow(Unit unit){
+//		units.getRow(unit)
 	}
 }

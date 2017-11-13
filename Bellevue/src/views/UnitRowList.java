@@ -3,6 +3,8 @@ package views;
 import java.util.ArrayList;
 
 import javafx.scene.layout.VBox;
+import models.Unit;
+import models.UnitList;
 
 /**
  * @author AGUILA, Norielle
@@ -14,11 +16,11 @@ import javafx.scene.layout.VBox;
  * 2. Find way to insert without having to sort every time
  */
 
-public class UnitList extends VBox {
+public class UnitRowList extends VBox {
 	
-	ArrayList<UnitRow> units;
+	private ArrayList<UnitRow> units;
 	
-	public UnitList(){
+	public UnitRowList(){
 		super();
 		
 		units = new ArrayList<>();
@@ -80,6 +82,17 @@ public class UnitList extends VBox {
 	
 	public UnitRow getRow(int index){
 		return units.get(index);
+	}
+	
+	public UnitRow getRow(Unit unit){
+		
+		for(UnitRow temp: units){
+			if(temp.getUnitNum() == unit.getUnitNo())
+				return temp;
+		}
+	
+		return null;
+		
 	}
 	
 	public ArrayList<UnitRow> getAllRows(){

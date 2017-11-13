@@ -13,14 +13,16 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Unit;
+import models.UnitList;
 import views.UnitRow;
 import views.UnitTab;
 
 public class UnitTabController extends Controller{
 	private UnitTab view;
 	
-	public UnitTabController(){
-		view = new UnitTab();
+	public UnitTabController(UnitList model){
+		view = new UnitTab(model);
 		
 		setUpButtons();
 	}
@@ -37,7 +39,7 @@ public class UnitTabController extends Controller{
 				row.setViewBtnListener(new UnitRow.viewBtnlistener() {
 					
 					@Override
-					public void onAction(int unitNo) {
+					public void onAction(Unit unit) {
 						// place all action things here
 						Label unitnumLabel, ownerLabel, lotsizeLabel, totalfeeLabel;
 						AnchorPane unitPane;
@@ -46,7 +48,7 @@ public class UnitTabController extends Controller{
 						
 						unitPane = new AnchorPane();
 						
-						unitnumLabel = new Label("UNIT# " + unitNo);
+						unitnumLabel = new Label("UNIT# " + unit.getUnitNo());
 						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
 						
 						ownerLabel = new Label("Owner: ");
@@ -84,7 +86,8 @@ public class UnitTabController extends Controller{
 						unitStage.setScene(unitScene);
 						unitStage.initModality(Modality.APPLICATION_MODAL);
 						unitStage.show();
-						System.out.println(unitNo);
+						
+						System.out.println(unit.getUnitNo());
 					}
 				});
 			}

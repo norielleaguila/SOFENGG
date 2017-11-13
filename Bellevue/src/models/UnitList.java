@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-public class UnitList {
+public class UnitList extends Model{
 	private ArrayList<Unit> units;
 	
 	public UnitList(){
@@ -35,7 +35,9 @@ public class UnitList {
 	}
 	
 	private void createDummyData(){
-		
+		units.add(new Unit(Unit.NUM_UNITS, "Alfonso Secuya", "Alfonso Secuya", 17, "France", 123.0f, 1));
+		units.add(new Unit(Unit.NUM_UNITS, "Norielle Aguila", "Norielle Aguila", 17, "Malaysia", 123.0f, 1));
+		units.add(new Unit(Unit.NUM_UNITS, "Raafi Bandrang", "Raafi Bandrang", 17, "Lebanon", 123.0f, 1));
 	}
 	
 }
