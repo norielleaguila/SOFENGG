@@ -32,7 +32,6 @@ public class UnitTabController extends Controller{
 	@Override
 	public void setUpButtons() {
 		ArrayList<UnitRow> rows = view.getTable().getUnitList().getAllRows();
-		
 		if(rows != null){
 			for(UnitRow row: rows){
 				row.setViewBtnListener(new UnitRow.viewBtnlistener() {
@@ -47,8 +46,8 @@ public class UnitTabController extends Controller{
 						
 						unitPane = new AnchorPane();
 						
-						unitnumLabel = new Label("UNIT# ");
-						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;");
+						unitnumLabel = new Label("UNIT# " + unitNo);
+						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
 						
 						ownerLabel = new Label("Owner: ");
 						ownerLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
@@ -69,7 +68,11 @@ public class UnitTabController extends Controller{
 						ownerlotsizeVBox.getChildren().addAll(ownerLabel, lotsizeLabel);
 						ownerlotsizeVBox.setPrefHeight(20);
 						ownerlotsizeVBox.setAlignment(Pos.BOTTOM_LEFT);
-						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,headerDivider,totalfeeLabel);
+						
+						totalfeeVBox.getChildren().addAll(totalfeeLabel);
+						totalfeeVBox.setAlignment(Pos.BOTTOM_LEFT);
+						totalfeeVBox.setStyle("-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
+						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,headerDivider,totalfeeVBox);
 						unitHeader.setStyle("-fx-background-color: #AA6B5A;");
 						unitHeader.setPrefWidth(1250);
 						unitHeader.setPrefHeight(100);
