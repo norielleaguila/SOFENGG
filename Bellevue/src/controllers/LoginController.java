@@ -49,6 +49,7 @@ public class LoginController extends Controller{
 			if(model.exists(view.getUsernameField().getText())){
 				if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
 					view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
+					super.account = model.getAccount(view.getUsernameField().getText());
 					pass = true;
 				}
 			}

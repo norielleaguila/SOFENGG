@@ -3,6 +3,7 @@ package controllers;
 import views.View;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.Account;
 import models.FeeList;
 import models.Model;
 import models.UnitList;
@@ -11,6 +12,7 @@ public abstract class Controller{
 	protected Model model;
 	protected View view;
 	protected Stage window;
+	protected Account account;
 	
 	public abstract void setUpButtons();
 	

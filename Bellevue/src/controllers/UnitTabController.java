@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.Unit;
 import models.UnitList;
 import views.UnitRow;
@@ -24,7 +25,6 @@ public class UnitTabController extends Controller{
 	
 	public UnitTabController(UnitList model){
 		view = new UnitTab(model);
-		
 		setUpButtons();
 	}
 	
@@ -50,36 +50,48 @@ public class UnitTabController extends Controller{
 						unitPane = new AnchorPane();
 						unitPopup = new Popup();
 						
-						unitnumLabel = new Label("UNIT# " + unit.getUnitNo());
+						unitnumLabel = new Label("UNIT#" + unit.getUnitNo());
 						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
 						
 						ownerLabel = new Label("Owner: ");
 						ownerLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
-						ownerLabel2 = new Label();
 						lotsizeLabel = new Label("Lot size: ");
 						lotsizeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
+						ownerLabel2 = new Label(unit.getBilledTo());
+						ownerLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+						
+						lotsizeLabel2 = new Label();
+						lotsizeLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
 						totalfeeLabel = new Label("Total Fee");
 						totalfeeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+						
+						totalfeeLabel2 = new Label("Sample total fee");
+						totalfeeLabel2.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;");
 						
 						Region headerDivider = new Region();
 						HBox.setHgrow(headerDivider, Priority.ALWAYS);
 						
 						HBox unitHeader = new HBox();
 						VBox ownerlotsizeVBox = new VBox();
+						VBox ownerlotsizeVBox2 = new VBox();
 						VBox totalfeeVBox = new VBox();
 						
 						ownerlotsizeVBox.getChildren().addAll(ownerLabel, lotsizeLabel);
 						ownerlotsizeVBox.setPrefHeight(20);
 						ownerlotsizeVBox.setAlignment(Pos.BOTTOM_LEFT);
 						
-						totalfeeVBox.getChildren().addAll(totalfeeLabel);
-						totalfeeVBox.setAlignment(Pos.BOTTOM_LEFT);
+						ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, lotsizeLabel2);
+						ownerlotsizeVBox2.setPrefHeight(20);
+						ownerlotsizeVBox2.setAlignment(Pos.BOTTOM_RIGHT);
+						
+						totalfeeVBox.getChildren().addAll(totalfeeLabel2,totalfeeLabel);
+						totalfeeVBox.setAlignment(Pos.CENTER);
 						totalfeeVBox.setStyle("-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
-						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,headerDivider,totalfeeVBox);
-						unitHeader.setStyle("-fx-background-color: #AA6B5A;");
+						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,ownerlotsizeVBox2,headerDivider,totalfeeVBox);
+						unitHeader.setStyle("-fx-background-color: #AA6B5A;-fx-padding:10px;");
 						unitHeader.setPrefWidth(1250);
 						unitHeader.setPrefHeight(100);
 						unitHeader.setAlignment(Pos.BOTTOM_LEFT);
@@ -90,10 +102,12 @@ public class UnitTabController extends Controller{
 						unitStage = new Stage();
 						unitStage.setScene(unitScene);
 						unitStage.initModality(Modality.APPLICATION_MODAL);
-						unitStage.show();
+						//unitStage.show();
 						
+						unitPopup.getContent().addAll(unitHeader);
+						window.show();
+						unitPopup.show(window);
 						System.out.println(unit.getUnitNo());
-
 
 					}
 				});
