@@ -42,7 +42,6 @@ public class UnitTabController extends Controller{
 					@Override
 					public void onAction(Unit unit) {
 						// place all action things here
-						Label unitnumLabel, ownerLabel, lotsizeLabel, totalfeeLabel;
 						Label unitnumLabel, ownerLabel, ownerLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
 						AnchorPane unitPane;
 						Scene unitScene;
@@ -87,16 +86,15 @@ public class UnitTabController extends Controller{
 						unitPane.getChildren().addAll(unitHeader);
 						unitScene = new Scene(unitPane, 1250, 750);
 						
-<<<<<<< HEAD
+
 						unitStage = new Stage();
 						unitStage.setScene(unitScene);
 						unitStage.initModality(Modality.APPLICATION_MODAL);
 						unitStage.show();
 						
 						System.out.println(unit.getUnitNo());
-=======
-						System.out.println(unitNo);
->>>>>>> 3d976782c3f8e6cbec2f5818a8dc4f95c327338a
+
+
 					}
 				});
 			}

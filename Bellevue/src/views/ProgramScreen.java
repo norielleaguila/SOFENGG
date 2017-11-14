@@ -85,8 +85,9 @@ public class ProgramScreen extends View{
 		header.setPrefWrapLength(30); // preferred height = 200
 		header.setAlignment(Pos.TOP_RIGHT);
 		header.setPadding(new Insets(20));
-		
+		header.setStyle("-fx-background-color:#FC9586;");
 		logoutBtn = new Button("LOGOUT");
+		logoutBtn.setStyle("-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-font:15px 'Segoe UI';");
 		logoutBtn.setPrefSize(100, 30);
 		
 		header.getChildren().add(logoutBtn);

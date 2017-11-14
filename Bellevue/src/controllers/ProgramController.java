@@ -1,6 +1,8 @@
 package controllers;
 
 import javafx.stage.Stage;
+import models.AccountList;
+import views.LoginScreen;
 import views.ProgramScreen;
 
 /**
@@ -19,7 +21,22 @@ public class ProgramController extends Controller{
 
 	@Override
 	public void setUpButtons() {
-		
+		view.getLogoutBtn().setOnAction(e -> {
+			window.hide();
+			window = new Stage();
+			window.show();
+			window.setTitle("Bellevue Systems");
+//			window.setMaximized(true);
+			window.setFullScreen(true);
+			
+			LoginScreen loginScreen = new LoginScreen();
+			AccountList accounts = new AccountList();
+			
+			LoginController login = new LoginController(accounts, loginScreen, window);
+			
+			login.setUpButtons();
+			login.onEnterLogin();
+		});
 	}
 
 }
