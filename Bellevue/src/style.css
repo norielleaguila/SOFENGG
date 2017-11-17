@@ -14,7 +14,7 @@
 }
 
 .tab-header-background{
-	-fx-background-color: #F95959;
+	-fx-background-color: rgb(252, 149, 134);
 }
 
 .tab-pane, .tab:selected {

@@ -1,12 +1,15 @@
 package views;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.AnchorPane;
 
 public class UnitCollection extends View{
-	private FlowPane unitInfoPane;
+	private AnchorPane unitPane;
+	private Label unitnumLabel, ownerLabel, ownerLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
+	
+	
 	public UnitCollection(){
-		unitInfoPane = new FlowPane();
+		unitPane = new AnchorPane();
 		Label testLabel = new Label();
 		testLabel.setText("lol");
 	}
