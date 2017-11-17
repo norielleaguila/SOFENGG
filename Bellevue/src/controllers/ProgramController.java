@@ -16,7 +16,7 @@ public class ProgramController extends Controller{
 		this.view = view;
 		super.window = window;
 		this.setScene(view.getScene());
-		this.window.setFullScreen(true);
+//		this.window.setFullScreen(true);
 	}
 
 	@Override

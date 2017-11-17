@@ -26,12 +26,14 @@ public class ProgramScreen extends View{
 	private TabContainer tabContainer;
 	private FlowPane header;
 	private Button logoutBtn;
+	private Stage window;
 	
-	public ProgramScreen(FeeList feesModel, UnitList unitsModel){
+	public ProgramScreen(FeeList feesModel, UnitList unitsModel, Stage window){
 		super();
 		
 		this.feesModel = feesModel;
 		this.unitsModel = unitsModel;
+		this.window = window;
 		
 		initLayout();
 		
@@ -51,7 +53,7 @@ public class ProgramScreen extends View{
 
 	@Override
 	protected void createElements() {
-		tabContainer = new TabContainer(feesModel, unitsModel);
+		tabContainer = new TabContainer(feesModel, unitsModel, window);
 		
 		initHeader();
 	}

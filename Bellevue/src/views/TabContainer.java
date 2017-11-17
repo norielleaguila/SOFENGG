@@ -6,6 +6,7 @@ import controllers.CollectionTabController;
 import controllers.UnitTabController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
 import models.FeeList;
 import models.UnitList;
 
@@ -19,10 +20,10 @@ public class TabContainer extends TabPane{
 	private UnitTabController unitTabController;
 	private CollectionTabController collectionTabController;
 	
-	public TabContainer(FeeList feesModel, UnitList unitsModel){
+	public TabContainer(FeeList feesModel, UnitList unitsModel, Stage window){
 		super();
 		
-		unitTabController = new UnitTabController(unitsModel);
+		unitTabController = new UnitTabController(unitsModel, window);
 		collectionTabController = new CollectionTabController(feesModel);
 				
 		initTabs();

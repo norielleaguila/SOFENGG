@@ -14,7 +14,7 @@
 }
 
 .tab-header-background{
-	-fx-background-color: rgb(252, 149, 134);
+	-fx-background-color: #F95959;
 }
 
 .tab-pane, .tab:selected {
@@ -24,7 +24,7 @@
 }
 
 .tab{
-	-fx-background-color: rgb(184, 196, 128);
+	-fx-background-color: #A6BC3F;
 	-fx-padding: 10;
 	-fx-bottom: -1;
 }
@@ -52,7 +52,7 @@
 
 .table-view .column-header{
 	-fx-border-color: #a3a3a3;
-	-fx-background-color: rgb(252, 149, 134);
+	-fx-background-color: #F95959;
 	-fx-pref-height: 50;
 }
 
@@ -85,7 +85,7 @@
 }
 
 #loginBtn{
-	-fx-background-color: rgb(184, 196, 128);
+	-fx-background-color: #A6BC3F;
 	-fx-text-fill: white;
 }
 
@@ -139,7 +139,7 @@
 
 #tableHeaderLbl{
 	-fx-font-size: 16px;
-	-fx-text-fill: rgb(252, 149, 134);
+	-fx-text-fill: #F95959;
 	-fx-alignment: CENTER;
 	-fx-font-weight: bold;
 }
@@ -155,11 +155,11 @@
 }
 
 #viewBtn{
-	-fx-background-color: rgb(184, 196, 128);	
+	-fx-background-color: #A6BC3F;	
 }
 
 #printBtn{
-	-fx-background-color: #9EA7FC;
+	-fx-background-color: #F95959;
 }
 
 #table{

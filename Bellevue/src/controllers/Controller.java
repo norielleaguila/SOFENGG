@@ -43,6 +43,10 @@ public abstract class Controller{
 		this.window = window;
 	}
 	
+	public Stage getWindow(){
+		return window;
+	}
+	
 	public FeeList getFeesModel(){
 		// query db
 		
