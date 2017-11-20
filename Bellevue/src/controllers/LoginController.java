@@ -1,7 +1,9 @@
 package controllers;
 
+import DB.DBaccess;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import models.Account;
 import models.AccountList;
 import models.FeeList;
 import views.LoginScreen;
@@ -43,18 +45,12 @@ public class LoginController extends Controller{
 	
 	public void validate(){
 		boolean pass = false;
-		
-		// checks if there is a matching account in the db
-		for(int i = 0; i < model.getAccounts().size() && !pass; i++){
-			if(model.exists(view.getUsernameField().getText())){
-				if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
-					view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
-					super.account = model.getAccount(view.getUsernameField().getText());
-					pass = true;
-				}
-			}
-		}
-		
+
+		Account temp = DBaccess.login(view.getUsernameField().getText(), view.getPasswordField().getText());
+		if(temp!=null)
+			super.account = temp;
+			pass=true;
+		System.out.println(pass);
 		/* empty field failure condition */
 		if(!pass){
 			if(view.getUsernameField().getText().equals("") || view.getUsernameField().getText() == null){
