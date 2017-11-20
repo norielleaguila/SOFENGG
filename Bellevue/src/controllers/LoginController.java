@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import models.Account;
 import models.AccountList;
 import models.FeeList;
 import views.LoginScreen;
@@ -49,7 +50,7 @@ public class LoginController extends Controller{
 			if(model.exists(view.getUsernameField().getText())){
 				if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
 					view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
-					super.account = model.getAccount(view.getUsernameField().getText());
+					login(model.getAccount(view.getUsernameField().getText()));
 					pass = true;
 				}
 			}
@@ -82,7 +83,7 @@ public class LoginController extends Controller{
 	// switch to program on valid login
 	public void openProgram(){
 		ProgramScreen ps = new ProgramScreen(getFeesModel(), getUnitsModel(), window);
-		ProgramController program = new ProgramController(ps, window);
+		ProgramController program = new ProgramController(ps, window, model);
 		
 		program.setUpButtons();
 	}

@@ -4,6 +4,7 @@ import views.View;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Account;
+import models.AccountList;
 import models.FeeList;
 import models.Model;
 import models.UnitList;
@@ -12,7 +13,7 @@ public abstract class Controller{
 	protected Model model;
 	protected View view;
 	protected Stage window;
-	protected Account account;
+	protected static Account account;
 	
 	public abstract void setUpButtons();
 	
@@ -33,6 +34,14 @@ public abstract class Controller{
 		this.model = model;
 		this.view = view;
 		this.window = window;
+	}
+	
+	public void login(Account loggedInAccount){
+		account = loggedInAccount;
+	}
+	
+	public void logout(){
+		account = null;
 	}
 	
 	public void setScene(Scene scene){
@@ -59,6 +68,14 @@ public abstract class Controller{
 		// query db
 		
 		UnitList model = new UnitList();
+		
+		return model;
+	}
+	
+	public AccountList getAccountsModel(){
+		// query db
+		
+		AccountList model = new AccountList();
 		
 		return model;
 	}
