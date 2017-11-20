@@ -1,11 +1,15 @@
 package views;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import controllers.CollectionTabController;
 import controllers.UnitTabController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.FeeList;
 import models.UnitList;
@@ -30,6 +34,7 @@ public class TabContainer extends TabPane{
 		
 		this.getStylesheets().add("style.css");
 	}
+
 	
 	public void initTabs(){
 		tabs = new ArrayList<>();
@@ -40,8 +45,9 @@ public class TabContainer extends TabPane{
 		for(int i = 0; i < tabs.size(); i++){
 			tabs.get(i).setClosable(false);
 		}
-		
+
 		this.getTabs().addAll(tabs);
 	}
+	
 	
 }
