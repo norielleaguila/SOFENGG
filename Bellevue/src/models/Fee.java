@@ -18,7 +18,8 @@ public class Fee{
 //	private String feeName;
 //	private String type;
 //	private double price;
-	
+	public static final String[] FEETYPE={"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
+			"Special Activities and Events"};
 	private IntegerProperty feeID;
 	private StringProperty feeName;
 	private StringProperty type;

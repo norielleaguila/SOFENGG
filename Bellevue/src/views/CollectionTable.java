@@ -27,24 +27,31 @@ import models.FeeList;
 public class CollectionTable extends ScrollPane{
 	
 	private VBox tableContainer;
+	private VBox masterContainer;
+	private ScrollPane scrollContainer;
 	private ArrayList<TableView> tables;	// 1 VBox = 1 type
 	private FeeList model; 	// the list is assumed to be sorted by type
 	private ArrayList<String> types;
 	
 	public CollectionTable(FeeList model){
 		tableContainer = new VBox(10);
+		scrollContainer=new ScrollPane();
 		this.model = model;
 		
+		masterContainer = new VBox(10);
 		initContainer();
-		
-		this.setContent(tableContainer);
+		scrollContainer.setContent(tableContainer);
+		masterContainer.getChildren().add(scrollContainer);
+		masterContainer.setAlignment(Pos.TOP_CENTER);
+
+		this.setContent(masterContainer);
 		
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 	}
 	
 	public void initContainer(){
-		initTypes();
+		//initTypes();
 		initTables();
 		
 		tableContainer.getChildren().addAll(tables);
@@ -52,11 +59,14 @@ public class CollectionTable extends ScrollPane{
 		tableContainer.setAlignment(Pos.TOP_CENTER);
 		tableContainer.setPadding(new Insets(100));
 		tableContainer.setId("tableContainer");
+		tableContainer.setStyle("-fx-border-color: black");
+		tableContainer.prefWidthProperty().bind(masterContainer.widthProperty());
 	}
 	
 	/**
 	 * create type labels
 	 */
+	/*
 	public void initTypes(){
 		types = new ArrayList<String>();
 		ArrayList<String> types = model.getTypes();
@@ -65,23 +75,22 @@ public class CollectionTable extends ScrollPane{
 			this.types.add(type);
 		}
 		
-	}
+	}*/
 	
 	public void initTables(){
 		tables = new ArrayList<>();
 		
 		// create tables
-		for(int i = 0; i < types.size(); i++){
+		for(int i = 0; i < Fee.FEETYPE.length; i++){
 			tables.add(new TableView());
-			TableColumn typeCol = new TableColumn(types.get(i).toUpperCase());
+			TableColumn typeCol = new TableColumn(Fee.FEETYPE[i]);
 			TableColumn nameCol = new TableColumn("");
 			TableColumn priceCol = new TableColumn("");
 			
 			nameCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("feeName"));
 			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("price"));
-			
-			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(types.get(i)));
-
+			System.out.println("ohh hi mark "+model.filterType(Fee.FEETYPE[i]).size());
+			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(Fee.FEETYPE[i]));
 			nameCol.setId("hiddenCol");
 			priceCol.setId("hiddenCol");
 			
