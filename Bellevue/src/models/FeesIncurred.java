@@ -2,6 +2,12 @@ package models;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
+
 public class FeesIncurred {
 	
 	private ArrayList<FeeIncurred> fees;

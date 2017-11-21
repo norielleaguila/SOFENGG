@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
+
 public class FeeIncurred {
 	private static String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 	private Fee fee;

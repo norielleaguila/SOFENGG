@@ -53,14 +53,6 @@ public class Unit{
 		this(unitNo, billedTo, tct, addressNo, street, lotArea, phaseNo);
 		setFeesIncurred(feesIncurred);
 	}
-	
-	public FeesIncurred getFeesIncurred() {
-		return feesIncurred;
-	}
-
-	public void setFeesIncurred(FeesIncurred feesIncurred) {
-		this.feesIncurred = feesIncurred;
-	}
 
 	/* GETTERS & SETTERS */
 	public int getUnitNo() {
@@ -108,13 +100,39 @@ public class Unit{
 		this.phaseNo = phaseNo;
 	}
 	
-	// VERS. 2.0 DATA INTEGRITY
+	public FeesIncurred getFeesIncurred() {
+		return feesIncurred;
+	}
+
+	public void setFeesIncurred(FeesIncurred feesIncurred) {
+		this.feesIncurred = feesIncurred;
+	}
+	
+	public void addFeeIncurred(Fee incurred){
+		this.feesIncurred.addFee(incurred);
+	}
+	
+	public void removeFeeIncurred(Fee incurred){
+		this.feesIncurred.removeFee(incurred);
+	}
+	
+	// VERS. 2.0 DATA SECURITY
+	/**
+	 * Allows access to the unit's TCT when the accessing account is of AccountType Admin 
+	 * @param type Account must pass their account type
+	 * @return String returns the class attribute tct
+	 */
 	public String accessTCT(int type){
 		if(type == 0)	// admin
 			return tct;
 		return null;
 	}
 	
+	/**
+	 * Allows access to the unit's lot area when the accessing account is of AccountType Admin 
+	 * @param type Account must pass their account type
+	 * @return String returns the class attribute lotArea
+	 */
 	public float accessLotArea(int type){
 		if(type == 0) 	// admin
 			return lotArea;

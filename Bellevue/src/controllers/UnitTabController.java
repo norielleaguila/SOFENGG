@@ -29,6 +29,12 @@ import models.UnitList;
 import views.UnitRow;
 import views.UnitTab;
 
+/**
+ * 
+ * @author AGUILA, Norielle
+ *
+ */
+
 public class UnitTabController extends Controller{
 	private UnitTab view;
 	private Stage window;
@@ -191,6 +197,8 @@ public class UnitTabController extends Controller{
 						unitPopup.getContent().addAll(unitVBox);
 //						window.show();
 						unitPopup.show(window);
+						unitPopup.setAutoHide(true);
+						
 //						System.out.println(unit.getUnitNo());
 						
 						
