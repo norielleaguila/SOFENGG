@@ -12,7 +12,6 @@ import views.ProgramScreen;
 
 public class ProgramController extends Controller{
 	private ProgramScreen view;
-	private Account loggedAccount;
 	private AccountList accountModel;
 	
 	public ProgramController(ProgramScreen view, Stage window, AccountList accountModel){

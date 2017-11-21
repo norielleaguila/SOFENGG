@@ -88,11 +88,15 @@ public class CollectionTable extends ScrollPane{
 			nameCol.getStyleClass().add("nameCol");
 			priceCol.getStyleClass().add("priceCol");
 			
-
-//			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-			
+			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+//			
 			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.75));
 			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.24));
+			
+			nameCol.minWidthProperty().bind(tables.get(i).widthProperty().multiply(0.75));
+			priceCol.minWidthProperty().bind(tables.get(i).widthProperty().multiply(0.24));
+//			
+//			typeCol.setMaxWidth(Double.MAX_VALUE);
 			
 			tables.get(i).getStyleClass().add("collectionTable");	
 			
