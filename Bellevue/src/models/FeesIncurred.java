@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  */
 
-public class FeesIncurred {
+public class FeesIncurred extends Model{
 	
 	private ArrayList<FeeIncurred> fees;
 	
