@@ -183,3 +183,12 @@
 	-fx-background-color: white;
 	-fx-border: none;
 }
+
+#collectionEditBtn{
+	-fx-background-color: #F95959;
+	-fxborder: none;
+	-fx-border-radius: 200px;
+	-fx-background-radius: 200px;
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
+}

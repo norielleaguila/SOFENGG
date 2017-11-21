@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import models.AccountList;
 import views.LoginScreen;
+import views.View;
 
 /**
  * 
@@ -22,9 +23,9 @@ public class Driver extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.show();
-		window.setTitle("Bellevue Systems");
-//		window.setMaximized(true);
-		window.setFullScreen(true);
+		window.setTitle(View.APP_NAME);
+		window.setMaximized(true);
+//		window.setFullScreen(true);
 		
 		LoginScreen loginScreen = new LoginScreen();
 		AccountList accounts = new AccountList();
@@ -33,5 +34,7 @@ public class Driver extends Application{
 		
 		login.setUpButtons();
 		login.onEnterLogin();
+		
+//		System.out.println(java.time.LocalDateTime.now().toString());
 	}
 }

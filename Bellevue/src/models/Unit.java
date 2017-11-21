@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 /**
  * Unit class
  * 
@@ -18,9 +20,26 @@ public class Unit{
 	private float lotArea; // non-admin accounts cannot have access to this information
 	private int phaseNo;
 	
+	private FeesIncurred feesIncurred;
+	
+	public Unit(){
+		feesIncurred = new FeesIncurred();
+		
+		NUM_UNITS++;
+	}
+	
+	public Unit(FeesIncurred feesIncurred){
+		this();
+		this.feesIncurred = feesIncurred;
+	}
+	
+	public Unit(ArrayList<FeeIncurred> feesIncurred){
+		this();
+		this.feesIncurred = new FeesIncurred(feesIncurred);
+	}
 	
 	public Unit(int unitNo, String billedTo, String tct, int addressNo, String street, float lotArea, int phaseNo) {
-		super();
+		this();
 		this.unitNo = unitNo;
 		this.billedTo = billedTo;
 		this.tct = tct;
@@ -28,9 +47,21 @@ public class Unit{
 		this.street = street;
 		this.lotArea = lotArea;
 		this.phaseNo = phaseNo;
-		
-		NUM_UNITS++;
 	}
+	
+	public Unit(int unitNo, String billedTo, String tct, int addressNo, String street, float lotArea, int phaseNo, FeesIncurred feesIncurred) {
+		this(unitNo, billedTo, tct, addressNo, street, lotArea, phaseNo);
+		setFeesIncurred(feesIncurred);
+	}
+	
+	public FeesIncurred getFeesIncurred() {
+		return feesIncurred;
+	}
+
+	public void setFeesIncurred(FeesIncurred feesIncurred) {
+		this.feesIncurred = feesIncurred;
+	}
+
 	/* GETTERS & SETTERS */
 	public int getUnitNo() {
 		return unitNo;
@@ -44,12 +75,14 @@ public class Unit{
 	public void setBilledTo(String billedTo) {
 		this.billedTo = billedTo;
 	}
+	
 //	public String getTct() {
 //		return tct;
 //	}
 //	public void setTct(String tct) {
 //		this.tct = tct;
 //	}
+	
 	public int getAddressNo() {
 		return addressNo;
 	}

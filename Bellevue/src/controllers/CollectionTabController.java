@@ -16,7 +16,11 @@ public class CollectionTabController extends Controller{
 
 	@Override
 	public void setUpButtons() {
-		// TODO Auto-generated method stub
+		view.getMenuItems().get(0).setOnAction(e -> {
+			
+		});
+		
+		
 		
 	}
 }

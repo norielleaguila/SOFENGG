@@ -78,10 +78,10 @@ public class CollectionTable extends ScrollPane{
 			TableColumn priceCol = new TableColumn("");
 			
 			nameCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("feeName"));
-			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("price"));
+			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, Double>("price"));
 			
 			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(types.get(i)));
-
+			
 			nameCol.setId("hiddenCol");
 			priceCol.setId("hiddenCol");
 			
@@ -89,7 +89,6 @@ public class CollectionTable extends ScrollPane{
 			priceCol.getStyleClass().add("priceCol");
 			
 			tables.get(i).setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-//			
 			nameCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.75));
 			priceCol.prefWidthProperty().bind(tables.get(i).widthProperty().multiply(0.24));
 			
@@ -107,7 +106,7 @@ public class CollectionTable extends ScrollPane{
 			
 			tables.get(i).getColumns().add(typeCol);
 			
-			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 20);
+			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 3);
 		}
 	}
 	
