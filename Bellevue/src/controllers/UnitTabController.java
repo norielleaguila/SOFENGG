@@ -2,14 +2,21 @@ package controllers;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -110,7 +117,79 @@ public class UnitTabController extends Controller{
 						
 //						unitPopup.setX(300);
 //						unitPopup.setY(300);
-						unitPopup.getContent().addAll(unitHeader);
+						VBox unitContent = new VBox();
+						unitContent.setPrefWidth(1250);
+						unitContent.setPrefHeight(600);
+						unitContent.setStyle("-fx-background-color:white;");
+						TableView unitTable = new TableView();
+						VBox tablePane = new VBox();
+						unitTable.setEditable(true);
+						
+						TableColumn itemCol = new TableColumn("ITEM");
+						TableColumn feeCol = new TableColumn("FEE");
+						
+						unitTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+						itemCol.prefWidthProperty().bind(unitTable.widthProperty().multiply(0.7));
+						feeCol.prefWidthProperty().bind(unitTable.widthProperty().multiply(0.3));
+						itemCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.7));
+						feeCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.3));
+						
+						ObservableList<String> itemsList = FXCollections.observableArrayList();
+						ObservableList<Double> feeList = FXCollections.observableArrayList();
+						
+						unitTable.getColumns().addAll(itemCol, feeCol);
+						
+						tablePane.getChildren().add(unitTable);
+						tablePane.setPrefWidth(650);
+						tablePane.setMinWidth(650);
+						tablePane.setMaxWidth(650);
+						unitTable.setPrefWidth(650);
+						unitTable.setMinWidth(650);
+						unitTable.setMaxWidth(650);
+						tablePane.setStyle("-fx-background-color: #AA6B5A;");
+						
+						HBox bottomContainer = new HBox();
+						Region region1 = new Region();
+					    HBox.setHgrow(region1, Priority.ALWAYS);
+
+						VBox buttonsVBox = new VBox();
+						HBox paidHBox = new HBox();
+						Label paidLabel = new Label("PAID");
+						paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#618E21;");
+						ToggleGroup paidToggle = new ToggleGroup();
+						RadioButton paidRadio = new RadioButton("Paid");
+						RadioButton unpaidRadio = new RadioButton("Unpaid");
+						paidRadio.setToggleGroup(paidToggle);
+						unpaidRadio.setToggleGroup(paidToggle);
+						
+						paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
+						paidHBox.setAlignment(Pos.CENTER_LEFT);
+						paidHBox.setSpacing(10);
+						
+						HBox buttonsHBox = new HBox();
+						Button saveButton = new Button("Save Changes");
+						Button addButton = new Button("Add Expenses");
+						Button printButton = new Button("Print Bill");
+						
+						saveButton.setPrefWidth(200);
+						saveButton.setPrefHeight(20);
+						
+						addButton.setPrefWidth(200);
+						
+						printButton.setPrefWidth(200);
+						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+						addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+						printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+						
+						buttonsHBox.getChildren().addAll(saveButton,addButton,printButton);
+						buttonsHBox.setSpacing(10);
+						buttonsVBox.getChildren().addAll(paidHBox,buttonsHBox);
+						bottomContainer.getChildren().addAll(region1,buttonsVBox);
+						unitContent.getChildren().addAll(unitTable, bottomContainer);
+						
+						VBox unitVBox = new VBox();
+						unitVBox.getChildren().addAll(unitHeader,unitContent);
+						unitPopup.getContent().addAll(unitVBox);
 //						window.show();
 						unitPopup.show(window);
 						System.out.println(unit.getUnitNo());
