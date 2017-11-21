@@ -63,7 +63,7 @@ public class UnitTable {
 	
 	public void addRow(Unit unit){
 		units.addRow(new UnitRow(unit));
-		System.out.println(unit.getUnitNo());
+//		System.out.println(unit.getUnitNo());
 	}
 	
 	public HBox getHeader(){

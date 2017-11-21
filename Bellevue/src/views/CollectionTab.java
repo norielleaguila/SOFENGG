@@ -1,10 +1,19 @@
 package views;
 
+import java.util.ArrayList;
+
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.PopupWindow.AnchorLocation;
 import models.FeeList;
 
 /**
@@ -16,7 +25,10 @@ public class CollectionTab extends Tabs{
 	private BorderPane layout;
 	private VBox rightPane;
 	private ChoiceBox<String> editCB;
+	private Button editBtn;
 	private FeeList model;
+	private ArrayList<MenuItem> menuItems;
+	private ContextMenu menu;
 	
 	public CollectionTab(FeeList model){
 		super();
@@ -62,15 +74,43 @@ public class CollectionTab extends Tabs{
         );
 		
 		editCB.setId("CB");
+	}
+	
+	public void initMenuItems(){
+		menuItems = new ArrayList<>();
+		menuItems.add( new MenuItem("ADD COLLECTION ITEM"));
+		menuItems.add(new MenuItem("ADD NEW CATEGORY"));
+		menuItems.add(new MenuItem("EDIT ITEM"));
+		menuItems.add(new MenuItem("EDIT CATEGORY"));
+		menuItems.add(new MenuItem("DELETE COLLECTION ITEM"));
+		menuItems.add(new MenuItem("DELETE CATEGORY"));
+	}
+	
+	public void initMenu(){
+		menu = new ContextMenu ();
+		menu.getItems().addAll(menuItems);
+//		menu.setAnchorLocation(AnchorLocation.WINDOW_BOTTOM_RIGHT);
 		
+		editBtn = new Button("+");
+		editBtn.getStylesheets().add("style.css");
+		editBtn.setId("collectionEditBtn");
+		editBtn.setPrefSize(50, 50);
+		
+		editBtn.setContextMenu(menu);
+		
+		editBtn.setOnAction(e -> {
+			menu.show(editBtn, Side.TOP, editBtn.getTranslateX(), editBtn.getTranslateY());
+		});
 	}
 	
 	public void initRightPane(){
-		initCB();
+		initMenuItems();
+		initMenu();
 		
-		rightPane.getChildren().add(editCB);
+		rightPane.getChildren().add(editBtn);
 		
 		rightPane.setAlignment(Pos.BOTTOM_CENTER);
+		rightPane.setPadding(new Insets(30));
 	}
 	
 	public void executeSelection(int index){
@@ -93,5 +133,8 @@ public class CollectionTab extends Tabs{
 	}
 	
 	
+	public ArrayList<MenuItem> getMenuItems(){
+		return menuItems;
+	}
 	
 }

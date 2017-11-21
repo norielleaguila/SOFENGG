@@ -107,7 +107,7 @@ public class CollectionTable extends ScrollPane{
 			
 			tables.get(i).getColumns().add(typeCol);
 			
-			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 20);
+			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 3);
 		}
 	}
 	

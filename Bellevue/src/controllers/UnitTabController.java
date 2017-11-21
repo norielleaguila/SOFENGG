@@ -102,7 +102,6 @@ public class UnitTabController extends Controller{
 						unitPane.getChildren().addAll(unitHeader);
 //						unitScene = new Scene(unitPane, 1250, 750);
 						
-
 //						unitStage = new Stage();
 //						unitStage.setScene(unitScene);
 //						unitStage.initModality(Modality.APPLICATION_MODAL);
@@ -113,7 +112,7 @@ public class UnitTabController extends Controller{
 						unitPopup.getContent().addAll(unitHeader);
 //						window.show();
 						unitPopup.show(window);
-						System.out.println(unit.getUnitNo());
+//						System.out.println(unit.getUnitNo());
 						
 						
 //						FlowPane unitInfoPane = new FlowPane();
