@@ -24,7 +24,6 @@ public class CollectionTab extends Tabs{
 	
 	private BorderPane layout;
 	private VBox rightPane;
-	private ChoiceBox<String> editCB;
 	private Button editBtn;
 	private FeeList model;
 	private ArrayList<MenuItem> menuItems;
@@ -53,29 +52,6 @@ public class CollectionTab extends Tabs{
 		this.getChildren().add(layout);
 	}
 	
-	public void initCB(){
-		editCB = new ChoiceBox<String>();
-		
-		editCB.getItems().add("ADD COLLECTION ITEM");
-		editCB.getItems().add("ADD NEW CATEGORY");
-		editCB.getItems().add("EDIT ITEM");
-		editCB.getItems().add("EDIT CATEGORY");
-		editCB.getItems().add("DELETE COLLECTION ITEM");
-		editCB.getItems().add("DELETE CATEGORY");
-		
-		editCB.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        executeSelection(editCB.getItems().indexOf(newValue));
-                        System.out.println(newValue);
-                        editCB.getSelectionModel().clearSelection();
-                    }
-                }
-        );
-		
-		editCB.setId("CB");
-	}
-	
 	public void initMenuItems(){
 		menuItems = new ArrayList<>();
 		menuItems.add( new MenuItem("ADD COLLECTION ITEM"));
@@ -89,7 +65,6 @@ public class CollectionTab extends Tabs{
 	public void initMenu(){
 		menu = new ContextMenu ();
 		menu.getItems().addAll(menuItems);
-//		menu.setAnchorLocation(AnchorLocation.WINDOW_BOTTOM_RIGHT);
 		
 		editBtn = new Button("+");
 		editBtn.getStylesheets().add("style.css");
@@ -98,6 +73,7 @@ public class CollectionTab extends Tabs{
 		
 		editBtn.setContextMenu(menu);
 		
+		// put this in the controller instead of in here
 		editBtn.setOnAction(e -> {
 			menu.show(editBtn, Side.TOP, editBtn.getTranslateX(), editBtn.getTranslateY());
 		});
