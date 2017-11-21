@@ -19,6 +19,7 @@ public abstract class Controller{
 	
 	public Controller(){
 		window = new Stage();
+		window.setTitle(View.APP_NAME);
 	}
 	
 	public Controller(Stage window){
@@ -31,9 +32,9 @@ public abstract class Controller{
 	}
 	
 	public Controller(Model model, View view, Stage window){
-		this.model = model;
-		this.view = view;
+		this(model, view);
 		this.window = window;
+		this.window.setTitle(View.APP_NAME);
 	}
 	
 	public void login(Account loggedInAccount){

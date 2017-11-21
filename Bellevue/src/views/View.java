@@ -10,6 +10,8 @@ import javafx.scene.Scene;
  */
 
 public abstract class View {
+	public static final String APP_NAME = "Bellevue Logger";
+	
 	public static double HEIGHT;
 	public static double WIDTH;
 	protected Scene scene;
