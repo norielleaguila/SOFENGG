@@ -15,9 +15,9 @@ import models.Fee;
 import models.Unit;
 public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull";
 	static final String USER = "root";
-	static final String PASS = "1234";
+	static final String PASS = "0825";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -51,7 +51,7 @@ public class DBaccess {
 			String sql = "SELECT * from collection";
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				retval.add(new Collection(rs.getInt(0),rs.getString(1),rs.getString(2)));
+				retval.add(new Collection(rs.getInt("UnitNo"),rs.getString("DatePaid"),rs.getString("BillingDate")));
 			}
 			connect();
 		} catch (ClassNotFoundException e) {
