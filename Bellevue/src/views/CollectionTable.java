@@ -87,13 +87,16 @@ public class CollectionTable extends ScrollPane{
 			TableColumn priceCol = new TableColumn("");
 			
 			nameCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("feeName"));
+
 			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, Double>("price"));
 			
-			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(types.get(i)));
+			//ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(types.get(i)));
 			
+
 			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("price"));
 			System.out.println("ohh hi mark "+model.filterType(Fee.FEETYPE[i]).size());
 			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(Fee.FEETYPE[i]));
+
 			nameCol.setId("hiddenCol");
 			priceCol.setId("hiddenCol");
 			
@@ -123,7 +126,7 @@ public class CollectionTable extends ScrollPane{
 	}
 	
 	public void updateTables(){
-		initTypes();
+		//initTypes();
 		initTables();
 		
 		tableContainer.getChildren().addAll(tables);
