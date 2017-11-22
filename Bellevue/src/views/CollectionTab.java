@@ -62,6 +62,8 @@ public class CollectionTab extends Tabs{
 		layout.setCenter(tables);
 		layout.setRight(rightPane);
 		
+		layout.getStylesheets().add("style.css");
+		
 		this.getChildren().add(layout);
 	}
 	
@@ -83,10 +85,10 @@ public class CollectionTab extends Tabs{
 	
 	public void initMenu(){
 		menu = new ContextMenu ();
+		
 		menu.getItems().addAll(menuItems);
 		
 		editBtn = new Button("+");
-		editBtn.getStylesheets().add("style.css");
 		editBtn.setId("collectionEditBtn");
 		editBtn.setPrefSize(50, 50);
 		

@@ -10,8 +10,8 @@ import java.util.GregorianCalendar;
 
 public class Collection{
 	private int unitNo;
-	private GregorianCalendar DatePaid;
-	private GregorianCalendar DateBilled;
+	private String datePaid;
+	private String dateBilled;
 	
 	public Collection(){
 		super();
@@ -25,19 +25,31 @@ public class Collection{
 		this.unitNo = unitNo;
 	}
 
-	public GregorianCalendar getDatePaid() {
-		return DatePaid;
+	public String getDatePaid() {
+		return this.datePaid;
 	}
 
-	public void setDatePaid(GregorianCalendar datePaid) {
-		DatePaid = datePaid;
+	public void setDatePaid(String datePaid) {
+		this.datePaid = datePaid;
 	}
 
-	public GregorianCalendar getDateBilled() {
-		return DateBilled;
+	public String getDateBilled() {
+		return this.dateBilled;
 	}
 
-	public void setDateBilled(GregorianCalendar dateBilled) {
-		DateBilled = dateBilled;
+	public void setDateBilled(String dateBilled) {
+		this.dateBilled = dateBilled;
+	}
+	
+	public boolean isPaid(){
+		if(Integer.parseInt(dateBilled.split("-")[1]) == Integer.parseInt(datePaid.split("-")[1]))
+			return true;
+		return false;
+	}
+	
+	public boolean isOverdue(){
+		if(Integer.parseInt(datePaid.split("-")[2]) <= 15)
+			return true;
+		return false;
 	}
 }

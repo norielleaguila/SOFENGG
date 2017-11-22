@@ -27,22 +27,13 @@ import models.FeeList;
 public class CollectionTable extends ScrollPane{
 	
 	private VBox tableContainer;
-	private VBox masterContainer;
-	private ScrollPane scrollContainer;
 	private ArrayList<TableView> tables;	// 1 VBox = 1 type
 	private FeeList model; 	// the list is assumed to be sorted by type
-	private ArrayList<String> types;
 	
 	public CollectionTable(FeeList model){
 		tableContainer = new VBox(10);
-//		scrollContainer=new ScrollPane();
 		this.model = model;
-		
-//		masterContainer = new VBox(10);
 		initContainer();
-//		scrollContainer.setContent(tableContainer);
-//		masterContainer.getChildren().add(scrollContainer);
-//		masterContainer.setAlignment(Pos.TOP_CENTER);
 
 		this.setContent(tableContainer);
 		
@@ -56,23 +47,9 @@ public class CollectionTable extends ScrollPane{
 		tableContainer.getChildren().addAll(tables);
 
 		tableContainer.setAlignment(Pos.TOP_CENTER);
-		tableContainer.setPadding(new Insets(100));
+		tableContainer.setPadding(new Insets(10, 200, 10, 200));
 		tableContainer.setId("tableContainer");
 	}
-	
-	/**
-	 * create type labels
-	 */
-	/*
-	public void initTypes(){
-		types = new ArrayList<String>();
-		ArrayList<String> types = model.getTypes();
-		
-		for(String type: types){
-			this.types.add(type);
-		}
-		
-	}*/
 	
 	public void initTables(){
 		tables = new ArrayList<>();
@@ -101,8 +78,6 @@ public class CollectionTable extends ScrollPane{
 			
 			nameCol.minWidthProperty().bind(tables.get(i).widthProperty().multiply(0.75));
 			priceCol.minWidthProperty().bind(tables.get(i).widthProperty().multiply(0.24));
-//			
-//			typeCol.setMaxWidth(Double.MAX_VALUE);
 			
 			tables.get(i).getStyleClass().add("collectionTable");	
 			
@@ -120,7 +95,6 @@ public class CollectionTable extends ScrollPane{
 	}
 	
 	public void updateTables(){
-		//initTypes();
 		initTables();
 		
 		tableContainer.getChildren().addAll(tables);
@@ -133,30 +107,4 @@ public class CollectionTable extends ScrollPane{
 		updateTables();
 		
 	}
-	
-//	public void initTables(){
-//		// create the vbox, then add the category/type label as a header
-//		for(int i = 0; i < typeLbls.size(); i++){
-//			tables.add(new VBox(5));
-//			tables.get(i).getChildren().add(typeLbls.get(i));
-//		}
-//		
-//		String type = "";
-//		// each table has 2 columns; for fee name and price
-//		for(int i = 0; i < typeLbls.size(); i++){
-//			type = typeLbls.get(i).getText();
-//			
-//			// assumes that the fees list is already sorted by type
-//			for(int j = 0; j < fees.getFees().size() && fees.getFee(j).getType().equals(type); j++){
-//				Fee curr = fees.getFee(j);
-//				
-//				HBox row = new HBox(10);
-//				
-//				row.getChildren().add(new Label(curr.getFeeName()));
-//				row.getChildren().add(new Label(curr.getPrice() + ""));
-//				
-//				tables.get(i).getChildren().add(row);
-//			}
-//		}
-//	}
 }

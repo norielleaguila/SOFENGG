@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -14,6 +16,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -25,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.Fee;
 import models.Unit;
 import models.UnitList;
 import views.UnitRow;
@@ -59,11 +63,8 @@ public class UnitTabController extends Controller{
 				row.setViewBtnListener(new UnitRow.viewBtnlistener() {
 					@Override
 					public void onAction(Unit unit) {
-						// place all action things here
 						Label unitnumLabel, ownerLabel, ownerLabel2, tctLabel, tctLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
 						AnchorPane unitPane;
-//						Scene unitScene;
-//						Stage unitStage;
 						Popup unitPopup;
 						unitPane = new AnchorPane();
 						unitPopup = new Popup();
@@ -133,15 +134,7 @@ public class UnitTabController extends Controller{
 						unitHeader.setPrefHeight(100);
 						unitHeader.setAlignment(Pos.BOTTOM_LEFT);
 						unitPane.getChildren().addAll(unitHeader);
-//						unitScene = new Scene(unitPane, 1250, 750);
 						
-//						unitStage = new Stage();
-//						unitStage.setScene(unitScene);
-//						unitStage.initModality(Modality.APPLICATION_MODAL);
-						//unitStage.show();
-						
-//						unitPopup.setX(300);
-//						unitPopup.setY(300);
 						VBox unitContent = new VBox();
 						unitContent.setPrefWidth(1250);
 						unitContent.setPrefHeight(600);
@@ -161,13 +154,21 @@ public class UnitTabController extends Controller{
 						itemCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.7));
 						feeCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.3));
 						
+						itemCol.setCellValueFactory(new PropertyValueFactory <String, String>("temp"));
+						
 						ObservableList<String> itemsList = FXCollections.observableArrayList();
 						ObservableList<Double> feeList = FXCollections.observableArrayList();
+						StringProperty temp = new SimpleStringProperty();
+						temp.set("Monthly Fee");
+						String temp2 = "Monthly Fee";
+						itemsList.add(temp2);
 						
 						unitTable.getColumns().addAll(itemCol, feeCol);
 						
 						itemCol.getStyleClass().add("popupTable");
 						feeCol.getStyleClass().add("popupTable");
+						
+						unitTable.setItems(itemsList);
 						
 						tablePane.getChildren().add(unitTable);
 						tablePane.setPrefWidth(650);
@@ -223,23 +224,12 @@ public class UnitTabController extends Controller{
 						unitPopup.show(window);
 						unitPopup.setAutoHide(true);
 						
+						unitVBox.getStylesheets().add("style.css");
+						unitVBox.setId("popup");
+						
 						close.setOnAction(e -> {
 							unitPopup.hide();
 						});
-//						FlowPane unitInfoPane = new FlowPane();
-//						Label l1 = new Label("test");
-//						Button b = new Button("X");
-//						unitInfoPane.getChildren().addAll(b, l1);
-//						unitInfoPane.setStyle("-fx-background-color: white");
-//						
-//						Popup p = new Popup();
-//						p.setX(300);
-//						p.setY(10);
-//						p.getContent().add(unitInfoPane);
-//						
-//						b.setOnAction(e -> p.hide());
-//						
-//						p.show(window);
 
 					}
 				});

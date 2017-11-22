@@ -50,7 +50,7 @@ public class AddCategory extends Popup {
 			setMaxSize(WIDTH, HEIGHT);
 			setMinSize(WIDTH, HEIGHT);
 			getStylesheets().add("style.css");
-			setId("acLayout");
+			setId("popup");
 			initExit ();
 			initCategory ();
 			initAdd ();
