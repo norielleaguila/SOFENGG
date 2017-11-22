@@ -54,7 +54,9 @@ public class Collection{
 	}
 	
 	public boolean isOverdue(){
-		if(Integer.parseInt(datePaid.split("-")[2]) <= 15)
+		String splitDatePaid = datePaid.substring(0, 10);
+		System.out.println(splitDatePaid);
+		if(Integer.parseInt(splitDatePaid.split("-")[2]) <= 15)
 			return true;
 		return false;
 	}
