@@ -13,7 +13,7 @@ import models.UnitList;
  * @author AGUILA, Norielle
  */
 
-public class UnitTable {
+public class UnitTable implements ViewInterface{
 	private HBox header;
 	private ScrollPane tableScroll;
 	private UnitRowList units;
@@ -83,5 +83,11 @@ public class UnitTable {
 	 */
 	public void updateRow(Unit unit){
 //		units.getRow(unit)
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

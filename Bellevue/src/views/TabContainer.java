@@ -11,6 +11,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.CollectionList;
 import models.FeeList;
 import models.UnitList;
 
@@ -18,16 +19,16 @@ import models.UnitList;
  * @author AGUILA, Norielle
  */
 
-public class TabContainer extends TabPane{
+public class TabContainer extends TabPane implements ViewInterface{
 	
 	private ArrayList<Tab> tabs;
 	private UnitTabController unitTabController;
 	private CollectionTabController collectionTabController;
 	
-	public TabContainer(FeeList feesModel, UnitList unitsModel, Stage window){
+	public TabContainer(FeeList feesModel, UnitList unitsModel, CollectionList collectionModel, Stage window){
 		super();
 		
-		unitTabController = new UnitTabController(unitsModel, window);
+		unitTabController = new UnitTabController(unitsModel, collectionModel, window);
 		collectionTabController = new CollectionTabController(feesModel, window);
 				
 		initTabs();
@@ -47,6 +48,13 @@ public class TabContainer extends TabPane{
 		}
 
 		this.getTabs().addAll(tabs);
+	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

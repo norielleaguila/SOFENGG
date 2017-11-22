@@ -24,7 +24,7 @@ import models.FeeList;
  */
 
 
-public class CollectionTable extends ScrollPane{
+public class CollectionTable extends ScrollPane implements ViewInterface{
 	
 	private VBox tableContainer;
 	private ArrayList<TableView> tables;	// 1 VBox = 1 type

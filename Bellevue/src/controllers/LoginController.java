@@ -90,7 +90,7 @@ public class LoginController extends Controller{
 
 	// switch to program on valid login
 	public void openProgram(){
-		ProgramScreen ps = new ProgramScreen(getFeesModel(), getUnitsModel(), window);
+		ProgramScreen ps = new ProgramScreen(getFeesModel(), getUnitsModel(), getCollectionModel(), window);
 		ProgramController program = new ProgramController(ps, window, model);
 		
 		program.setUpButtons();

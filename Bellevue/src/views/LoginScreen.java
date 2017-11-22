@@ -129,4 +129,10 @@ public class LoginScreen extends View {
 		this.notifLbl.setText(notif);
 		this.notifLbl.setId("notifLbl2");
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

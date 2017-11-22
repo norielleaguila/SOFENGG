@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Account;
 import models.AccountList;
+import models.CollectionList;
 import models.FeeList;
 import models.Model;
 import models.UnitList;
@@ -77,6 +78,14 @@ public abstract class Controller{
 		// query db
 		
 		AccountList model = new AccountList();
+		
+		return model;
+	}
+	
+	public CollectionList getCollectionModel(){
+		// query db
+		
+		CollectionList model = new CollectionList();
 		
 		return model;
 	}

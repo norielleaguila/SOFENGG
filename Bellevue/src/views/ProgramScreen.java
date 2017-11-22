@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.CollectionList;
 import models.FeeList;
 import models.UnitList;
 
@@ -35,24 +36,27 @@ public class ProgramScreen extends View{
 	private BorderPane layout;
 	private FeeList feesModel;
 	private UnitList unitsModel;
+	private CollectionList collectionModel;
 	private TabContainer tabContainer;
 	private FlowPane header;
 	private Button logoutBtn;
 	private Stage window;
 	private StackPane tabs_date;
 	
-	public ProgramScreen(FeeList feesModel, UnitList unitsModel, Stage window){
+	public ProgramScreen(FeeList feesModel, UnitList unitsModel, CollectionList collectionModel, Stage window){
 		super();
 		
 		this.feesModel = feesModel;
 		this.unitsModel = unitsModel;
+		this.collectionModel = collectionModel;
 		this.window = window;
 		
 		initLayout();
 		
-		initScreen();
+//		initScreen();
 		
 		scene = new Scene(layout, WIDTH, HEIGHT);
+		
 	}
 
 	@Override
@@ -66,7 +70,7 @@ public class ProgramScreen extends View{
 
 	@Override
 	protected void createElements() {
-		tabContainer = new TabContainer(feesModel, unitsModel, window);
+		tabContainer = new TabContainer(feesModel, unitsModel, collectionModel, window);
 		tabs_date=new StackPane();
 		Label t=getcurrentDate();
 		t.setStyle("-fx-border-color: transparent;-fx-text-fill:white;-fx-font:23px 'Segoe UI';"
@@ -116,6 +120,12 @@ public class ProgramScreen extends View{
 		logoutBtn.setStyle("-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-font:15px 'Segoe UI';");
 		logoutBtn.setPrefSize(100, 30);
 		header.getChildren().addAll(logoutBtn);
+		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
 		
 	}
 
