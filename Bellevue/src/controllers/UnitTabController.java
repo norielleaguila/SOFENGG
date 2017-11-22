@@ -70,7 +70,7 @@ public class UnitTabController extends Controller{
 				row.setViewBtnListener(new UnitRow.viewBtnlistener() {
 					@Override
 					public void onAction(Unit unit) {
-						Label unitnumLabel, ownerLabel, ownerLabel2, tctLabel, tctLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
+						Label unitnumLabel, ownerLabel, ownerLabel2, tctLabel, tctLabel2, lotsizeLabel, lotsizeLabel2, addressLabel, addressLabel2, totalfeeLabel, totalfeeLabel2;
 						AnchorPane unitPane;
 						Popup unitPopup;
 						unitPane = new AnchorPane();
@@ -88,6 +88,9 @@ public class UnitTabController extends Controller{
 						lotsizeLabel = new Label("Lot size: ");
 						lotsizeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
+						addressLabel = new Label("Address");
+						addressLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+						
 						ownerLabel2 = new Label(unit.getBilledTo());
 						ownerLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
@@ -96,6 +99,9 @@ public class UnitTabController extends Controller{
 						
 						lotsizeLabel2 = new Label(String.valueOf(unit.accessLotArea()));
 						lotsizeLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+						
+						addressLabel2 = new Label(unit.getAddressNo() + " " + unit.getStreet());
+						addressLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
 						totalfeeLabel = new Label("Total Fee");
 						totalfeeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
@@ -116,11 +122,15 @@ public class UnitTabController extends Controller{
 						VBox ownerlotsizeVBox2 = new VBox();
 						VBox totalfeeVBox = new VBox();
 						
-						ownerlotsizeVBox.getChildren().addAll(ownerLabel, tctLabel,lotsizeLabel);
+						if(account.getType() == 1)
+							ownerlotsizeVBox.getChildren().addAll(ownerLabel, tctLabel,lotsizeLabel,addressLabel);
+						else ownerlotsizeVBox.getChildren().addAll(ownerLabel, addressLabel);
 						ownerlotsizeVBox.setPrefHeight(20);
 						ownerlotsizeVBox.setAlignment(Pos.BOTTOM_LEFT);
 						
-						ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, tctLabel2,lotsizeLabel2);
+						if(account.getType() == 1)
+							ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, tctLabel2,lotsizeLabel2, addressLabel2);
+						else ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, addressLabel2);
 						ownerlotsizeVBox2.setPrefHeight(20);
 						ownerlotsizeVBox2.setAlignment(Pos.BOTTOM_LEFT);
 						
