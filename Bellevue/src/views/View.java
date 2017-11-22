@@ -1,7 +1,11 @@
 package views;
 
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 import javafx.scene.Scene;
 
@@ -9,7 +13,7 @@ import javafx.scene.Scene;
  * @author AGUILA, Norielle
  */
 
-public abstract class View {
+public abstract class View implements ViewInterface{
 	public static final String APP_NAME = "Bellevue Logger";
 	
 	public static double HEIGHT;
@@ -37,8 +41,18 @@ public abstract class View {
 	
 	public void initScreen(){
 		gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		
+		Rectangle bounds = gd.getDefaultConfiguration().getBounds();
+		Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(gd.getDefaultConfiguration());
+		
+		Rectangle safeBounds = new Rectangle(bounds);
+		safeBounds.x += insets.left;
+		safeBounds.y += insets.top;
+		safeBounds.width -= (insets.left + insets.right);
+		safeBounds.height -= (insets.top + insets.bottom);
+		
 		WIDTH = gd.getDisplayMode().getWidth();
-		HEIGHT = gd.getDisplayMode().getHeight();
+		HEIGHT = gd.getDisplayMode().getHeight() ;
 	}
 	
 }

@@ -51,5 +51,11 @@ public class UnitTab extends Tabs{
 			table.addRow(unit);
 		}
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

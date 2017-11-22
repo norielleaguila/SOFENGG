@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.CollectionList;
 import models.Fee;
 import models.Unit;
 import models.UnitList;
@@ -46,10 +47,14 @@ import views.UnitTab;
 public class UnitTabController extends Controller{
 	private UnitTab view;
 	private Stage window;
+	private CollectionList collectionModel;
 	
-	public UnitTabController(UnitList model, Stage window){
+	public UnitTabController(UnitList model, CollectionList collectionModel, Stage window){
 		view = new UnitTab(model);
 		this.window = window;
+		
+		this.collectionModel = collectionModel;
+		
 		setUpButtons();
 	}
 	

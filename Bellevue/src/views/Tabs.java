@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 /**
  * @author AGUILA, Norielle
  */
-public abstract class Tabs extends VBox{
+public abstract class Tabs extends VBox implements ViewInterface{
 
 	public Tabs(){
 		super(20);
