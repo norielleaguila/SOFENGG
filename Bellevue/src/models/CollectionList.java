@@ -33,6 +33,15 @@ public class CollectionList extends Model {
 		return null;
 	}
 	
+	public ArrayList<Collection> getAllOverdueUnits(){
+		ArrayList<Collection> temp = new ArrayList<>();
+		for(Collection collection: collection){
+			if(collection.isOverdue())
+				temp.add(collection);
+		}
+		return temp;
+	}
+	
 	public ArrayList<Collection> getCollection(){
 		return collection;
 	}

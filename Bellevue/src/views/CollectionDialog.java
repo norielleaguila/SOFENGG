@@ -156,7 +156,10 @@ public class CollectionDialog extends Popup {
 			addBtn = new Button ("ADD");
 			
 			addBtn.setOnAction ((e) -> {
-				onAddEventHandler.onAction (nameTf.getText (), costTf.getText (), categoryCB.getSelectionModel ().getSelectedItem ());
+				onAddEventHandler.onAction (
+						nameTf.getText (), 
+						costTf.getText (), 
+						categoryCB.getSelectionModel ().getSelectedItem ());
 			});
 			
 			addBtn.setMaxSize(width, height);
