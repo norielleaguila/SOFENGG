@@ -51,7 +51,7 @@ public class DBaccess {
 			String sql = "SELECT * from collection";
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				retval.add(new Collection(rs.getInt(1),rs.getString(2),rs.getString(3)));
+				retval.add(new Collection(rs.getInt(0),rs.getString(1),rs.getString(2)));
 			}
 			connect();
 		} catch (ClassNotFoundException e) {
