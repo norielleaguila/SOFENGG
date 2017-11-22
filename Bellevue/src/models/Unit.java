@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import DB.DBaccess;
+
 /**
  * Unit class
  * 
@@ -122,8 +124,9 @@ public class Unit{
 	 * @param type Account must pass their account type
 	 * @return String returns the class attribute tct
 	 */
-	public String accessTCT(int type){
-		if(type == 0)	// admin
+	public String accessTCT(){
+		
+		if(DBaccess.UserAccount.getType() == 1)	// admin
 			return tct;
 		return null;
 	}
@@ -133,9 +136,10 @@ public class Unit{
 	 * @param type Account must pass their account type
 	 * @return String returns the class attribute lotArea
 	 */
-	public float accessLotArea(int type){
-		if(type == 0) 	// admin
+	public float accessLotArea(){
+		if(DBaccess.UserAccount.getType() == 1)
 			return lotArea;
+		
 		return Float.NaN;
 	}
 }

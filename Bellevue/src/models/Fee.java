@@ -1,5 +1,6 @@
 package models;
 
+import DB.DBaccess;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -18,13 +19,16 @@ public class Fee{
 //	private String feeName;
 //	private String type;
 //	private double price;
-	public static final String[] FEETYPE={"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
+	public static String[] FEETYPE={"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
 			"Special Activities and Events"};
 	private IntegerProperty feeID;
 	private StringProperty feeName;
 	private StringProperty type;
 	private DoubleProperty price;
 	
+	public static void addType(String type){
+		
+	}
 	public Fee(){
 //		super();
 		feeID = new SimpleIntegerProperty();
@@ -35,7 +39,7 @@ public class Fee{
 	
 	public Fee(String feeName, String type, double price){
 		this();
-//		this.feeID.set(get new id from db);
+		this.feeID.set(DBaccess.getFeeID());
 		this.feeName.set(feeName);
 		this.type.set(type);
 		this.price.set(price);
