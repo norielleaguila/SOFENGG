@@ -52,7 +52,7 @@ public class LoginScreen extends View {
 	 */
 	protected void createElements(){
 		// create program name label
-		appNameLbl = new Label("[Application Name]");
+		appNameLbl = new Label(View.APP_NAME);
 		appNameLbl.setAlignment(Pos.CENTER);
 		appNameLbl.setId("appNameLbl");
 		

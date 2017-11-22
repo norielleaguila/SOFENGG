@@ -88,6 +88,11 @@ public class UnitTabController extends Controller{
 						totalfeeLabel2 = new Label("Sample total fee");
 						totalfeeLabel2.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;");
 						
+						Button close = new Button("X");
+						close.getStylesheets().add("style.css");
+						
+						close.setId("closePopup");
+						
 						Region headerDivider = new Region();
 						HBox.setHgrow(headerDivider, Priority.ALWAYS);
 						
@@ -104,7 +109,9 @@ public class UnitTabController extends Controller{
 						ownerlotsizeVBox2.setPrefHeight(20);
 						ownerlotsizeVBox2.setAlignment(Pos.BOTTOM_RIGHT);
 						
-						totalfeeVBox.getChildren().addAll(totalfeeLabel2,totalfeeLabel);
+						close.setAlignment(Pos.TOP_RIGHT);
+						
+						totalfeeVBox.getChildren().addAll(close, totalfeeLabel2,totalfeeLabel);
 						totalfeeVBox.setAlignment(Pos.CENTER);
 						totalfeeVBox.setStyle("-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
 						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,ownerlotsizeVBox2,headerDivider,totalfeeVBox);
@@ -129,6 +136,8 @@ public class UnitTabController extends Controller{
 						TableView unitTable = new TableView();
 						VBox tablePane = new VBox();
 						unitTable.setEditable(true);
+						
+						unitTable.getStylesheets().add("style.css");
 						
 						TableColumn itemCol = new TableColumn("ITEM");
 						TableColumn feeCol = new TableColumn("FEE");
@@ -195,13 +204,12 @@ public class UnitTabController extends Controller{
 						VBox unitVBox = new VBox();
 						unitVBox.getChildren().addAll(unitHeader,unitContent);
 						unitPopup.getContent().addAll(unitVBox);
-//						window.show();
 						unitPopup.show(window);
 						unitPopup.setAutoHide(true);
 						
-//						System.out.println(unit.getUnitNo());
-						
-						
+						close.setOnAction(e -> {
+							unitPopup.hide();
+						});
 //						FlowPane unitInfoPane = new FlowPane();
 //						Label l1 = new Label("test");
 //						Button b = new Button("X");

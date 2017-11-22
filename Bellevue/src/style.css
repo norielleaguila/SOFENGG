@@ -184,11 +184,17 @@
 	-fx-border: none;
 }
 
-#collectionEditBtn{
+#collectionEditBtn. #closeUp{
 	-fx-background-color: #F95959;
 	-fxborder: none;
 	-fx-border-radius: 200px;
 	-fx-background-radius: 200px;
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
+}
+
+#closePopup{
+	-fx-background-color: #c87624;
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
 }
