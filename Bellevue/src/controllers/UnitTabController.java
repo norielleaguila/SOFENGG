@@ -83,10 +83,10 @@ public class UnitTabController extends Controller{
 						ownerLabel2 = new Label(unit.getBilledTo());
 						ownerLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
-						tctLabel2 = new Label();
+						tctLabel2 = new Label(unit.accessTCT());
 						tctLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
-						lotsizeLabel2 = new Label();
+						lotsizeLabel2 = new Label(String.valueOf(unit.accessLotArea()));
 						lotsizeLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
 						totalfeeLabel = new Label("Total Fee");

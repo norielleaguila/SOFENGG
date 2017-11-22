@@ -125,6 +125,9 @@ public class UnitRow extends HBox {
 	public void setViewBtnListener (viewBtnlistener vbl) {
 		this.vbl = vbl;
 	}
+	public String getTct(){
+		return unit.accessTCT();
+	}
 	
 	/* GETTERS & SETTERS */
 	public int getUnitNum(){

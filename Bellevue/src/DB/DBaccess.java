@@ -17,6 +17,7 @@ public class DBaccess {
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb";
 	static final String USER = "root";
 	static final String PASS = "0825";
+	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
 
@@ -52,6 +53,8 @@ public class DBaccess {
 				retval = new Account();
 				retval.setType(rs.getInt(1));
 				retval.setUsername(rs.getString(2));
+			
+				UserAccount=retval;
 			}
 			connect();
 		} catch (ClassNotFoundException e) {
@@ -102,6 +105,29 @@ public class DBaccess {
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				retval.add(new Fee(rs.getInt("FeeID"),rs.getString("FeeName"),rs.getString("Type"),rs.getInt("price")));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		return retval;
+	}
+	public static int getFeeID(){
+		int retval =0;
+		
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT MAX(FeeID) FROM fee;" ;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				retval=rs.getInt(1)+1;
 			}
 			connect();
 		} catch (ClassNotFoundException e) {
