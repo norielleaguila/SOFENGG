@@ -52,7 +52,6 @@ public class UnitTabController extends Controller{
 	public UnitTabController(UnitList model, CollectionList collectionModel, Stage window){
 		view = new UnitTab(model);
 		this.window = window;
-		
 		this.collectionModel = collectionModel;
 		
 		setUpButtons();
@@ -199,8 +198,13 @@ public class UnitTabController extends Controller{
 						RadioButton unpaidRadio = new RadioButton("Unpaid");
 						paidRadio.setToggleGroup(paidToggle);
 						unpaidRadio.setToggleGroup(paidToggle);
-						
 						paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
+						/*if(!collectionModel.getUnit(unit.getUnitNo()).isOverdue())
+							paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
+						else{
+							paidLabel.setText("OVERDUE");
+							paidHBox.getChildren().addAll(paidLabel);
+						}*/
 						paidHBox.setAlignment(Pos.CENTER_LEFT);
 						paidHBox.setSpacing(10);
 						
