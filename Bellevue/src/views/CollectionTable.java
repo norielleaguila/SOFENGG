@@ -39,7 +39,6 @@ public class CollectionTable extends ScrollPane{
 		
 		this.setContent(tableContainer);
 		
-		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 	}
 	
@@ -108,6 +107,21 @@ public class CollectionTable extends ScrollPane{
 			
 			tables.get(i).setPrefHeight((data.size() + 1) * 50 + 3);
 		}
+	}
+	
+	public void updateTables(){
+		initTypes();
+		initTables();
+		
+		tableContainer.getChildren().addAll(tables);
+	}
+	
+	public void update(){
+		
+		tableContainer.getChildren().clear();
+		
+		updateTables();
+		
 	}
 	
 //	public void initTables(){

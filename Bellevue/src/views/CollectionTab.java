@@ -13,7 +13,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.PopupWindow.AnchorLocation;
+import javafx.stage.Stage;
 import models.FeeList;
 
 /**
@@ -29,7 +31,14 @@ public class CollectionTab extends Tabs{
 	private ArrayList<MenuItem> menuItems;
 	private ContextMenu menu;
 	
-	public CollectionTab(FeeList model){
+	private AddCategory acdialog;
+	private CollectionDialog cddialog;
+	
+	private CollectionTable tables;
+	
+	private Stage window;
+	
+	public CollectionTab(FeeList model, Stage window){
 		super();
 		
 		layout = new BorderPane();
@@ -37,13 +46,17 @@ public class CollectionTab extends Tabs{
 		
 		this.model = model;
 		
+		this.window = window;
+		acdialog = new AddCategory();
+		cddialog = new CollectionDialog();
+		
 		initLayout();
 	}
 	
 	public void initLayout(){
 		initRightPane();
 		
-		CollectionTable tables = new CollectionTable(model);
+		tables = new CollectionTable(model);
 		tables.setPrefHeight(View.HEIGHT);
 		
 		layout.setCenter(tables);
@@ -60,6 +73,12 @@ public class CollectionTab extends Tabs{
 		menuItems.add(new MenuItem("EDIT CATEGORY"));
 		menuItems.add(new MenuItem("DELETE COLLECTION ITEM"));
 		menuItems.add(new MenuItem("DELETE CATEGORY"));
+		
+		for(MenuItem item: menuItems){
+			item.setOnAction(e -> {
+				executeSelection(menuItems.indexOf(item));
+			});
+		}
 	}
 	
 	public void initMenu(){
@@ -92,8 +111,14 @@ public class CollectionTab extends Tabs{
 	public void executeSelection(int index){
 		switch(index){
 		case 0:
+			cddialog.show(window);
+			acdialog.setX(200);
+			acdialog.setY(200);
 			break;
 		case 1:
+			acdialog.show(window);
+			acdialog.setX(200);
+			acdialog.setY(200);
 			break;
 		case 2:
 			break;
@@ -108,9 +133,20 @@ public class CollectionTab extends Tabs{
 		}
 	}
 	
-	
 	public ArrayList<MenuItem> getMenuItems(){
 		return menuItems;
+	}
+	
+	public AddCategory getACPopup(){
+		return acdialog;
+	}
+	
+	public CollectionDialog getCD(){
+		return cddialog;
+	}
+	
+	public void update(){
+		tables.update();
 	}
 	
 }

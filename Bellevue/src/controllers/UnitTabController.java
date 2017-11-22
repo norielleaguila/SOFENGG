@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -111,10 +112,16 @@ public class UnitTabController extends Controller{
 						
 						close.setAlignment(Pos.TOP_RIGHT);
 						
-						totalfeeVBox.getChildren().addAll(close, totalfeeLabel2,totalfeeLabel);
+						totalfeeVBox.getChildren().addAll(totalfeeLabel2,totalfeeLabel);
 						totalfeeVBox.setAlignment(Pos.CENTER);
 						totalfeeVBox.setStyle("-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
-						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,ownerlotsizeVBox2,headerDivider,totalfeeVBox);
+						
+						VBox rightSide = new VBox();
+						rightSide.getChildren().addAll(close, totalfeeVBox);
+						rightSide.setAlignment(Pos.TOP_RIGHT);
+						
+						
+						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,ownerlotsizeVBox2,headerDivider,rightSide);
 						unitHeader.setStyle("-fx-background-color: #AA6B5A;-fx-padding:10px;");
 						unitHeader.setPrefWidth(1250);
 						unitHeader.setPrefHeight(100);
@@ -152,6 +159,9 @@ public class UnitTabController extends Controller{
 						ObservableList<Double> feeList = FXCollections.observableArrayList();
 						
 						unitTable.getColumns().addAll(itemCol, feeCol);
+						
+						itemCol.getStyleClass().add("popupTable");
+						feeCol.getStyleClass().add("popupTable");
 						
 						tablePane.getChildren().add(unitTable);
 						tablePane.setPrefWidth(650);

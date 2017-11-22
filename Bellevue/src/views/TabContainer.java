@@ -24,7 +24,7 @@ public class TabContainer extends TabPane{
 		super();
 		
 		unitTabController = new UnitTabController(unitsModel, window);
-		collectionTabController = new CollectionTabController(feesModel);
+		collectionTabController = new CollectionTabController(feesModel, window);
 				
 		initTabs();
 		

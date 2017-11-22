@@ -75,6 +75,11 @@
     -fx-padding: 3;
 }
 
+.popupTable{
+	-fx-alignment: CENTER_LEFT;
+	-fx-font-weight: normal;
+}
+
 .nameCol{
 	-fx-alignment: CENTER_LEFT;
 	-fx-padding: 0 0 0 15;
@@ -184,7 +189,7 @@
 	-fx-border: none;
 }
 
-#collectionEditBtn. #closeUp{
+#collectionEditBtn{
 	-fx-background-color: #F95959;
 	-fxborder: none;
 	-fx-border-radius: 200px;
@@ -194,7 +199,9 @@
 }
 
 #closePopup{
-	-fx-background-color: #c87624;
+	-fx-background-color: #efd158;
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
+	-fx-border-radius: 200px;
+	-fx-background-radius: 200px;
 }

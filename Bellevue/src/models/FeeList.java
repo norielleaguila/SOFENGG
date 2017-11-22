@@ -96,10 +96,15 @@ public class FeeList extends Model{
 		return temp;
 	}
 	
+	public void addFee(Fee fee){
+		fees.add(fee);
+	}
+	
 	private void createDummyData(){
 		fees.add(new Fee(0, "Monthly Dues", "Basic Charges", 2500));
 		fees.add(new Fee(1, "Trash Bags", "Basic Charges", 100));
 		fees.add(new Fee(2, "Others", "Others", 0));
 		fees.add(new Fee(3, "Electricity", "Basic Charges", 5000));
+		fees.add(new Fee(3, "Lmao", "New Category", 123));
 	}
 }

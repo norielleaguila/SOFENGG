@@ -32,6 +32,19 @@ public class Fee{
 		price = new SimpleDoubleProperty();
 	}
 	
+	public Fee(String feeName, String type, double price){
+		this();
+//		this.feeID.set(get new id from db);
+		this.feeName.set(feeName);
+		this.type.set(type);
+		this.price.set(price);
+	}
+	
+	public Fee(String type){
+		this();
+		this.type.set(type);
+	}
+	
 	public Fee(int feeID, String feeName, String type, double price){
 		this();
 		this.feeID.set(feeID);
