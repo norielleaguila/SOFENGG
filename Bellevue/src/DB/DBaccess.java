@@ -15,8 +15,8 @@ import models.Unit;
 public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb";
-	static final String USER = "User";
-	static final String PASS = "fassword";
+	static final String USER = "root";
+	static final String PASS = "1234";
 	private static Connection conn = null;
 	private static Statement stmt = null;
 
