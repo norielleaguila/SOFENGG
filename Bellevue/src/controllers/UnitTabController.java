@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -15,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +52,6 @@ public class UnitTabController extends Controller{
 	public UnitTabController(UnitList model, CollectionList collectionModel, Stage window){
 		view = new UnitTab(model);
 		this.window = window;
-		
 		this.collectionModel = collectionModel;
 		
 		setUpButtons();
@@ -89,7 +91,7 @@ public class UnitTabController extends Controller{
 						ownerLabel2 = new Label(unit.getBilledTo());
 						ownerLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
-						tctLabel2 = new Label(unit.accessTCT());
+						tctLabel2 = new Label(unit.accessTCT() + " sqm");
 						tctLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
 						lotsizeLabel2 = new Label(String.valueOf(unit.accessLotArea()));
@@ -120,7 +122,7 @@ public class UnitTabController extends Controller{
 						
 						ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, tctLabel2,lotsizeLabel2);
 						ownerlotsizeVBox2.setPrefHeight(20);
-						ownerlotsizeVBox2.setAlignment(Pos.BOTTOM_RIGHT);
+						ownerlotsizeVBox2.setAlignment(Pos.BOTTOM_LEFT);
 						
 						close.setAlignment(Pos.TOP_RIGHT);
 						
@@ -131,7 +133,6 @@ public class UnitTabController extends Controller{
 						VBox rightSide = new VBox();
 						rightSide.getChildren().addAll(close, totalfeeVBox);
 						rightSide.setAlignment(Pos.TOP_RIGHT);
-						
 						
 						unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,ownerlotsizeVBox2,headerDivider,rightSide);
 						unitHeader.setStyle("-fx-background-color: #AA6B5A;-fx-padding:10px;");
@@ -197,8 +198,13 @@ public class UnitTabController extends Controller{
 						RadioButton unpaidRadio = new RadioButton("Unpaid");
 						paidRadio.setToggleGroup(paidToggle);
 						unpaidRadio.setToggleGroup(paidToggle);
-						
 						paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
+						/*if(!collectionModel.getUnit(unit.getUnitNo()).isOverdue())
+							paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
+						else{
+							paidLabel.setText("OVERDUE");
+							paidHBox.getChildren().addAll(paidLabel);
+						}*/
 						paidHBox.setAlignment(Pos.CENTER_LEFT);
 						paidHBox.setSpacing(10);
 						
@@ -207,6 +213,7 @@ public class UnitTabController extends Controller{
 						Button addButton = new Button("Add Expenses");
 						Button printButton = new Button("Print Bill");
 						
+						saveButton.setDisable(true);
 						saveButton.setPrefWidth(200);
 						saveButton.setPrefHeight(20);
 						
@@ -216,6 +223,25 @@ public class UnitTabController extends Controller{
 						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 						addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 						printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+						
+						paidToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+						    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+						         if (paidToggle.getSelectedToggle() != null) {
+						             System.out.println(paidToggle.getSelectedToggle().toString());
+						             saveButton.setDisable(false);
+						             saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+						         }
+						     }
+						});
+						
+						saveButton.setOnAction(e -> {
+							if(paidRadio.isSelected()){
+								System.out.println("PAID IS SELECTED");
+							}
+							else{
+								System.out.println("UNPAID IS SELECTED");
+							}
+						});
 						
 						buttonsHBox.getChildren().addAll(saveButton,addButton,printButton);
 						buttonsHBox.setSpacing(10);
