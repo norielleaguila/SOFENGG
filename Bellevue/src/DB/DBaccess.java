@@ -17,7 +17,7 @@ public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull";
 	static final String USER = "root";
-	static final String PASS = "1234";
+	static final String PASS = "none";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -158,6 +158,50 @@ public class DBaccess {
 			e.printStackTrace();
 		}
 		
+		
+		
+		return retval;
+	}
+	public static ArrayList<String> getTypes(){
+		ArrayList<String> retval = new ArrayList<String>();
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT type FROM category;" ;
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				retval.add(rs.getString("Type"));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		return retval;
+	}
+	public static Boolean addType(String type){
+		if(Fee.FEETYPE.contains(type))
+			return false;
+		boolean retval=false;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "INSERT INTO category (`type`) VALUES ('"+type+"');" ;
+			int rs = stmt.executeUpdate(sql);
+			if(rs>0)
+				retval=true;
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 		
 		
 		return retval;

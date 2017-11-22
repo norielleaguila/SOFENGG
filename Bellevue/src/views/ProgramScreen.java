@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.CollectionList;
+import models.Fee;
 import models.FeeList;
 import models.UnitList;
 
@@ -45,7 +46,7 @@ public class ProgramScreen extends View{
 	
 	public ProgramScreen(FeeList feesModel, UnitList unitsModel, CollectionList collectionModel, Stage window){
 		super();
-		
+		Fee.initType();
 		this.feesModel = feesModel;
 		this.unitsModel = unitsModel;
 		this.collectionModel = collectionModel;

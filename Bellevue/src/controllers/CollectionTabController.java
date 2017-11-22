@@ -1,5 +1,6 @@
 package controllers;
 
+import DB.DBaccess;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import models.Fee;
@@ -54,8 +55,9 @@ public class CollectionTabController extends Controller{
 
 			@Override
 			public void onAction(String name, String cost, String category) {
-				model.addFee(new Fee(name, category, Double.parseDouble(cost)));
-				
+				Fee f=new Fee(name, category, Double.parseDouble(cost));
+				model.addFee(f);
+				DBaccess.addFee(f);
 				cd.hide();
 				
 				view.update();
