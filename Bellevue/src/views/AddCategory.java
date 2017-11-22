@@ -2,12 +2,15 @@ package views;
 
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 public class AddCategory extends Popup {
 	
 	public AddCategory () {
 		super ();
+		
+		setAutoHide(true);
 		
 		initLayout ();
 	}
@@ -26,12 +29,16 @@ public class AddCategory extends Popup {
 		this.onAddEventHandler = onAddEventHandler;
 	}
 	
-	private class AddCategoryLayout extends VBox {
+	private class AddCategoryLayout extends Pane {
 		
-		private Button btnExit;
-		private Label lblCategory;
-		private TextField tfCategory;
-		private Button btnAdd;
+		private static final double WIDTH = 500;
+		private static final double HEIGHT = 200;
+		private static final double CHILD_PADDING = 20;
+		
+		private Button exitBtn;
+		private Label categoryLbl;
+		private TextField categoryTf;
+		private Button addBtn;
 		
 		public AddCategoryLayout () {
 			super ();
@@ -40,36 +47,67 @@ public class AddCategory extends Popup {
 		}
 		
 		private void init () {
-			setMinSize (1000, 400);
-			setStyle ("-fx-background-color: #aaa");
+			setMaxSize(WIDTH, HEIGHT);
+			setMinSize(WIDTH, HEIGHT);
+			getStylesheets().add("style.css");
+			setId("acLayout");
 			initExit ();
 			initCategory ();
 			initAdd ();
 		}
 		
 		private void initExit () {
-			btnExit = new Button ("X");
+			exitBtn = new Button ("X");
 			
-			btnExit.setOnAction ((e) -> hide ());
+			exitBtn.setMaxWidth(25);
+			exitBtn.setMaxHeight(25);
 			
-			getChildren ().add (btnExit);
+			exitBtn.setOnAction ((e) -> hide ());
+			
+			exitBtn.setId("closePopup");
+			
+			exitBtn.setLayoutX(WIDTH - CHILD_PADDING - 50);
+			exitBtn.setLayoutY(CHILD_PADDING);
+			
+			getChildren ().add (exitBtn);
 		}
 		
 		private void initCategory () {
-			lblCategory = new Label ("CATEGORY");
-			tfCategory = new TextField ();
+			categoryLbl = new Label ("NAME OF CATEGORY");
+			categoryTf = new TextField ();
 			
-			getChildren ().addAll (lblCategory, tfCategory);
+			categoryLbl.setLayoutY(CHILD_PADDING * 2 + 25);
+			categoryLbl.setLayoutX(CHILD_PADDING);
+			categoryLbl.setId("lblPopup");
+			
+			categoryTf.setId("tfPopup");
+			categoryTf.setLayoutX(CHILD_PADDING);
+			categoryTf.setLayoutY(CHILD_PADDING * 3 + 25);
+			categoryTf.setMinWidth(200);
+			categoryTf.setMaxWidth(200);
+			
+			getChildren ().addAll (categoryLbl, categoryTf);
 		}
 		
 		private void initAdd () {
-			btnAdd = new Button ("ADD");
+			addBtn = new Button ("Add");
 			
-			btnAdd.setOnAction ((e) -> {
-				onAddEventHandler.onAction (tfCategory.getText ());
+			double addHeight = 25;
+			double addWidth = 150;
+			
+			addBtn.setOnAction ((e) -> {
+				onAddEventHandler.onAction (categoryTf.getText ());
 			});
 			
-			getChildren ().addAll (btnAdd);
+			addBtn.setMinSize(addWidth, addHeight);
+			addBtn.setMaxSize(addWidth, addHeight);
+			
+			addBtn.setLayoutX(WIDTH - CHILD_PADDING - addWidth);
+			addBtn.setLayoutY(HEIGHT - CHILD_PADDING - addHeight);
+			
+			addBtn.setId("addPopup");
+			
+			getChildren ().addAll (addBtn);
 		}
 	}
 	

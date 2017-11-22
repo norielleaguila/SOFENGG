@@ -27,32 +27,39 @@ public class CollectionDialog extends Popup {
 		this.onAddEventHandler = onAddEventHandler;
 	}
 	
-	private class CollectionLayout extends VBox {
+	private class CollectionLayout extends Pane {
 		
-		private HBox hboxExit;
-			private Button exit;
+		private static final double WIDTH = 500;
+		private static final double HEIGHT = 300;
+		private static final double CHILD_PADDING = 20;
+		private int multiplier = 1;
+		private final double fieldWidth = 200;
 		
-		private Label lblName;
-		private TextField tfName;
+			private Button exitBtn;
 		
-		private Label lblCost;
-		private TextField tfCost;
+		private Label nameLbl;
+		private TextField nameTf;
+		
+		private Label costLbl;
+		private TextField costTf;
 
-		private Label lblCategory;
-		private ComboBox <String> cbCategory;
-
-		private HBox hboxAdd;
-			private Button btnAdd;
+		private Label categoryLbl;
+		private ComboBox <String> categoryCB;
+			private Button addBtn;
 		
 		public CollectionLayout () {
-			super (10);
+			super ();
+			
+			setAutoHide(true);
 			
 			init ();
 		}
 		
 		private void init () {
-			setMinSize (1000, 400);
-			setStyle ("-fx-background-color: #aaa");
+			setMinSize (WIDTH, HEIGHT);
+			setMaxSize(WIDTH, HEIGHT);
+			getStylesheets().add("style.css");
+			setId("popup");
 			initExit ();
 			initName ();
 			initCost ();
@@ -61,53 +68,106 @@ public class CollectionDialog extends Popup {
 		}
 		
 		private void initExit () {
-			hboxExit = new HBox ();
-			hboxExit.setAlignment (Pos.TOP_RIGHT);
+			exitBtn = new Button ("X");
 			
-			exit = new Button ("X");
+			exitBtn.setId("closePopup");
 			
-			exit.setOnAction ((e) -> {
+			exitBtn.setOnAction ((e) -> {
 				hide ();
 			});
 			
-			hboxExit.getChildren ().add (exit);
-			getChildren ().add (hboxExit);
+			exitBtn.setLayoutX(WIDTH - CHILD_PADDING - 50);
+			exitBtn.setLayoutY(CHILD_PADDING);
+			exitBtn.setId("closePopup");
+			
+			getChildren ().add (exitBtn);
+			
+			multiplier += 1;
 		}
 		
 		private void initName () {
-			lblName = new Label ("NAME OF ITEM");
-			tfName = new TextField ();
+			multiplier += 1;
+			nameLbl = new Label ("NAME OF ITEM");
+			nameTf = new TextField ();
 			
-			getChildren ().add (lblName);
-			getChildren ().add (tfName);
+			nameLbl.setLayoutX(CHILD_PADDING);
+			nameLbl.setLayoutY(CHILD_PADDING * multiplier);
+			nameLbl.setId("lblPopup");
+			multiplier += 1;
+			
+			nameTf.setMinWidth(fieldWidth);
+			nameTf.setMaxWidth(fieldWidth);
+			nameTf.setLayoutX(CHILD_PADDING);
+			nameTf.setLayoutY(CHILD_PADDING * multiplier);
+			nameTf.setId("tfPopup");
+			multiplier += 1;
+			
+			getChildren ().add (nameLbl);
+			getChildren ().add (nameTf);
 		}
 		
 		private void initCost () {
-			lblCost = new Label ("EXPENSE COST");
-			tfCost = new TextField ();
+			multiplier += 1;
 			
-			getChildren ().add (lblCost);
-			getChildren ().add (tfCost);
+			costLbl = new Label ("EXPENSE COST");
+			costTf = new TextField ();
+			
+			costLbl.setLayoutX(CHILD_PADDING);
+			costLbl.setLayoutY(CHILD_PADDING * multiplier);
+			costLbl.setId("lblPopup");
+			multiplier += 1;
+			
+			costTf.setMinWidth(fieldWidth);
+			costTf.setMaxWidth(fieldWidth);
+			costTf.setLayoutX(CHILD_PADDING);
+			costTf.setLayoutY(CHILD_PADDING * multiplier);
+			costTf.setId("tfPopup");
+			multiplier += 1;
+			
+			getChildren ().add (costLbl);
+			getChildren ().add (costTf);
+			
 		}
 		
 		private void initCategory () {
-			lblCategory = new Label ("CATEGORY");
-			cbCategory = new ComboBox<> ();
+			multiplier += 1;
+			categoryLbl = new Label ("CATEGORY");
+			categoryCB = new ComboBox<> ();
 			
-			getChildren ().add (lblCategory);
-			getChildren ().add (cbCategory);
+			categoryLbl.setLayoutX(CHILD_PADDING);
+			categoryLbl.setLayoutY(CHILD_PADDING * multiplier);
+			categoryLbl.setId("lblPopup");
+			multiplier += 1;
+			
+			categoryCB.setMinWidth(fieldWidth);
+			categoryCB.setMaxWidth(fieldWidth);
+			categoryCB.setLayoutX(CHILD_PADDING);
+			categoryCB.setLayoutY(CHILD_PADDING * multiplier);
+			categoryCB.setId("tfPopup");
+			multiplier += 1;
+			
+			getChildren ().add (categoryLbl);
+			getChildren ().add (categoryCB);
 		}
 		
 		private void initAdd () {
-			hboxAdd = new HBox ();
-			btnAdd = new Button ("ADD");
+			multiplier += 1;
+			int width = 150, height = 25;
+			addBtn = new Button ("ADD");
 			
-			btnAdd.setOnAction ((e) -> {
-				onAddEventHandler.onAction (tfName.getText (), tfCost.getText (), cbCategory.getSelectionModel ().getSelectedItem ());
+			addBtn.setOnAction ((e) -> {
+				onAddEventHandler.onAction (nameTf.getText (), costTf.getText (), categoryCB.getSelectionModel ().getSelectedItem ());
 			});
 			
-			hboxAdd.getChildren ().add (btnAdd);
-			getChildren ().add (hboxAdd);
+			addBtn.setMaxSize(width, height);
+			addBtn.setMinSize(width, height);
+			
+			addBtn.setLayoutX(WIDTH - width - CHILD_PADDING);
+			addBtn.setLayoutY(CHILD_PADDING * multiplier);
+			addBtn.setId("addPopup");
+			multiplier += 1;
+			
+			getChildren ().add (addBtn);
 		}
 		
 	}

@@ -35,16 +35,16 @@ public class CollectionTable extends ScrollPane{
 	
 	public CollectionTable(FeeList model){
 		tableContainer = new VBox(10);
-		scrollContainer=new ScrollPane();
+//		scrollContainer=new ScrollPane();
 		this.model = model;
 		
-		masterContainer = new VBox(10);
+//		masterContainer = new VBox(10);
 		initContainer();
-		scrollContainer.setContent(tableContainer);
-		masterContainer.getChildren().add(scrollContainer);
-		masterContainer.setAlignment(Pos.TOP_CENTER);
+//		scrollContainer.setContent(tableContainer);
+//		masterContainer.getChildren().add(scrollContainer);
+//		masterContainer.setAlignment(Pos.TOP_CENTER);
 
-		this.setContent(masterContainer);
+		this.setContent(tableContainer);
 		
 		this.setFitToWidth(true);
 	}
@@ -58,8 +58,6 @@ public class CollectionTable extends ScrollPane{
 		tableContainer.setAlignment(Pos.TOP_CENTER);
 		tableContainer.setPadding(new Insets(100));
 		tableContainer.setId("tableContainer");
-		tableContainer.setStyle("-fx-border-color: black");
-		tableContainer.prefWidthProperty().bind(masterContainer.widthProperty());
 	}
 	
 	/**
@@ -89,12 +87,6 @@ public class CollectionTable extends ScrollPane{
 			nameCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("feeName"));
 
 			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, Double>("price"));
-			
-			//ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(types.get(i)));
-			
-
-			priceCol.setCellValueFactory(new PropertyValueFactory <Fee, String>("price"));
-			System.out.println("ohh hi mark "+model.filterType(Fee.FEETYPE[i]).size());
 			ObservableList<Fee> data = FXCollections.observableArrayList(model.filterType(Fee.FEETYPE[i]));
 
 			nameCol.setId("hiddenCol");

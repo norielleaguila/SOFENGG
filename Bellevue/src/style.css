@@ -8,6 +8,11 @@
 	-fx-font-family: "Segoe UI";
 }
 
+.button{
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
+
 .scroll-pane{
 	-fx-background-color: white;
 	-fx-border-width: 0;
@@ -199,9 +204,33 @@
 }
 
 #closePopup{
-	-fx-background-color: #efd158;
+	-fx-background-color: #eebe59;
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
 	-fx-border-radius: 200px;
 	-fx-background-radius: 200px;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 5 );
 }
+
+#acLayout, #popup{
+	-fx-background-color: white;
+	-fx-padding: 10px;
+	-fx-border-width: 1px;
+	-fx-border-color: lightgrey;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.7) , 2, 0.0 , 0 , 5);
+}
+
+#tfPopup{
+	-fx-border-color: grey;
+}
+
+#lblPopup{
+	-fx-text-fill: grey;
+	-fx-font-size: 12px;
+}
+
+#addPopup{
+	-fx-background-color:#F95959;
+	-fx-text-fill: white;
+}
+

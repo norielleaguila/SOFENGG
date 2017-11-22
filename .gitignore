@@ -75,3 +75,4 @@ local.properties
 *.zip
 .metadata/.mylyn/.tasks.xml.zip
 .metadata/.plugins/org.eclipse.core.resources/.projects/Vers1/.indexes/e4/6e/history.index
+Bellevue/.classpath
