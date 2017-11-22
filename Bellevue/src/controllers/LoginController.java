@@ -60,7 +60,7 @@ public class LoginController extends Controller{
 
 		Account temp = DBaccess.login(view.getUsernameField().getText(), view.getPasswordField().getText());
 		if(temp!=null){
-			super.account = temp;
+			account = temp;
 			pass=true;
 		}
 		System.out.println(pass);
