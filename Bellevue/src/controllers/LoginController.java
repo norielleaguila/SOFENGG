@@ -47,7 +47,7 @@ public class LoginController extends Controller{
 		boolean pass = false;
 		
 		// checks if there is a matching account in the db
-		for(int i = 0; i < model.getAccounts().size() && !pass; i++){
+		/*for(int i = 0; i < model.getAccounts().size() && !pass; i++){
 			if(model.exists(view.getUsernameField().getText())){
 				if(model.verifyAccount(view.getUsernameField().getText(), view.getPasswordField().getText())){
 					view.setNotif("Welcome, " + view.getUsernameField().getText() + "!");
@@ -55,13 +55,14 @@ public class LoginController extends Controller{
 					pass = true;
 				}
 			}
-		}
+		}*/
 		
 
 		Account temp = DBaccess.login(view.getUsernameField().getText(), view.getPasswordField().getText());
-		if(temp!=null)
+		if(temp!=null){
 			super.account = temp;
 			pass=true;
+		}
 		System.out.println(pass);
 		/* empty field failure condition */
 		if(!pass){

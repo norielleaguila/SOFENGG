@@ -60,7 +60,7 @@ public class UnitTabController extends Controller{
 					@Override
 					public void onAction(Unit unit) {
 						// place all action things here
-						Label unitnumLabel, ownerLabel, ownerLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
+						Label unitnumLabel, ownerLabel, ownerLabel2, tctLabel, tctLabel2, lotsizeLabel, lotsizeLabel2, totalfeeLabel, totalfeeLabel2;
 						AnchorPane unitPane;
 //						Scene unitScene;
 //						Stage unitStage;
@@ -74,11 +74,17 @@ public class UnitTabController extends Controller{
 						ownerLabel = new Label("Owner: ");
 						ownerLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
+						tctLabel = new Label("TCT: ");
+						tctLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+						
 						lotsizeLabel = new Label("Lot size: ");
 						lotsizeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
 						ownerLabel2 = new Label(unit.getBilledTo());
 						ownerLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+						
+						tctLabel2 = new Label();
+						tctLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 						
 						lotsizeLabel2 = new Label();
 						lotsizeLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
@@ -102,11 +108,11 @@ public class UnitTabController extends Controller{
 						VBox ownerlotsizeVBox2 = new VBox();
 						VBox totalfeeVBox = new VBox();
 						
-						ownerlotsizeVBox.getChildren().addAll(ownerLabel, lotsizeLabel);
+						ownerlotsizeVBox.getChildren().addAll(ownerLabel, tctLabel,lotsizeLabel);
 						ownerlotsizeVBox.setPrefHeight(20);
 						ownerlotsizeVBox.setAlignment(Pos.BOTTOM_LEFT);
 						
-						ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, lotsizeLabel2);
+						ownerlotsizeVBox2.getChildren().addAll(ownerLabel2, tctLabel2,lotsizeLabel2);
 						ownerlotsizeVBox2.setPrefHeight(20);
 						ownerlotsizeVBox2.setAlignment(Pos.BOTTOM_RIGHT);
 						
