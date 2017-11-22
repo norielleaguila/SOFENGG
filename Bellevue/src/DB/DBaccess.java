@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javafx.scene.control.Label;
 import models.Account;
+import models.Collection;
 import models.Fee;
 import models.Unit;
 public class DBaccess {
@@ -31,6 +32,26 @@ public class DBaccess {
 			while(rs.next()){
 				retval.add(new Unit(rs.getInt(1),rs.getString(2),rs.getString(3),
 						rs.getInt(4),rs.getString(5),rs.getFloat(6),rs.getInt(8)));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return retval;
+	}
+	
+	public static ArrayList<Collection> getCollectionData(){
+		ArrayList<Collection> retval= new ArrayList<Collection>();
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT * from collection";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				retval.add(new Collection(rs.getInt(1),rs.getString(2),rs.getString(3)));
 			}
 			connect();
 		} catch (ClassNotFoundException e) {

@@ -27,6 +27,7 @@ public class CollectionTabController extends Controller{
 	@Override
 	public void setUpButtons() {
 		initAddCategory();
+		initCollectionDialog();
 	}
 	
 	public void initAddCategory(){

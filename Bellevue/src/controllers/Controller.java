@@ -1,6 +1,7 @@
 package controllers;
 
 import views.View;
+import DB.DBaccess;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Account;
@@ -61,7 +62,7 @@ public abstract class Controller{
 	public FeeList getFeesModel(){
 		// query db
 		
-		FeeList model = new FeeList();
+		FeeList model = new FeeList(DBaccess.getFees());
 		
 		return model;
 	}
@@ -69,7 +70,7 @@ public abstract class Controller{
 	public UnitList getUnitsModel(){
 		// query db
 		
-		UnitList model = new UnitList();
+		UnitList model = new UnitList(DBaccess.getUnitsData());
 		
 		return model;
 	}
@@ -85,7 +86,7 @@ public abstract class Controller{
 	public CollectionList getCollectionModel(){
 		// query db
 		
-		CollectionList model = new CollectionList();
+		CollectionList model = new CollectionList(DB.DBaccess.getCollectionData());
 		
 		return model;
 	}
