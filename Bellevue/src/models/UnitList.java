@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import DB.DBaccess;
+
 public class UnitList extends Model{
 	private ArrayList<Unit> units;
 	
@@ -35,9 +37,10 @@ public class UnitList extends Model{
 	}
 	
 	private void createDummyData(){
-		units.add(new Unit(Unit.NUM_UNITS, "Alfonso Secuya", "Alfonso Secuya", 17, "France", 123.0f, 1));
-		units.add(new Unit(Unit.NUM_UNITS, "Norielle Aguila", "Norielle Aguila", 17, "Malaysia", 123.0f, 1));
-		units.add(new Unit(Unit.NUM_UNITS, "Raafi Bandrang", "Raafi Bandrang", 17, "Lebanon", 123.0f, 1));
+		units.addAll(DBaccess.getUnitsData());
+		//units.add(new Unit(Unit.NUM_UNITS, "Alfonso Secuya", "Alfonso Secuya", 17, "France", 123.0f, 1));
+		//units.add(new Unit(Unit.NUM_UNITS, "Norielle Aguila", "Norielle Aguila", 17, "Malaysia", 123.0f, 1));
+		//units.add(new Unit(Unit.NUM_UNITS, "Raafi Bandrang", "Raafi Bandrang", 17, "Lebanon", 123.0f, 1));
 	}
 	
 }

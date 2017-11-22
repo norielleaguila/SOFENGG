@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import DB.DBaccess;
+
 /**
  * 
  * @author AGUILA, Norielle
@@ -13,7 +15,7 @@ public class FeeList extends Model{
 	
 	public FeeList(){
 		fees = new ArrayList<Fee>();
-		createDummyData();
+		getFeeData();
 		sortByType();
 	}
 	
@@ -54,23 +56,7 @@ public class FeeList extends Model{
 	 * Sorts the arraylist fees by type, in any order
 	 * returns an arraylist of strings, containing all types
 	 */
-	public ArrayList<String> getTypes(){
-		ArrayList<String> types = new ArrayList<>();
-		
-		types.add(fees.get(0).getType());
-		
-		// start at index 1
-		for(int i = 1; i < fees.size() - 1; i++){
-			String curr = fees.get(i).getType();
-			String next = fees.get(i + 1).getType();
 
-			if(!curr.equals(next)){
-				types.add(next);
-			}
-		}
-
-		return types;
-	}
 	
 	public ArrayList<Fee> sortByType(){
 		fees.sort((f1, f2) -> {
@@ -106,5 +92,12 @@ public class FeeList extends Model{
 		fees.add(new Fee(2, "Others", "Others", 0));
 		fees.add(new Fee(3, "Electricity", "Basic Charges", 5000));
 		fees.add(new Fee(3, "Lmao", "New Category", 123));
+	private void getFeeData(){
+		/*
+		fees.add(new Fee(0, "Monthly Dues", "Basic Charges", 2500));
+		fees.add(new Fee(1, "Trash Bags", "Basic Charges", 100));
+		fees.add(new Fee(2, "Others", "Others", 0));
+		fees.add(new Fee(3, "Electricity", "Basic Charges", 5000));*/
+		fees.addAll(DBaccess.getFees());
 	}
 }

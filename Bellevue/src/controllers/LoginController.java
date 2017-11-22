@@ -1,5 +1,6 @@
 package controllers;
 
+import DB.DBaccess;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import models.Account;
@@ -56,6 +57,12 @@ public class LoginController extends Controller{
 			}
 		}
 		
+
+		Account temp = DBaccess.login(view.getUsernameField().getText(), view.getPasswordField().getText());
+		if(temp!=null)
+			super.account = temp;
+			pass=true;
+		System.out.println(pass);
 		/* empty field failure condition */
 		if(!pass){
 			if(view.getUsernameField().getText().equals("") || view.getUsernameField().getText() == null){
