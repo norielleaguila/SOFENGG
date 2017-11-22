@@ -16,6 +16,12 @@ public class Collection{
 	public Collection(){
 		super();
 	}
+	
+	public Collection(int unitNo, String datePaid, String dateBilled){
+		this.unitNo = unitNo;
+		this.datePaid = datePaid;
+		this.dateBilled = dateBilled;
+	}
 
 	public int getUnitNo() {
 		return unitNo;

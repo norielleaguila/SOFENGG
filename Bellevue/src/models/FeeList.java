@@ -99,6 +99,6 @@ public class FeeList extends Model{
 		fees.add(new Fee(1, "Trash Bags", "Basic Charges", 100));
 		fees.add(new Fee(2, "Others", "Others", 0));
 		fees.add(new Fee(3, "Electricity", "Basic Charges", 5000));*/
-		fees.addAll(DBaccess.getFees());
+//		fees.addAll(DBaccess.getFees());
 	}
 }

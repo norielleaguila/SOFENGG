@@ -37,7 +37,7 @@ public class UnitList extends Model{
 	}
 	
 	private void createDummyData(){
-		units.addAll(DBaccess.getUnitsData());
+//		units.addAll();
 		//units.add(new Unit(Unit.NUM_UNITS, "Alfonso Secuya", "Alfonso Secuya", 17, "France", 123.0f, 1));
 		//units.add(new Unit(Unit.NUM_UNITS, "Norielle Aguila", "Norielle Aguila", 17, "Malaysia", 123.0f, 1));
 		//units.add(new Unit(Unit.NUM_UNITS, "Raafi Bandrang", "Raafi Bandrang", 17, "Lebanon", 123.0f, 1));

@@ -13,7 +13,7 @@ public class AccountList extends Model{
 	
 	public AccountList(){
 		accounts = new ArrayList<Account>();
-		createDummyData();
+//		createDummyData();
 	}
 	
 	public AccountList(ArrayList<Account> accounts){
