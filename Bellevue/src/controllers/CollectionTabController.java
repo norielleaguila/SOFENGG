@@ -36,7 +36,7 @@ public class CollectionTabController extends Controller{
 
 			@Override
 			public void onAction(String category) {
-				model.addFee(new Fee(category));
+				Fee.addType(category);
 				
 				ac.hide();
 				

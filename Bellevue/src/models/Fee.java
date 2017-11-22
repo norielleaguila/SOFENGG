@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import DB.DBaccess;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -19,22 +22,24 @@ public class Fee{
 //	private String feeName;
 //	private String type;
 //	private double price;
-	public static String[] FEETYPE={"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
-			"Special Activities and Events"};
+	public static ArrayList<String> FEETYPE;
 	private IntegerProperty feeID;
 	private StringProperty feeName;
 	private StringProperty type;
 	private DoubleProperty price;
 	
-	public static void addType(String type){
-		
-	}
 	public Fee(){
-//		super();
+		String[] startTypes = new String[]{"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
+				"Special Activities and Events"};
+		
 		feeID = new SimpleIntegerProperty();
 		feeName = new SimpleStringProperty();
 		type = new SimpleStringProperty();
 		price = new SimpleDoubleProperty();
+		
+		FEETYPE = new ArrayList<>();
+		
+		FEETYPE.addAll(Arrays.asList(startTypes));
 	}
 	
 	public Fee(String feeName, String type, double price){
@@ -74,42 +79,7 @@ public class Fee{
 	public double getPrice () { return price.get (); }
 	public DoubleProperty priceProperty () { return price; }
 	
-//	public Fee(int feeID, String feeName, String type, double price){
-//		this.feeID = feeID;
-//		this.feeName = feeName;
-//		this.type = type;
-//		this.price = price;
-//	}
-//
-//	public int getFeeID() {
-//		return feeID;
-//	}
-//
-//	public void setFeeID(int feeID) {
-//		this.feeID = feeID;
-//	}
-//
-//	public String getFeeName() {
-//		return feeName;
-//	}
-//
-//	public void setFeeName(String feeName) {
-//		this.feeName = feeName;
-//	}
-//
-//	public String getType() {
-//		return type;
-//	}
-//
-//	public void setType(String type) {
-//		this.type = type;
-//	}
-//	
-//	public double getPrice(){
-//		return price;
-//	}
-//	
-//	public void setPrice(double price){
-//		this.price = price;
-//	}
+	public static void addType(String type){
+		FEETYPE.add(type);
+	}
 }
