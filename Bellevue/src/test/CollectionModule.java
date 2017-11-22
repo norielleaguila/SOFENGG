@@ -24,7 +24,7 @@ public class CollectionModule extends Application{
 		
 		TabPane layout = new TabPane();
 		
-		CollectionTab tab = new CollectionTab(fees);
+		CollectionTab tab = new CollectionTab(fees,window);
 		
 		layout.getTabs().add(new Tab("COLLECTION", tab));
 		
