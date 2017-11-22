@@ -208,13 +208,15 @@ public class UnitTabController extends Controller{
 						RadioButton unpaidRadio = new RadioButton("Unpaid");
 						paidRadio.setToggleGroup(paidToggle);
 						unpaidRadio.setToggleGroup(paidToggle);
-						paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
-						/*if(!collectionModel.getUnit(unit.getUnitNo()).isOverdue())
+						
+						//paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
+						if(!collectionModel.getUnit(unit.getUnitNo()).isOverdue())
 							paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
 						else{
 							paidLabel.setText("OVERDUE");
 							paidHBox.getChildren().addAll(paidLabel);
-						}*/
+						}
+						
 						paidHBox.setAlignment(Pos.CENTER_LEFT);
 						paidHBox.setSpacing(10);
 						
