@@ -95,9 +95,14 @@ public class CollectionTab extends Tabs{
 		editBtn.setContextMenu(menu);
 		
 		// put this in the controller instead of in here
-		editBtn.setOnAction(e -> {
+//		editBtn.setOnAction(e -> {
+//			menu.show(editBtn, Side.TOP, editBtn.getTranslateX(), editBtn.getTranslateY());
+//		});
+	}
+	
+	public void allow(int accountType){
+		if(accountType == 1)
 			menu.show(editBtn, Side.TOP, editBtn.getTranslateX(), editBtn.getTranslateY());
-		});
 	}
 	
 	public void initRightPane(){
@@ -146,6 +151,10 @@ public class CollectionTab extends Tabs{
 	
 	public CollectionDialog getCD(){
 		return cddialog;
+	}
+	
+	public Button getEditButton(){
+		return editBtn;
 	}
 	
 	public void update(){

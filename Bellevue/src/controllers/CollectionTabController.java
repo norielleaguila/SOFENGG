@@ -29,6 +29,10 @@ public class CollectionTabController extends Controller{
 	public void setUpButtons() {
 		initAddCategory();
 		initCollectionDialog();
+		
+		view.getEditButton().setOnAction( e -> {
+			view.allow(account.getType());
+		});
 	}
 	
 	public void initAddCategory(){

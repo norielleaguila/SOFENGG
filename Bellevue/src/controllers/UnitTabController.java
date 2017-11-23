@@ -247,7 +247,7 @@ public class UnitTabController extends Controller{
 						
 						printButton.setPrefWidth(200);
 						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
-						addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+						addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;-fx-border-insets:10px;");
 						printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 						
 						paidToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
