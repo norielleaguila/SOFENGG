@@ -146,15 +146,15 @@
 }
 
 #paid{
-	-fx-background-color: green;
+	-fx-background-color: #3F561E;
 }
 
 #unpaid{
-	-fx-background-color: grey;
+	-fx-background-color: #95989A;
 }
 
 #overdue{
-	-fx-background-color: red;
+	-fx-background-color: #FF0606;
 }
 
 #unitOwnerLbl{

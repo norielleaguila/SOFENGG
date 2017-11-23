@@ -152,6 +152,7 @@ public class CollectionDialog extends Popup {
 			getChildren ().add (categoryLbl);
 			getChildren ().add (categoryCB);
 		}
+		
 		public void updateCat(){
 			for(Node child:getChildren()){
 				if(child instanceof ComboBox){

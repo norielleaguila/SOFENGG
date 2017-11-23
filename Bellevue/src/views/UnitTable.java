@@ -57,8 +57,8 @@ public class UnitTable implements ViewInterface{
 		});
 	}
 	
-	public void addRow(int unitNum, String billedTo, String status){
-		units.addRow(new UnitRow(unitNum, billedTo, status));
+	public void addRow(int unitNum, String billedTo){
+		units.addRow(new UnitRow(unitNum, billedTo));
 	}
 	
 	public void addRow(Unit unit){
@@ -82,7 +82,7 @@ public class UnitTable implements ViewInterface{
 	 * When a unit is updated in the db, call this method to update the table
 	 */
 	public void updateRow(Unit unit){
-//		units.getRow(unit)
+		units.getRow(unit).update();
 	}
 
 	@Override

@@ -24,8 +24,14 @@ public class Unit{
 	
 	private FeesIncurred feesIncurred;
 	
+	private boolean paid;
+	private boolean overdue;
+	
 	public Unit(){
 		feesIncurred = new FeesIncurred();
+		
+		paid = false;
+		overdue = false;
 		
 		NUM_UNITS++;
 	}
@@ -116,6 +122,22 @@ public class Unit{
 	
 	public void removeFeeIncurred(Fee incurred){
 		this.feesIncurred.removeFee(incurred);
+	}
+	
+	public boolean isPaid(){
+		return paid;
+	}
+	
+	public void setPaid(boolean paid){
+		this.paid = paid;
+	}
+	
+	public boolean isOverdue(){
+		return overdue;
+	}
+	
+	public void setOverdue(boolean overdue){
+		this.overdue = overdue;
 	}
 	
 	// VERS. 2.0 DATA SECURITY

@@ -12,17 +12,21 @@ public class Collection{
 	private int unitNo;
 	private String datePaid;
 	private String dateBilled;
+	private int CollectionID;
 	
 	public Collection(){
 		super();
 	}
 	
-	public Collection(int unitNo, String datePaid, String dateBilled){
+	public Collection(int CollectionID,int unitNo, String datePaid, String dateBilled){
 		this.unitNo = unitNo;
 		this.datePaid = datePaid;
 		this.dateBilled = dateBilled;
+		this.CollectionID=CollectionID;
 	}
-
+	public int getCollectionID(){
+		return this.CollectionID;
+	}
 	public int getUnitNo() {
 		return unitNo;
 	}
@@ -48,15 +52,25 @@ public class Collection{
 	}
 	
 	public boolean isPaid(){
-		if(Integer.parseInt(dateBilled.split("-")[1]) == Integer.parseInt(datePaid.split("-")[1]))
-			return true;
+		if(datePaid != null){
+//			if(Integer.parseInt(dateBilled.split("-")[1]) == Integer.parseInt(datePaid.split("-")[1]))
+				return true;
+		}
 		return false;
 	}
 	
 	public boolean isOverdue(){
-		String splitDatePaid = datePaid.substring(0, 10);
-		System.out.println(splitDatePaid);
-		if(Integer.parseInt(splitDatePaid.split("-")[2]) <= 15)
+		if(isPaid())
+			return false;
+		
+		if(datePaid != null){
+			String splitDatePaid = datePaid.substring(0, 10);
+			System.out.println(splitDatePaid);
+			if(Integer.parseInt(splitDatePaid.split("-")[2]) > 15)
+				return true;
+			return false;
+		}
+		if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15)
 			return true;
 		return false;
 	}
