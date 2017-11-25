@@ -65,6 +65,8 @@ public class UnitTabController extends Controller{
 	public void setUpButtons() {
 		ArrayList<UnitRow> rows = view.getTable().getUnitList().getAllRows();
 		
+		boolean changed = false;
+		
 		if(rows != null){
 			for(UnitRow row: rows){
 				row.setViewBtnListener(new UnitRow.viewBtnlistener() {
@@ -246,18 +248,26 @@ public class UnitTabController extends Controller{
 						addButton.setPrefWidth(200);
 						
 						printButton.setPrefWidth(200);
+						
 						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 						addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 						printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 						
 						paidToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
 						    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
-						         if (paidToggle.getSelectedToggle() != null) {
-						             System.out.println(paidToggle.getSelectedToggle().toString());
-						             saveButton.setDisable(false);
-						             saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
-						         }
+						        
+						    	
+						         
 						     }
+						});
+						unpaidRadio.setOnAction(e -> {
+							saveButton.setDisable(false);
+					        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+						});
+						
+						paidRadio.setOnAction(e -> {
+							saveButton.setDisable(false);
+					        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 						});
 						
 						if(collectionModel.getUnit(unit.getUnitNo()).isPaid())
