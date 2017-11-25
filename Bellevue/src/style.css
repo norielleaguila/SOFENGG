@@ -220,6 +220,7 @@
 	-fx-background-radius: 200px;
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 1);
 }
 
 #closePopup{
