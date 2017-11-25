@@ -210,12 +210,26 @@ public class UnitTabController extends Controller{
 						unpaidRadio.setToggleGroup(paidToggle);
 						
 						//paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
-						if(!collectionModel.getUnit(unit.getUnitNo()).isOverdue())
-							paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
-						else{
-							paidLabel.setText("OVERDUE");
-							paidHBox.getChildren().addAll(paidLabel);
+						
+						
+						if(collectionModel.getUnit(unit.getUnitNo()).isPaid()){
+							paidLabel.setText("PAID");
+							paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#618E21;");
+							row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#3F561E");
 						}
+						else if(collectionModel.getUnit(unit.getUnitNo()).isOverdue()){
+							paidLabel.setText("OVERDUE");
+							paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#F95959;");
+							row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#FF0606");
+						}
+						else{
+							paidLabel.setText("UNPAID");
+							paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");	
+							row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
+						}
+							
+
+						paidHBox.getChildren().addAll(paidLabel,paidRadio,unpaidRadio);
 						
 						paidHBox.setAlignment(Pos.CENTER_LEFT);
 						paidHBox.setSpacing(10);
@@ -246,13 +260,41 @@ public class UnitTabController extends Controller{
 						     }
 						});
 						
+						if(collectionModel.getUnit(unit.getUnitNo()).isPaid())
+							paidToggle.selectToggle(paidRadio);
+						else
+							paidToggle.selectToggle(unpaidRadio);
+						
 						saveButton.setOnAction(e -> {
+							
 							if(paidRadio.isSelected()){
-								System.out.println("PAID IS SELECTED");
+								collectionModel.getUnit(unit.getUnitNo()).setDatePaid(java.time.LocalDateTime.now().toString().split("T")[0]);
+								unit.setPaid(true);
+								paidLabel.setText("PAID");
+								paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#618E21;");
+								row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#3F561E");
+								DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
 							}
 							else{
-								System.out.println("UNPAID IS SELECTED");
+								if(account.getType() == 1){
+									collectionModel.getUnit(unit.getUnitNo()).setDatePaid(null);
+									unit.setPaid(false);
+									paidLabel.setText("UNPAID");
+									paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");
+									
+									DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
+									
+									if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15){
+										row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#FF0606");
+										unit.setOverdue(true);
+									}
+										
+									else
+										row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
+								}
 							}
+//							view.update();
+							
 						});
 						
 						buttonsHBox.getChildren().addAll(saveButton,addButton,printButton);
@@ -272,6 +314,7 @@ public class UnitTabController extends Controller{
 						
 						close.setOnAction(e -> {
 							unitPopup.hide();
+							row.update();
 						});
 
 					}

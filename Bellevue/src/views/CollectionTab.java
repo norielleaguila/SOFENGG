@@ -113,6 +113,7 @@ public class CollectionTab extends Tabs{
 	public void executeSelection(int index){
 		switch(index){
 		case 0:
+			cddialog.updateCat();
 			cddialog.show(window);
 			acdialog.setX(200);
 			acdialog.setY(200);

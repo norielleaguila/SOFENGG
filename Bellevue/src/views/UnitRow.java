@@ -11,7 +11,7 @@ import models.Unit;
 /**
  * @author AGUILA, Norielle
  */
-public class UnitRow extends HBox {
+public class UnitRow extends HBox implements ViewInterface{
 	
 	public static int rowNum = 0;
 	
@@ -26,7 +26,7 @@ public class UnitRow extends HBox {
 	
 	private viewBtnlistener vbl;
 	
-	public UnitRow(int unitNum, String billedTo, String status){
+	public UnitRow(int unitNum, String billedTo){
 		super();
 		
 		this.setAlignment(Pos.CENTER);
@@ -38,18 +38,6 @@ public class UnitRow extends HBox {
 		billedToLbl = new Label(billedTo);
 		statusLbl = new Label();
 		
-		switch(status.toLowerCase()){
-		case "p":
-			statusLbl.setId("paid");
-			break;
-		case "u":
-			statusLbl.setId("unpaid");
-			break;
-		case "o":
-			statusLbl.setId("overdue");
-			break;
-		}
-		
 		this.getStylesheets().add("style.css");
 		
 		initLayout();
@@ -57,8 +45,10 @@ public class UnitRow extends HBox {
 	}
 	
 	public UnitRow(Unit unit){
-		this(unit.getUnitNo(), unit.getBilledTo(), "U");
+		this(unit.getUnitNo(), unit.getBilledTo());
 		this.unit = unit;
+		
+		updateColor();
 	}
 	
 	public void initStatus(){
@@ -118,7 +108,6 @@ public class UnitRow extends HBox {
 	}
 
 	public interface viewBtnlistener {
-//		public void onAction (int unitNo);
 		public void onAction (Unit unit);
 	}
 
@@ -138,8 +127,12 @@ public class UnitRow extends HBox {
 		return billedToLbl.getText();
 	}
 	
-	public String getStats(){
+	public String getStatus(){
 		return statusLbl.getText();
+	}
+	
+	public Label getStatusLabel(){
+		return statusLbl;
 	}
 	
 	public Button getViewBtn(){
@@ -152,5 +145,25 @@ public class UnitRow extends HBox {
 	
 	public void setStatus(String status){
 		statusLbl.setText(status);
+	}
+
+	@Override
+	public void update() {
+		this.getChildren().clear();
+		updateColor();
+		initLayout();
+	}
+	
+	public void updateColor(){
+		if(unit.isPaid()){
+			statusLbl.setId("paid");
+		}
+		else if(unit.isOverdue()){
+			statusLbl.setId("overdue");
+		}
+		else{
+			statusLbl.setId("unpaid");
+		}
+		
 	}
 }

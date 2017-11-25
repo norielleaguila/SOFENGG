@@ -63,6 +63,11 @@ public class Fee{
 		this.price.set(price);
 	}
 	
+	public static void initType(){
+		FEETYPE=DBaccess.getTypes();
+	}
+	
+	
 	public void setFeeID (int id) { feeID.set (id); }
 	public int getFeeID () { return feeID.get (); }
 	public IntegerProperty feeIDProperty () { return feeID; }
@@ -80,6 +85,7 @@ public class Fee{
 	public DoubleProperty priceProperty () { return price; }
 	
 	public static void addType(String type){
+		DBaccess.addType(type);
 		FEETYPE.add(type);
 	}
 }

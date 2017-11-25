@@ -6,9 +6,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Account;
 import models.AccountList;
+import models.Collection;
 import models.CollectionList;
 import models.FeeList;
 import models.Model;
+import models.Unit;
 import models.UnitList;
 
 public abstract class Controller{
@@ -71,6 +73,15 @@ public abstract class Controller{
 		// query db
 		
 		UnitList model = new UnitList(DBaccess.getUnitsData());
+		
+		CollectionList colModel = getCollectionModel();
+		
+		for(Unit unit: model.getUnits()){
+			if(colModel.getUnit(unit.getUnitNo())!= null){
+				unit.setPaid(colModel.getUnit(unit.getUnitNo()).isPaid());
+				unit.setOverdue(colModel.getUnit(unit.getUnitNo()).isOverdue());
+			}
+		}
 		
 		return model;
 	}

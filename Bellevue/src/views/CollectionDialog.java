@@ -2,11 +2,13 @@
 
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import models.Fee;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
 public class CollectionDialog extends Popup {
-	
+	private CollectionLayout cl;
 	public CollectionDialog () {
 		super ();
 		
@@ -14,7 +16,8 @@ public class CollectionDialog extends Popup {
 	}
 	
 	private void initLayout () {
-		getContent ().addAll (new CollectionLayout ());
+		cl=new CollectionLayout ();
+		getContent ().addAll (cl);
 	}
 
 	private OnAddEventHandler onAddEventHandler;
@@ -150,6 +153,17 @@ public class CollectionDialog extends Popup {
 			getChildren ().add (categoryCB);
 		}
 		
+		public void updateCat(){
+			for(Node child:getChildren()){
+				if(child instanceof ComboBox){
+					ComboBox<String> temp=((ComboBox)child);
+					temp.getItems().clear();
+					temp.getItems().addAll(Fee.FEETYPE);
+				}
+			}
+			
+		}
+		
 		private void initAdd () {
 			multiplier += 1;
 			int width = 150, height = 25;
@@ -172,6 +186,12 @@ public class CollectionDialog extends Popup {
 			
 			getChildren ().add (addBtn);
 		}
+		
+	}
+	public void updateCat() {
+		//String latest=Fee.FEETYPE.get(Fee.FEETYPE.size()-1);
+		cl.updateCat();
+		// TODO Auto-generated method stub
 		
 	}
 	

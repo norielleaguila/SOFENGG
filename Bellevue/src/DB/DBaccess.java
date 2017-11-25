@@ -17,7 +17,7 @@ public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull";
 	static final String USER = "root";
-	static final String PASS = "0825";
+	static final String PASS = "1234";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -51,7 +51,7 @@ public class DBaccess {
 			String sql = "SELECT * from collection";
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				retval.add(new Collection(rs.getInt("UnitNo"),rs.getString("DatePaid"),rs.getString("BillingDate")));
+				retval.add(new Collection(rs.getInt("CollectionID"),rs.getInt("UnitNo"),rs.getString("DatePaid"),rs.getString("BillingDate")));
 			}
 			connect();
 		} catch (ClassNotFoundException e) {
@@ -162,6 +162,75 @@ public class DBaccess {
 		
 		return retval;
 	}
+	public static ArrayList<String> getTypes(){
+		ArrayList<String> retval = new ArrayList<String>();
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT type FROM category;" ;
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				retval.add(rs.getString("Type"));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		return retval;
+	}
+	public static boolean changeStatus(Collection c){
+		boolean retval=false;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql="";
+
+//			System.out.println("dfad" + c.getDatePaid() == null + "\n" + c.getDatePaid());
+			if(c.getDatePaid()!=null){
+				sql = "UPDATE collection SET DatePaid= '"+ c.getDatePaid()  +"' WHERE CollectionID="+c.getCollectionID()+ ";";
+			}else{
+				sql = "UPDATE collection SET DatePaid=null WHERE CollectionID="+c.getCollectionID()+ ";";
+			}
+		
+			int num=stmt.executeUpdate(sql);
+			if(num>0)
+				retval =true;
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return retval;
+	}
+	public static Boolean addType(String type){
+		if(Fee.FEETYPE.contains(type))
+			return false;
+		boolean retval=false;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "INSERT INTO category (`type`) VALUES ('"+type+"');" ;
+			int rs = stmt.executeUpdate(sql);
+			if(rs>0)
+				retval=true;
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return retval;
+	}
 	public static boolean addFee(Fee f){
 		boolean retval=false;
 		try {
@@ -182,12 +251,12 @@ public class DBaccess {
 		}
 		return retval;
 	}
-	/*
-	private Date getcurrentDate(){
-		
+	
+	private static String getcurrentDate(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		return dateFormat.format(date);
-	}*/
+	}
 	/*
 	public static String getStatus(int UnitNo){
 		try {
