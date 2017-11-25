@@ -253,13 +253,6 @@ public class UnitTabController extends Controller{
 						addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 						printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 						
-						paidToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-						    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
-						        
-						    	
-						         
-						     }
-						});
 						unpaidRadio.setOnAction(e -> {
 							saveButton.setDisable(false);
 					        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
@@ -269,6 +262,9 @@ public class UnitTabController extends Controller{
 							saveButton.setDisable(false);
 					        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 						});
+						
+						if(account.getType() != 1)
+							unpaidRadio.setDisable(true);
 						
 						if(collectionModel.getUnit(unit.getUnitNo()).isPaid())
 							paidToggle.selectToggle(paidRadio);
