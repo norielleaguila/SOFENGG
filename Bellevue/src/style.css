@@ -253,3 +253,15 @@
 	-fx-text-fill: white;
 }
 
+#cd_error{
+	-fx-padding: 5px;
+	-fx-border-width: 1px;
+	-fx-border-radius: 1px;
+	-fx-border-color: lightgrey;
+	-fx-alignment: CENTER;
+}
+
+#cd_error_hidden{
+	-fx-border-width: 0px;
+}
+
