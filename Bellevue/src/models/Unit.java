@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import DB.DBaccess;
 
 /**
- * Unit class
- * 
+ * Contains all information about each Unit in Bellevue such as unit number,
+ * unit owner, lot owner, address, lot area, and phase number. 
+ * <br>
+ * TCT (lot owner) and lot area are not accessible to any account types other than admins.
  * @author AGUILA, Norielle
  *
  */

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import DB.DBaccess;
 
 /**
- * 
- * @author Aguila, Norielle
- *
+ * Model class for the {@code Unit} object. Contains all logic and data manipulation for {@code Unit}
+ * @author AGUILA, Norielle
+ * @see Unit Unit class
  */
 
 public class UnitList extends Model{
@@ -113,6 +113,9 @@ public class UnitList extends Model{
 		return filterResults;
 	}
 	
+	/**
+	 * @return Returns all units that have paid their current bill.
+	 */
 	public ArrayList<Unit> getAllPaidUnits(){
 		ArrayList<Unit> paidUnits = new ArrayList<Unit>();
 		
@@ -124,6 +127,9 @@ public class UnitList extends Model{
 		return paidUnits;
 	}
 	
+	/**
+	 * @return Returns all units that have not paid their current bill.
+	 */
 	public ArrayList<Unit> getAllUnpaidUnits(){
 		ArrayList<Unit> paidUnits = new ArrayList<Unit>();
 		
