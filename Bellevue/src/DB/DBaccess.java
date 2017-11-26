@@ -15,7 +15,6 @@ import models.Fee;
 import models.Unit;
 public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	static final String USER = "root";
 	static final String PASS = "1234";
