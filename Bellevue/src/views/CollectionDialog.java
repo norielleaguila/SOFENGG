@@ -225,7 +225,6 @@ public class CollectionDialog extends Popup {
 					temp.getItems().addAll(Fee.FEETYPE);
 				}
 			}
-			
 		}
 		
 		public void displayError(int errorCode){
