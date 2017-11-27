@@ -11,7 +11,7 @@ import DB.DBaccess;
  */
 
 public class FeeList extends Model{
-	private ArrayList<Fee> fees;
+	public static ArrayList<Fee> fees;
 	
 	public FeeList(){
 		fees = new ArrayList<Fee>();

@@ -31,8 +31,10 @@ import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.Collection;
 import models.CollectionList;
 import models.Fee;
+import models.FeeIncurred;
 import models.Unit;
 import models.UnitList;
 import views.UnitRow;
@@ -77,6 +79,7 @@ public class UnitTabController extends Controller{
 						Popup unitPopup;
 						unitPane = new AnchorPane();
 						unitPopup = new Popup();
+						Collection collection=collectionModel.getUnit(unit.getUnitNo());
 						
 						unitnumLabel = new Label("UNIT#" + unit.getUnitNo());
 						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
@@ -108,7 +111,7 @@ public class UnitTabController extends Controller{
 						totalfeeLabel = new Label("Total Fee");
 						totalfeeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
 						
-						totalfeeLabel2 = new Label("Sample total fee");
+						totalfeeLabel2 = new Label(collection.getTotal()+"");
 						totalfeeLabel2.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;");
 						
 						Button close = new Button("X");
@@ -164,24 +167,33 @@ public class UnitTabController extends Controller{
 						unitTable.getStylesheets().add("style.css");
 						
 						TableColumn itemCol = new TableColumn("ITEM");
+						TableColumn noCol = new TableColumn("No.");
 						TableColumn feeCol = new TableColumn("FEE");
 						
+
+						itemCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+						noCol.setCellValueFactory(new PropertyValueFactory<>("times"));
+						feeCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+						
 						unitTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-						itemCol.prefWidthProperty().bind(unitTable.widthProperty().multiply(0.7));
+						
+						itemCol.prefWidthProperty().bind(unitTable.widthProperty().multiply(0.6));
 						feeCol.prefWidthProperty().bind(unitTable.widthProperty().multiply(0.3));
-						itemCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.7));
+						noCol.prefWidthProperty().bind(unitTable.widthProperty().multiply(0.1));
+						itemCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.6));
 						feeCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.3));
+						noCol.minWidthProperty().bind(unitTable.widthProperty().multiply(0.1));
 						
-						itemCol.setCellValueFactory(new PropertyValueFactory <String, String>("temp"));
+						//itemCol.setCellValueFactory(new PropertyValueFactory <String, String>("temp"));
 						
-						ObservableList<String> itemsList = FXCollections.observableArrayList();
+						ObservableList<FeeIncurred> itemsList = FXCollections.observableArrayList(collection.getAllFee());
 						ObservableList<Double> feeList = FXCollections.observableArrayList();
-						StringProperty temp = new SimpleStringProperty();
-						temp.set("Monthly Fee");
-						String temp2 = "Monthly Fee";
-						itemsList.add(temp2);
+						//sStringProperty temp = new SimpleStringProperty();
+						//temp.set("Monthly Fee");
+						//String temp2 = "Monthly Fee";
+						//itemsList.add(temp2);
 						
-						unitTable.getColumns().addAll(itemCol, feeCol);
+						unitTable.getColumns().addAll(itemCol, noCol,feeCol);
 						
 						itemCol.getStyleClass().add("popupTable");
 						feeCol.getStyleClass().add("popupTable");

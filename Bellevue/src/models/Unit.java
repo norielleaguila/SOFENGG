@@ -118,8 +118,8 @@ public class Unit{
 		this.feesIncurred = feesIncurred;
 	}
 	
-	public void addFeeIncurred(Fee incurred){
-		this.feesIncurred.addFee(incurred);
+	public void addFeeIncurred(Fee incurred,int times){
+		this.feesIncurred.addFee(incurred,times);
 	}
 	
 	public void removeFeeIncurred(Fee incurred){

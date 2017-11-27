@@ -19,9 +19,15 @@ public class FeesIncurred extends Model{
 	public FeesIncurred(ArrayList<FeeIncurred> feesIncurred){
 		this.fees = feesIncurred;
 	}
-	
-	public void addFee(Fee newFee){
-		this.fees.add(new FeeIncurred(newFee));
+	public double getTotal(){
+		double total=0;
+		for(FeeIncurred fee: fees){
+			total+=(fee.getTimes()*fee.getPrice());
+		}
+		return total;
+	}
+	public void addFee(Fee newFee,int times){
+		this.fees.add(new FeeIncurred(newFee,times));
 	}
 	
 	public void removeFee(Fee fee){

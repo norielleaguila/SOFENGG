@@ -12,12 +12,14 @@ import javafx.scene.control.Label;
 import models.Account;
 import models.Collection;
 import models.Fee;
+import models.FeeIncurred;
+import models.FeeList;
 import models.Unit;
 public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	static final String USER = "root";
-	static final String PASS = "1234";
+	static final String PASS = "none";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -54,12 +56,37 @@ public class DBaccess {
 				retval.add(new Collection(rs.getInt("CollectionID"),rs.getInt("UnitNo"),rs.getString("DatePaid"),rs.getString("BillingDate")));
 			}
 			connect();
+			for(Collection collection:retval){
+				collection.addFees();
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
+		return retval;
+	}
+	public static ArrayList<FeeIncurred> getFeesIncurred(int CollectionID){
+		ArrayList<FeeIncurred> retval = new ArrayList<FeeIncurred>();
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM feesincurred where CollectionID="+CollectionID+";" ;
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				retval.add(new FeeIncurred(FeeList.fees.get(rs.getInt("FeeID")-1),rs.getInt("NoOfIncurs"),rs.getString("DateIncurred")));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
 		return retval;
 	}
 	public static Account login(String username,String password){
