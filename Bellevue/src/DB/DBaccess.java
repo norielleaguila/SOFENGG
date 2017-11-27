@@ -75,7 +75,8 @@ public class DBaccess {
 			String sql = "SELECT * FROM feesincurred where CollectionID="+CollectionID+";" ;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				retval.add(new FeeIncurred(FeeList.fees.get(rs.getInt("FeeID")-1),rs.getInt("NoOfIncurs"),rs.getString("DateIncurred")));
+				retval.add(new FeeIncurred(FeeList.fees.get(rs.getInt("FeeID")-1),rs.getInt("NoOfIncurs"),
+						rs.getString("DateIncurred"),rs.getInt("CollectionID"),rs.getInt("UnitNo")));
 			}
 			connect();
 		} catch (ClassNotFoundException e) {
@@ -86,6 +87,54 @@ public class DBaccess {
 		}
 		
 		
+		
+		return retval;
+	}
+	public static boolean addFeeIncurred(FeeIncurred fee){
+		boolean retval=true;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			
+			String sql = "INSERT INTO feesincurred (`UnitNo`, `FeeID`, `NoOfIncurs`"
+					+ ", `DateIncurred`, `CollectionID`) VALUES ('"+fee.getUnitNo()+"', '"
+					+fee.getFeeID() +"', '"+fee.getTimes()+"', '"+fee.getDateIncurred()+"', '"
+					+fee.getCollectionID()+"');" ;
+
+			int rs = stmt.executeUpdate(sql);
+			if(rs>0)
+				retval=true;
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return retval;
+	}
+	public static boolean addToExistingFee(FeeIncurred fee){
+		boolean retval=true;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			System.out.println("added times is "+fee.getTimes());
+			String sql = "UPDATE feesincurred SET `NoOfIncurs`='"+fee.getTimes()
+				+"' WHERE `UnitNo`='"+fee.getUnitNo()+"' and`FeeID`='"+fee.getFeeID()
+				+"' and`CollectionID`='"+fee.getCollectionID()+"';" ;
+			
+
+			int rs = stmt.executeUpdate(sql);
+			if(rs>0)
+				retval=true;
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 		
 		return retval;
 	}

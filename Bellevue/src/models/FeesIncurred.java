@@ -29,7 +29,15 @@ public class FeesIncurred extends Model{
 	public void addFee(Fee newFee,int times){
 		this.fees.add(new FeeIncurred(newFee,times));
 	}
-	
+	public FeeIncurred addFee(FeeIncurred fee){
+		FeeIncurred temp =getFeeIncurred(fee.getFeeID());
+		if(temp==null){
+			this.fees.add(fee);
+			return null;
+		}
+		temp.addTimes(fee.getTimes());
+		return temp;
+	}
 	public void removeFee(Fee fee){
 		for(FeeIncurred temp: fees){
 			if(temp.getFee().equals(fee))

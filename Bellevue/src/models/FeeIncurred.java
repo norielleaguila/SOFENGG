@@ -13,6 +13,8 @@ public class FeeIncurred {
 	private int times;
 	private Double price;
 	private String name;
+	private int CollectionID;
+	private int UnitNo;
 	
 	
 	public FeeIncurred(){
@@ -28,9 +30,11 @@ public class FeeIncurred {
 		this.name=fee.getFeeName();
 	}
 	
-	public FeeIncurred(Fee fee,int times, String dateIncurred){
+	public FeeIncurred(Fee fee,int times, String dateIncurred,int CollectionID,int UnitNo){
 		this(fee,times);
 		this.dateIncurred = dateIncurred;
+		this.CollectionID=CollectionID;
+		this.UnitNo=UnitNo;
 	}
 	
 	/**
@@ -42,6 +46,20 @@ public class FeeIncurred {
 		return Integer.parseInt(dateIncurred.split("-")[1]);
 	}
 	
+	public String getDateIncurred() {
+		return dateIncurred;
+	}
+
+	public int getCollectionID() {
+		return CollectionID;
+	}
+	public void addTimes(int times){
+		this.times+=times;
+	}
+	public int getUnitNo() {
+		return UnitNo;
+	}
+
 	/**
 	 * gets the month that the fee was incurred but as a string
 	 * @return	String from the list of months

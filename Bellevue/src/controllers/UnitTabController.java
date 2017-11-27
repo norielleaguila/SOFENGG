@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 
+import DB.DBaccess;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -35,8 +36,10 @@ import models.Collection;
 import models.CollectionList;
 import models.Fee;
 import models.FeeIncurred;
+import models.FeeList;
 import models.Unit;
 import models.UnitList;
+import views.AddExpense;
 import views.UnitRow;
 import views.UnitTab;
 
@@ -80,6 +83,8 @@ public class UnitTabController extends Controller{
 						unitPane = new AnchorPane();
 						unitPopup = new Popup();
 						Collection collection=collectionModel.getUnit(unit.getUnitNo());
+						ArrayList<FeeIncurred> addedFee=new ArrayList<FeeIncurred>();
+						ArrayList<displayval> displayList=new ArrayList<displayval>();
 						
 						unitnumLabel = new Label("UNIT#" + unit.getUnitNo());
 						unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
@@ -186,8 +191,11 @@ public class UnitTabController extends Controller{
 						
 						//itemCol.setCellValueFactory(new PropertyValueFactory <String, String>("temp"));
 						
-						ObservableList<FeeIncurred> itemsList = FXCollections.observableArrayList(collection.getAllFee());
-						ObservableList<Double> feeList = FXCollections.observableArrayList();
+						for(FeeIncurred fee:collection.getAllFee()){
+							displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+						}
+						//ObservableList<FeeIncurred> itemsList = FXCollections.observableArrayList(collection.getAllFee());
+						ObservableList<displayval> itemsList = FXCollections.observableArrayList(displayList);
 						//sStringProperty temp = new SimpleStringProperty();
 						//temp.set("Monthly Fee");
 						//String temp2 = "Monthly Fee";
@@ -283,8 +291,67 @@ public class UnitTabController extends Controller{
 						else
 							paidToggle.selectToggle(unpaidRadio);
 						
-						saveButton.setOnAction(e -> {
+						addButton.setOnAction(e ->{
+							System.out.println("add button pushed");
+							AddExpense ae = new AddExpense();
+							ae.updateCat();
+							ae.show(window);
+							ae.setX(200);
+							ae.setY(200);
 							
+							ae.setOnAddEventHandler(new views.AddExpense.OnAddEventHandler(){
+
+								@Override
+								public void onAction(String FeeName, String times) {
+									System.out.println("add button actioned");
+									boolean costNaN = false;
+									int num=0;
+									try{num=Integer.parseInt(times);}
+									catch(NumberFormatException e){costNaN = true;}
+									
+									if(times == "")
+										ae.error(1);
+									else if(costNaN)
+										ae.error(2);
+									else if(FeeName == null)
+										ae.error(3);
+									else{
+									
+										//collection.getCollectionID();
+										saveButton.setDisable(false);
+										saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+										FeeIncurred feeincurred= new FeeIncurred(FeeList.getFee(FeeName),num,
+												java.time.LocalDateTime.now().toString().split("T")[0],
+												collection.getCollectionID(),collection.getUnitNo()); 
+										addedFee.add(feeincurred);
+										itemsList.removeAll(itemsList);
+										
+										boolean found=false;
+										for(displayval temp:displayList){
+											if(temp.getName()==feeincurred.getName()){
+												found=true;
+												temp.addTimes(feeincurred.getTimes());
+											}
+										}
+										if(!found)
+											displayList.add(new displayval(feeincurred.getName(),feeincurred.getTimes(),feeincurred.getPrice()));
+										itemsList.addAll(displayList);
+										//collection.addFee(feeincurred);
+										//DBaccess.addFeeIncurred(feeincurred);
+										//Fee f=new Fee(name, category, Double.parseDouble(cost));
+										//model.addFee(f);
+										//DBaccess.(f);
+										ae.hide();
+										ae.update();
+										view.update();
+									}
+								}
+							});
+							
+							
+						});
+						saveButton.setOnAction(e -> {
+							collection.addFee(addedFee);	
 							if(paidRadio.isSelected()){
 								collectionModel.getUnit(unit.getUnitNo()).setDatePaid(java.time.LocalDateTime.now().toString().split("T")[0]);
 								unit.setPaid(true);
@@ -315,6 +382,8 @@ public class UnitTabController extends Controller{
 							
 						});
 						
+						
+						
 						buttonsHBox.getChildren().addAll(saveButton,addButton,printButton);
 						buttonsHBox.setSpacing(10);
 						buttonsVBox.getChildren().addAll(paidHBox,buttonsHBox);
@@ -334,10 +403,36 @@ public class UnitTabController extends Controller{
 							unitPopup.hide();
 							row.update();
 						});
+						
+						
 
 					}
 				});
 			}
 		}
+	}
+	public class displayval{
+		private Double price;
+		private String name;
+		private int times;
+		public displayval(String name,int times,Double price){
+			this.name=name;
+			this.times=times;
+			this.price=price;
+		}
+		public Double getPrice() {
+			return price*times;
+		}
+		public String getName() {
+			return name;
+		}
+		public void addTimes(int times){
+			this.times+=times;
+		}
+		public int getTimes() {
+			return times;
+		}
+		
+		
 	}
 }
