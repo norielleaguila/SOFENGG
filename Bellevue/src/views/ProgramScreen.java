@@ -71,7 +71,6 @@ public class ProgramScreen extends View{
 		layout = new BorderPane();
 		currTime = new Label();
 		createElements();
-		
 		addToLayout();
 	}
 
@@ -82,7 +81,6 @@ public class ProgramScreen extends View{
 		
 		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
 	        currTime.setText(getcurrentDate());
-	        
 	    }),
 	         new KeyFrame(Duration.seconds(1))
 	    );

@@ -11,7 +11,7 @@ import DB.DBaccess;
  */
 
 public class FeeList extends Model{
-	private ArrayList<Fee> fees;
+	public static ArrayList<Fee> fees;
 	
 	public FeeList(){
 		fees = new ArrayList<Fee>();
@@ -29,8 +29,15 @@ public class FeeList extends Model{
 			return fees.get(fees.indexOf(fee));
 		return null;
 	}
+	public static ArrayList<String> getStringList(){
+		ArrayList<String> retval = new ArrayList<String>();
+		for(Fee fee:fees){
+			retval.add(fee.getFeeName());
+		}
+		return retval;
+	}
 	
-	public Fee getFee(String name){
+	public static Fee getFee(String name){
 		
 		for(Fee f: fees){
 			if(f.getFeeName().equals(name)){
