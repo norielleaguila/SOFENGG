@@ -6,43 +6,59 @@ public class Category {
 
 	public static final String TABLE_NAME = "Category";
 	public static final String COL_CATEGORY_ID = "categoryID";
-	public static final String COL_RANGE = "range";
+	public static final String COL_MIN_RANGE = "minRange";
+	public static final String COL_MAX_RANGE = "maxRange";
 
-	private final StringProperty categoryID;
-	private final StringProperty range;
+	private final IntegerProperty categoryID;
+	private final IntegerProperty minRange;
+	private final IntegerProperty maxRange;
 
 	public Category () {
-		categoryID = new SimpleStringProperty ();
-		range = new SimpleStringProperty ();
+		categoryID = new SimpleIntegerProperty ();
+		minRange = new SimpleIntegerProperty ();
+		maxRange = new SimpleIntegerProperty ();
 	}
 
-	public Category (String categoryID, String range) {
-		this.categoryID = new SimpleStringProperty (categoryID);
-		this.range = new SimpleStringProperty (range);
+	public Category (int categoryID, int minRange, int maxRange) {
+		this.categoryID = new SimpleIntegerProperty (categoryID);
+		this.minRange = new SimpleIntegerProperty (minRange);
+		this.maxRange = new SimpleIntegerProperty (maxRange);
 	}
 
-	public String getCategoryID () {
+	public int getCategoryID () {
 		return categoryID.get ();
 	}
 
-	public StringProperty categoryIDProperty () {
+	public IntegerProperty categoryIDProperty () {
 		return categoryID;
 	}
 
-	public void setCategoryID (String categoryID) {
+	public void setCategoryID (int categoryID) {
 		this.categoryID.set (categoryID);
 	}
 
-	public String getRange () {
-		return range.get ();
+	public int getminRange () {
+		return minRange.get ();
 	}
 
-	public StringProperty rangeProperty () {
-		return range;
+	public IntegerProperty minRangeProperty () {
+		return minRange;
 	}
 
-	public void setRange (String range) {
-		this.range.set (range);
+	public void setMinRange (int minRange) {
+		this.minRange.set (minRange);
+	}
+	
+	public int getMaxRange () {
+		return maxRange.get ();
+	}
+	
+	public IntegerProperty maxRangeProperty () {
+		return maxRange;
+	}
+	
+	public void setMaxRange (int maxRange) {
+		this.maxRange.set (maxRange);
 	}
 
 }

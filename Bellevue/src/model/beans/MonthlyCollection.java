@@ -19,9 +19,9 @@ public class MonthlyCollection {
 	private final StringProperty dateBilled;
 	private final StringProperty dateDue;
 	private final StringProperty datePaid;
-	private final StringProperty monthlyDue;
-	private final StringProperty monthlyPaid;
-	private final StringProperty monthlyOverdue;
+	private final DoubleProperty monthlyDue;
+	private final DoubleProperty monthlyPaid;
+	private final DoubleProperty monthlyOverdue;
 
 	public MonthlyCollection () {
 		transactionID = new SimpleIntegerProperty ();
@@ -29,22 +29,22 @@ public class MonthlyCollection {
 		dateBilled = new SimpleStringProperty ();
 		dateDue = new SimpleStringProperty ();
 		datePaid = new SimpleStringProperty ();
-		monthlyDue = new SimpleStringProperty ();
-		monthlyPaid = new SimpleStringProperty ();
-		monthlyOverdue = new SimpleStringProperty ();
+		monthlyDue = new SimpleDoubleProperty ();
+		monthlyPaid = new SimpleDoubleProperty ();
+		monthlyOverdue = new SimpleDoubleProperty ();
 	}
 
 	public MonthlyCollection (int transactionID, String unitNo,
 							  String dateBilled, String dateDue, String datePaid,
-							  String monthlyDue, String monthlyPaid, String monthlyOverdue) {
+							  double monthlyDue, double monthlyPaid, double monthlyOverdue) {
 		this.transactionID = new SimpleIntegerProperty (transactionID);
 		this.unitNo = new SimpleStringProperty (unitNo);
 		this.dateBilled = new SimpleStringProperty (dateBilled);
 		this.dateDue = new SimpleStringProperty (dateDue);
 		this.datePaid = new SimpleStringProperty (datePaid);
-		this.monthlyDue = new SimpleStringProperty (monthlyDue);
-		this.monthlyPaid = new SimpleStringProperty (monthlyPaid);
-		this.monthlyOverdue = new SimpleStringProperty (monthlyOverdue);
+		this.monthlyDue = new SimpleDoubleProperty (monthlyDue);
+		this.monthlyPaid = new SimpleDoubleProperty (monthlyPaid);
+		this.monthlyOverdue = new SimpleDoubleProperty (monthlyOverdue);
 	}
 
 	public int getTransactionID () {
@@ -107,39 +107,39 @@ public class MonthlyCollection {
 		this.datePaid.set (datePaid);
 	}
 
-	public String getMonthlyDue () {
+	public double getMonthlyDue () {
 		return monthlyDue.get ();
 	}
 
-	public StringProperty monthlyDueProperty () {
+	public DoubleProperty monthlyDueProperty () {
 		return monthlyDue;
 	}
 
-	public void setMonthlyDue (String monthlyDue) {
+	public void setMonthlyDue (double monthlyDue) {
 		this.monthlyDue.set (monthlyDue);
 	}
 
-	public String getMonthlyPaid () {
+	public double getMonthlyPaid () {
 		return monthlyPaid.get ();
 	}
 
-	public StringProperty monthlyPaidProperty () {
+	public DoubleProperty monthlyPaidProperty () {
 		return monthlyPaid;
 	}
 
-	public void setMonthlyPaid (String monthlyPaid) {
+	public void setMonthlyPaid (double monthlyPaid) {
 		this.monthlyPaid.set (monthlyPaid);
 	}
 
-	public String getMonthlyOverdue () {
+	public double getMonthlyOverdue () {
 		return monthlyOverdue.get ();
 	}
 
-	public StringProperty monthlyOverdueProperty () {
+	public DoubleProperty monthlyOverdueProperty () {
 		return monthlyOverdue;
 	}
 
-	public void setMonthlyOverdue (String monthlyOverdue) {
+	public void setMonthlyOverdue (double monthlyOverdue) {
 		this.monthlyOverdue.set (monthlyOverdue);
 	}
 

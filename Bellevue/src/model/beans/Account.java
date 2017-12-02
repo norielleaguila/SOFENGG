@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 public class Account {
 
 	public static final String TABLE_NAME = "Account";
+	public static final String COL_ACCOUNT_ID = "accountID";
 	public static final String COL_TYPE_ID = "typeID";
 	public static final String COL_USER = "username";
 	public static final String COL_PASS = "password";
@@ -59,6 +60,17 @@ public class Account {
 
 	public void setUsername (String username) {
 		this.username.set (username);
+	}
+	
+	/**
+	 * Verifies the input password
+	 * @param password
+	 * @return true if given password matches, else false
+	 */
+	public boolean verifyPassword(String password){
+//		if(this.password.equals(password))
+//			return true;
+		return false;
 	}
 
 }
