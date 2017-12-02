@@ -19,7 +19,7 @@ public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	static final String USER = "root";
-	static final String PASS = "none";
+	static final String PASS = "0825";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -163,15 +163,6 @@ public class DBaccess {
 		
 		return retval;
 	}
-	/*
-	public static String updateStatus(){
-		
-	}
-	public static void checkupdateDues(Unit u){
-		//Date date = new Date();
-		LocalDate date = new LocalDate(0, 0, 0);
-		//int year = date.getYear();
-	}*/
 	public static ArrayList<Fee> getFees(){
 		ArrayList<Fee> retval= new ArrayList<Fee>();
 		try {
@@ -266,8 +257,6 @@ public class DBaccess {
 			connect();
 			stmt = conn.createStatement();
 			String sql="";
-
-//			System.out.println("dfad" + c.getDatePaid() == null + "\n" + c.getDatePaid());
 			if(c.getDatePaid()!=null){
 				sql = "UPDATE collection SET DatePaid= '"+ c.getDatePaid()  +"' WHERE CollectionID="+c.getCollectionID()+ ";";
 			}else{
@@ -333,26 +322,6 @@ public class DBaccess {
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
-	/*
-	public static String getStatus(int UnitNo){
-		try {
-			connect();
-			stmt = conn.createStatement();
-			String sql = "SELECT * FROM collection where UnitNo='"+UnitNo;
-			ResultSet rs = stmt.executeQuery(sql);
-			if(rs.next()){
-				retval = new Account();
-				retval.setType(rs.getInt(1));
-				retval.setUsername(rs.getString(2));
-			}
-			connect();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-	}*/
 	
 	private static void connect() throws ClassNotFoundException, SQLException{
 		if(conn==null){

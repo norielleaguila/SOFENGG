@@ -62,13 +62,13 @@ public class UnitTab extends Tabs{
 
 	@Override
 	public void update() {
-		this.getChildren().clear();
+//		this.getChildren().clear();
 		
 		for(Unit unit : model.getUnits()){
 			table.updateRow(unit);
 		}
 		
-		initLayout();
+//		initLayout();
 	}
 	
 	public void updateRow(Unit unit){

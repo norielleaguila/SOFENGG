@@ -86,6 +86,7 @@ public class UnitTabController extends Controller{
 					@Override
 					public void onAction(Unit unit) {
 						new UnitCollection(collectionModel, unit, row, account.getType(), window, view);
+						view.update();
 					}
 				});
 			}
