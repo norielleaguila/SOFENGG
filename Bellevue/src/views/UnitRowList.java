@@ -80,10 +80,6 @@ public class UnitRowList extends VBox {
 		this.getChildren().addAll(units);
 	}
 	
-	public void update(){
-		resetLayout();
-	}
-	
 	public UnitRow getRow(int index){
 		return units.get(index);
 	}

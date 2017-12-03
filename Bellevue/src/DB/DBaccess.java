@@ -12,14 +12,12 @@ import javafx.scene.control.Label;
 import models.Account;
 import models.Collection;
 import models.Fee;
-import models.FeeIncurred;
-import models.FeeList;
 import models.Unit;
 public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull&useSSL=false";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull";
 	static final String USER = "root";
-	static final String PASS = "0825";
+	static final String PASS = "1234";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -56,86 +54,12 @@ public class DBaccess {
 				retval.add(new Collection(rs.getInt("CollectionID"),rs.getInt("UnitNo"),rs.getString("DatePaid"),rs.getString("BillingDate")));
 			}
 			connect();
-			for(Collection collection:retval){
-				collection.addFees();
-			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
-		return retval;
-	}
-	public static ArrayList<FeeIncurred> getFeesIncurred(int CollectionID){
-		ArrayList<FeeIncurred> retval = new ArrayList<FeeIncurred>();
-		try {
-			connect();
-			stmt = conn.createStatement();
-			String sql = "SELECT * FROM feesincurred where CollectionID="+CollectionID+";" ;
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()){
-				retval.add(new FeeIncurred(FeeList.fees.get(rs.getInt("FeeID")-1),rs.getInt("NoOfIncurs"),
-						rs.getString("DateIncurred"),rs.getInt("CollectionID"),rs.getInt("UnitNo")));
-			}
-			connect();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-		
-		
-		
-		return retval;
-	}
-	public static boolean addFeeIncurred(FeeIncurred fee){
-		boolean retval=true;
-		try {
-			connect();
-			stmt = conn.createStatement();
-			
-			String sql = "INSERT INTO feesincurred (`UnitNo`, `FeeID`, `NoOfIncurs`"
-					+ ", `DateIncurred`, `CollectionID`) VALUES ('"+fee.getUnitNo()+"', '"
-					+fee.getFeeID() +"', '"+fee.getTimes()+"', '"+fee.getDateIncurred()+"', '"
-					+fee.getCollectionID()+"');" ;
-
-			int rs = stmt.executeUpdate(sql);
-			if(rs>0)
-				retval=true;
-			connect();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-		
-		return retval;
-	}
-	public static boolean addToExistingFee(FeeIncurred fee){
-		boolean retval=true;
-		try {
-			connect();
-			stmt = conn.createStatement();
-			System.out.println("added times is "+fee.getTimes());
-			String sql = "UPDATE feesincurred SET `NoOfIncurs`='"+fee.getTimes()
-				+"' WHERE `UnitNo`='"+fee.getUnitNo()+"' and`FeeID`='"+fee.getFeeID()
-				+"' and`CollectionID`='"+fee.getCollectionID()+"';" ;
-			
-
-			int rs = stmt.executeUpdate(sql);
-			if(rs>0)
-				retval=true;
-			connect();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-		
 		return retval;
 	}
 	public static Account login(String username,String password){
@@ -163,6 +87,15 @@ public class DBaccess {
 		
 		return retval;
 	}
+	/*
+	public static String updateStatus(){
+		
+	}
+	public static void checkupdateDues(Unit u){
+		//Date date = new Date();
+		LocalDate date = new LocalDate(0, 0, 0);
+		//int year = date.getYear();
+	}*/
 	public static ArrayList<Fee> getFees(){
 		ArrayList<Fee> retval= new ArrayList<Fee>();
 		try {
@@ -257,6 +190,8 @@ public class DBaccess {
 			connect();
 			stmt = conn.createStatement();
 			String sql="";
+
+//			System.out.println("dfad" + c.getDatePaid() == null + "\n" + c.getDatePaid());
 			if(c.getDatePaid()!=null){
 				sql = "UPDATE collection SET DatePaid= '"+ c.getDatePaid()  +"' WHERE CollectionID="+c.getCollectionID()+ ";";
 			}else{
@@ -322,6 +257,26 @@ public class DBaccess {
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
+	/*
+	public static String getStatus(int UnitNo){
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM collection where UnitNo='"+UnitNo;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				retval = new Account();
+				retval.setType(rs.getInt(1));
+				retval.setUsername(rs.getString(2));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}*/
 	
 	private static void connect() throws ClassNotFoundException, SQLException{
 		if(conn==null){

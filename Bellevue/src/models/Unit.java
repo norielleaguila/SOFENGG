@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import DB.DBaccess;
 
 /**
- * Contains all information about each Unit in Bellevue such as unit number,
- * unit owner, lot owner, address, lot area, and phase number. 
- * <br>
- * TCT (lot owner) and lot area are not accessible to any account types other than admins.
+ * Unit class
+ * 
  * @author AGUILA, Norielle
  *
  */
@@ -118,8 +116,8 @@ public class Unit{
 		this.feesIncurred = feesIncurred;
 	}
 	
-	public void addFeeIncurred(Fee incurred,int times){
-		this.feesIncurred.addFee(incurred,times);
+	public void addFeeIncurred(Fee incurred){
+		this.feesIncurred.addFee(incurred);
 	}
 	
 	public void removeFeeIncurred(Fee incurred){

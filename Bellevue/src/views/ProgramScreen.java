@@ -2,12 +2,8 @@ package views;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -26,7 +22,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import models.CollectionList;
 import models.Fee;
 import models.FeeList;
@@ -48,7 +43,6 @@ public class ProgramScreen extends View{
 	private Button logoutBtn;
 	private Stage window;
 	private StackPane tabs_date;
-	private Label currTime;
 	
 	public ProgramScreen(FeeList feesModel, UnitList unitsModel, CollectionList collectionModel, Stage window){
 		super();
@@ -69,8 +63,9 @@ public class ProgramScreen extends View{
 	@Override
 	protected void initLayout() {
 		layout = new BorderPane();
-		currTime = new Label();
+		
 		createElements();
+		
 		addToLayout();
 	}
 
@@ -78,19 +73,11 @@ public class ProgramScreen extends View{
 	protected void createElements() {
 		tabContainer = new TabContainer(feesModel, unitsModel, collectionModel, window);
 		tabs_date=new StackPane();
-		
-		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-	        currTime.setText(getcurrentDate());
-	    }),
-	         new KeyFrame(Duration.seconds(1))
-	    );
-	    clock.setCycleCount(Animation.INDEFINITE);
-	    clock.play();
-	    
-	    currTime.setStyle("-fx-border-color: transparent;-fx-text-fill:white;-fx-font:23px 'Segoe UI';"
+		Label t=getcurrentDate();
+		t.setStyle("-fx-border-color: transparent;-fx-text-fill:white;-fx-font:23px 'Segoe UI';"
 				+ "-fx-font-weight: bold; -fx-padding: 5px; -fx-border-insets: 5px;-fx-background-insets: 5px;");
-		tabs_date.getChildren().addAll(tabContainer,currTime);
-		tabs_date.setAlignment(currTime,Pos.TOP_RIGHT);
+		tabs_date.getChildren().addAll(tabContainer,t);
+		tabs_date.setAlignment(t,Pos.TOP_RIGHT);
 		
 		initHeader();
 	}
@@ -117,10 +104,10 @@ public class ProgramScreen extends View{
 	public Button getLogoutBtn(){
 		return logoutBtn;
 	}
-	private String getcurrentDate(){
+	private Label getcurrentDate(){
 		DateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
 		Date date = new Date();
-		return dateFormat.format(date);
+		return new Label(dateFormat.format(date));
 	}
 	public void initHeader(){
 		header = new FlowPane(Orientation.VERTICAL);

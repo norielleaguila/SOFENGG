@@ -5,11 +5,9 @@ import javafx.stage.*;
 import models.Fee;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.geometry.*;
 
 public class CollectionDialog extends Popup {
-	
 	private CollectionLayout cl;
 	public CollectionDialog () {
 		super ();
@@ -32,27 +30,7 @@ public class CollectionDialog extends Popup {
 		this.onAddEventHandler = onAddEventHandler;
 	}
 	
-	public void update(){
-		cl.update();
-	}
-	
-	public void updateCat() {
-		cl.updateCat();
-	}
-	
-	/**
-	 * Called when there is an {@code Error} in the input fields of the category dialog.
-	 * Activates when the user presses the {@code Add} button.
-	 * @param errorCode {@code int} value that corresponds to a certain key.
-	 * 					<br>1 - Name text field is empty
-	 * 					<br>2 - Cost is not a double value
-	 * 					<br>3 - Category is not selected
-	 */
-	public void error(int errorCode){
-		cl.displayError(errorCode);
-	}
-	
-	private class CollectionLayout extends Pane implements ViewInterface{
+	private class CollectionLayout extends Pane {
 		
 		private static final double WIDTH = 500;
 		private static final double HEIGHT = 300;
@@ -71,10 +49,6 @@ public class CollectionDialog extends Popup {
 		private Label categoryLbl;
 		private ComboBox <String> categoryCB;
 			private Button addBtn;
-			
-
-		private	StringProperty errorMessage;
-		private	Label errorLbl;
 		
 		public CollectionLayout () {
 			super ();
@@ -94,20 +68,6 @@ public class CollectionDialog extends Popup {
 			initCost ();
 			initCategory ();
 			initAdd ();
-			initErrorDisplay();
-		}
-		
-		private void initErrorDisplay(){
-			errorMessage = new SimpleStringProperty();
-			errorLbl = new Label();
-
-			errorMessage.set("");
-			errorLbl.textProperty().bind(errorMessage);
-			
-			errorLbl.setLayoutX(CHILD_PADDING * 2 + fieldWidth);
-			
-			getChildren().add(errorLbl);
-			
 		}
 		
 		private void initExit () {
@@ -116,7 +76,6 @@ public class CollectionDialog extends Popup {
 			exitBtn.setId("closePopup");
 			
 			exitBtn.setOnAction ((e) -> {
-				reset();
 				hide ();
 			});
 			
@@ -194,6 +153,17 @@ public class CollectionDialog extends Popup {
 			getChildren ().add (categoryCB);
 		}
 		
+		public void updateCat(){
+			for(Node child:getChildren()){
+				if(child instanceof ComboBox){
+					ComboBox<String> temp=((ComboBox)child);
+					temp.getItems().clear();
+					temp.getItems().addAll(Fee.FEETYPE);
+				}
+			}
+			
+		}
+		
 		private void initAdd () {
 			multiplier += 1;
 			int width = 150, height = 25;
@@ -217,47 +187,11 @@ public class CollectionDialog extends Popup {
 			getChildren ().add (addBtn);
 		}
 		
-		public void updateCat(){
-			for(Node child:getChildren()){
-				if(child instanceof ComboBox){
-					ComboBox<String> temp=((ComboBox)child);
-					temp.getItems().clear();
-					temp.getItems().addAll(Fee.FEETYPE);
-				}
-			}
-		}
-		
-		public void displayError(int errorCode){
-			errorLbl.setId("cd_error");
-			switch(errorCode){
-			case 1: // did not enter a name
-				errorMessage.set("Please do not leave name field blank.");
-				errorLbl.setLayoutY(nameTf.getLayoutY());
-				break;
-			case 2:	// NumberFormatException, did not enter a proper Double inside costTf
-				errorMessage.set("Please enter a valid number.");
-				errorLbl.setLayoutY(costTf.getLayoutY());
-				break;
-			case 3:	// Did not select a category
-				errorMessage.set("Please select a category.");
-				errorLbl.setLayoutY(categoryCB.getLayoutY());
-				break;
-			default:
-			}
-		}
-		
-		public void reset(){
-			nameTf.setText("");
-			costTf.setText("");
-			categoryCB.setValue(null);
-			errorMessage.set("");
-			errorLbl.setId("cd_error_hidden");
-		}
-
-		@Override
-		public void update() {
-			reset();
-		}
+	}
+	public void updateCat() {
+		//String latest=Fee.FEETYPE.get(Fee.FEETYPE.size()-1);
+		cl.updateCat();
+		// TODO Auto-generated method stub
 		
 	}
 	

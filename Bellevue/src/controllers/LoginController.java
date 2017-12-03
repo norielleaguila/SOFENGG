@@ -63,6 +63,7 @@ public class LoginController extends Controller{
 			account = temp;
 			pass=true;
 		}
+		System.out.println(pass);
 		/* empty field failure condition */
 		if(!pass){
 			if(view.getUsernameField().getText().equals("") || view.getUsernameField().getText() == null){

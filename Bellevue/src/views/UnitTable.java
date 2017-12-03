@@ -82,12 +82,12 @@ public class UnitTable implements ViewInterface{
 	 * When a unit is updated in the db, call this method to update the table
 	 */
 	public void updateRow(Unit unit){
-		units.resetLayout();
 		units.getRow(unit).update();
 	}
 
 	@Override
 	public void update() {
-		this.getUnitList().getChildren().clear();
+		// TODO Auto-generated method stub
+		
 	}
 }
