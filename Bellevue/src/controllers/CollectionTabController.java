@@ -59,12 +59,24 @@ public class CollectionTabController extends Controller{
 
 			@Override
 			public void onAction(String name, String cost, String category) {
-				Fee f=new Fee(name, category, Double.parseDouble(cost));
-				model.addFee(f);
-				DBaccess.addFee(f);
-				cd.hide();
+				boolean costNaN = false;
+				try{Double.parseDouble(cost);}
+				catch(NumberFormatException e){costNaN = true;}
 				
-				view.update();
+				if(name == "")
+					cd.error(1);
+				else if(costNaN)
+					cd.error(2);
+				else if(category == null)
+					cd.error(3);
+				else{
+					Fee f=new Fee(name, category, Double.parseDouble(cost));
+					model.addFee(f);
+					DBaccess.addFee(f);
+					cd.hide();
+					cd.update();
+					view.update();
+				}
 			}
 		
 		});

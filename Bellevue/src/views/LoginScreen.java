@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 /**
  * LoginScreen is the view that greets users in order to access the program.
@@ -65,19 +66,21 @@ public class LoginScreen extends View {
 		// create username field
 		usernameField = new TextField();
 		usernameField.setPromptText("Username");
-		usernameField.setMinSize(200, 20);
-		usernameField.setMaxSize(200, 50);
+		usernameField.setMinSize(200, 25);
+		usernameField.setMaxSize(200, 25);
+		usernameField.setFont(new Font(14));
 		
 		// create password field
 		passwordField = new PasswordField();
 		passwordField.setPromptText("Password");
-		passwordField.setMinSize(200, 20);
-		passwordField.setMaxSize(200, 50);
+		passwordField.setMinSize(200, 25);
+		passwordField.setMaxSize(200, 25);
+		passwordField.setFont(new Font(14));
 		
 		// create login button
 		loginBtn = new Button("LOGIN");
-		loginBtn.setMinSize(200, 20);
-		loginBtn.setMaxSize(200, 50);
+		loginBtn.setMinSize(200, 25);
+		loginBtn.setMaxSize(200, 25);
 		loginBtn.setId("loginBtn");
 	}
 	

@@ -1,31 +1,32 @@
- package views;
+package views;
 
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import models.Fee;
+import models.FeeList;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+
+import java.util.ArrayList;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class CollectionDialog extends Popup {
-	
-	private CollectionLayout cl;
-	public CollectionDialog () {
+public class AddExpense extends Popup{
+	private ExpenseLayout el;
+	public AddExpense () {
 		super ();
-		
 		initLayout ();
 	}
-	
 	private void initLayout () {
-		cl=new CollectionLayout ();
-		getContent ().addAll (cl);
+		el=new ExpenseLayout();
+		getContent ().addAll (el);
 	}
 
 	private OnAddEventHandler onAddEventHandler;
 	
 	public interface OnAddEventHandler {
-		public void onAction (String name, String cost, String category);
+		public void onAction (String FeeName, String times);
 	}
 	
 	public void setOnAddEventHandler (OnAddEventHandler onAddEventHandler) {
@@ -33,11 +34,11 @@ public class CollectionDialog extends Popup {
 	}
 	
 	public void update(){
-		cl.update();
+		el.update();
 	}
 	
 	public void updateCat() {
-		cl.updateCat();
+		el.updateCat();
 	}
 	
 	/**
@@ -49,10 +50,10 @@ public class CollectionDialog extends Popup {
 	 * 					<br>3 - Category is not selected
 	 */
 	public void error(int errorCode){
-		cl.displayError(errorCode);
+		el.displayError(errorCode);
 	}
 	
-	private class CollectionLayout extends Pane implements ViewInterface{
+	private class ExpenseLayout extends Pane implements ViewInterface{
 		
 		private static final double WIDTH = 500;
 		private static final double HEIGHT = 300;
@@ -62,23 +63,23 @@ public class CollectionDialog extends Popup {
 		
 			private Button exitBtn;
 		
-		private Label nameLbl;
-		private TextField nameTf;
+		//private Label nameLbl;
+		//private TextField nameTf;
 		
-		private Label costLbl;
-		private TextField costTf;
+		private Label timesLbl;
+		private TextField timesTf;
 
-		private Label categoryLbl;
-		private ComboBox <String> categoryCB;
+		private Label FeeLbl;
+		private ComboBox <String> FeeCB;
 			private Button addBtn;
 			
 
 		private	StringProperty errorMessage;
 		private	Label errorLbl;
 		
-		public CollectionLayout () {
+		public ExpenseLayout () {
 			super ();
-			
+	
 			setAutoHide(true);
 			
 			init ();
@@ -91,8 +92,9 @@ public class CollectionDialog extends Popup {
 			setId("popup");
 			initExit ();
 			initName ();
-			initCost ();
-			initCategory ();
+			//initCost ();
+			//initCategory ();
+			initTimes();
 			initAdd ();
 			initErrorDisplay();
 		}
@@ -131,25 +133,25 @@ public class CollectionDialog extends Popup {
 		
 		private void initName () {
 			multiplier += 1;
-			nameLbl = new Label ("NAME OF ITEM");
-			nameTf = new TextField ();
+			FeeLbl = new Label ("Fee Name");
+			FeeCB = new ComboBox<> ();
 			
-			nameLbl.setLayoutX(CHILD_PADDING);
-			nameLbl.setLayoutY(CHILD_PADDING * multiplier);
-			nameLbl.setId("lblPopup");
+			FeeLbl.setLayoutX(CHILD_PADDING);
+			FeeLbl.setLayoutY(CHILD_PADDING * multiplier);
+			FeeLbl.setId("lblPopup");
 			multiplier += 1;
 			
-			nameTf.setMinWidth(fieldWidth);
-			nameTf.setMaxWidth(fieldWidth);
-			nameTf.setLayoutX(CHILD_PADDING);
-			nameTf.setLayoutY(CHILD_PADDING * multiplier);
-			nameTf.setId("tfPopup");
+			FeeCB.setMinWidth(fieldWidth);
+			FeeCB.setMaxWidth(fieldWidth);
+			FeeCB.setLayoutX(CHILD_PADDING);
+			FeeCB.setLayoutY(CHILD_PADDING * multiplier);
+			FeeCB.setId("tfPopup");
 			multiplier += 1;
 			
-			getChildren ().add (nameLbl);
-			getChildren ().add (nameTf);
+			getChildren ().add (FeeLbl);
+			getChildren ().add (FeeCB);
 		}
-		
+		/*
 		private void initCost () {
 			multiplier += 1;
 			
@@ -172,26 +174,26 @@ public class CollectionDialog extends Popup {
 			getChildren ().add (costTf);
 			
 		}
-		
-		private void initCategory () {
+		*/
+		private void initTimes () {
 			multiplier += 1;
-			categoryLbl = new Label ("CATEGORY");
-			categoryCB = new ComboBox<> ();
+			timesLbl = new Label ("EXPENSE COST");
+			timesTf = new TextField ();
 			
-			categoryLbl.setLayoutX(CHILD_PADDING);
-			categoryLbl.setLayoutY(CHILD_PADDING * multiplier);
-			categoryLbl.setId("lblPopup");
-			multiplier += 1;
-			
-			categoryCB.setMinWidth(fieldWidth);
-			categoryCB.setMaxWidth(fieldWidth);
-			categoryCB.setLayoutX(CHILD_PADDING);
-			categoryCB.setLayoutY(CHILD_PADDING * multiplier);
-			categoryCB.setId("tfPopup");
+			timesLbl.setLayoutX(CHILD_PADDING);
+			timesLbl.setLayoutY(CHILD_PADDING * multiplier);
+			timesLbl.setId("lblPopup");
 			multiplier += 1;
 			
-			getChildren ().add (categoryLbl);
-			getChildren ().add (categoryCB);
+			timesTf.setMinWidth(fieldWidth);
+			timesTf.setMaxWidth(fieldWidth);
+			timesTf.setLayoutX(CHILD_PADDING);
+			timesTf.setLayoutY(CHILD_PADDING * multiplier);
+			timesTf.setId("tfPopup");
+			multiplier += 1;
+			
+			getChildren ().add (timesLbl);
+			getChildren ().add (timesTf);
 		}
 		
 		private void initAdd () {
@@ -201,9 +203,8 @@ public class CollectionDialog extends Popup {
 			
 			addBtn.setOnAction ((e) -> {
 				onAddEventHandler.onAction (
-						nameTf.getText (), 
-						costTf.getText (), 
-						categoryCB.getSelectionModel ().getSelectedItem ());
+						FeeCB.getSelectionModel ().getSelectedItem (), 
+						timesTf.getText());
 			});
 			
 			addBtn.setMaxSize(width, height);
@@ -222,7 +223,7 @@ public class CollectionDialog extends Popup {
 				if(child instanceof ComboBox){
 					ComboBox<String> temp=((ComboBox)child);
 					temp.getItems().clear();
-					temp.getItems().addAll(Fee.FEETYPE);
+					temp.getItems().addAll(FeeList.getStringList());
 				}
 			}
 		}
@@ -232,24 +233,23 @@ public class CollectionDialog extends Popup {
 			switch(errorCode){
 			case 1: // did not enter a name
 				errorMessage.set("Please do not leave name field blank.");
-				errorLbl.setLayoutY(nameTf.getLayoutY());
+				errorLbl.setLayoutY(timesTf.getLayoutY());
 				break;
 			case 2:	// NumberFormatException, did not enter a proper Double inside costTf
-				errorMessage.set("Please enter a valid number.");
-				errorLbl.setLayoutY(costTf.getLayoutY());
+				errorMessage.set("Please enter a number.");
+				errorLbl.setLayoutY(timesTf.getLayoutY());
 				break;
 			case 3:	// Did not select a category
 				errorMessage.set("Please select a category.");
-				errorLbl.setLayoutY(categoryCB.getLayoutY());
+				errorLbl.setLayoutY(FeeCB.getLayoutY());
 				break;
 			default:
 			}
 		}
 		
 		public void reset(){
-			nameTf.setText("");
-			costTf.setText("");
-			categoryCB.setValue(null);
+			timesTf.setText("");
+			FeeCB.setValue(null);
 			errorMessage.set("");
 			errorLbl.setId("cd_error_hidden");
 		}
@@ -260,6 +260,4 @@ public class CollectionDialog extends Popup {
 		}
 		
 	}
-	
 }
-

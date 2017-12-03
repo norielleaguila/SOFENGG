@@ -1,6 +1,9 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
+import DB.DBaccess;
 
 /**
  * 
@@ -13,6 +16,7 @@ public class Collection{
 	private String datePaid;
 	private String dateBilled;
 	private int CollectionID;
+	private FeesIncurred feesIncurred;
 	
 	public Collection(){
 		super();
@@ -26,6 +30,29 @@ public class Collection{
 	}
 	public int getCollectionID(){
 		return this.CollectionID;
+	}
+	public void addFees(){
+		//System.out.println("Collection "+CollectionID);
+		feesIncurred = new FeesIncurred(DBaccess.getFeesIncurred(CollectionID));
+	}
+	public void addFee(FeeIncurred fee){
+		FeeIncurred res=this.feesIncurred.addFee(fee);
+		if(res==null){
+			DBaccess.addFeeIncurred(fee);
+			return;
+		}
+		DBaccess.addToExistingFee(res);
+	}
+	public void addFee(ArrayList<FeeIncurred> fees){
+		for(FeeIncurred fee:fees)
+			addFee(fee);
+	}
+	
+	public ArrayList<FeeIncurred> getAllFee(){
+		return feesIncurred.getFeesIncurred();
+	}
+	public Double getTotal(){
+		return feesIncurred.getTotal();
 	}
 	public int getUnitNo() {
 		return unitNo;
