@@ -32,7 +32,7 @@ public class Collection{
 		return this.CollectionID;
 	}
 	public void addFees(){
-		System.out.println("Collection "+CollectionID);
+		//System.out.println("Collection "+CollectionID);
 		feesIncurred = new FeesIncurred(DBaccess.getFeesIncurred(CollectionID));
 	}
 	public void addFee(FeeIncurred fee){

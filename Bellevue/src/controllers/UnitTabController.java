@@ -92,17 +92,18 @@ public class UnitTabController extends Controller{
 			}
 		}
 		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-	        //System.out.println(java.time.LocalDateTime.now().toString().split("T")[0]);
-	        /*if(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2].equals("15") && !unit.isPaid()){
-	        	paidLabel.setText("OVERDUE");
-	        	paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#F95959;");
-				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#FF0606");
-	        }
-	        else if(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2].equals("01") && unit.isPaid()){
-	        	paidLabel.setText("UNPAID");
-				paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");	
-				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
-	        }*/
+			if(!checkEqual(collectionModel.getCollection(),DB.DBaccess.getCollectionData())){
+				collectionModel = new CollectionList(DB.DBaccess.getCollectionData());
+				System.out.println("checker");
+				int index = 0;
+				for(Unit unit : view.getUnitList().getUnits()){
+					unit.setOverdue(collectionModel.getUnit(unit.getUnitNo()).isOverdue());
+					unit.setPaid(collectionModel.getUnit(unit.getUnitNo()).isPaid());
+					DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
+					index++;
+				}
+				view.update();
+			}
 	        
 	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15 && setOverdue){
 				for(Unit unit : view.getUnitList().getAllUnpaidUnits()){
@@ -115,6 +116,7 @@ public class UnitTabController extends Controller{
 			}
 	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) == 1 && resetPaid){
 				for(Unit unit : view.getUnitList().getAllPaidUnits()){
+					collectionModel.getUnit(unit.getUnitNo()).setDatePaid(null);
 					unit.setPaid(false);
 					DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
 				}
@@ -130,5 +132,22 @@ public class UnitTabController extends Controller{
 	    );
 	    clock.setCycleCount(Animation.INDEFINITE);
 	    clock.play();
+	}
+	public boolean checkEqual(ArrayList<Collection> collection1, ArrayList<Collection> collection2){
+		//boolean equal = true;
+		for(int i = 0 ; i < collection1.size(); i++){
+			if(collection1.get(i).getDatePaid() == null && collection2.get(i).getDatePaid() != null)
+				return false;
+			else if(collection1.get(i).getDatePaid() != null && collection2.get(i).getDatePaid() == null)
+				return false;
+			else if(!(collection1.get(i).getDatePaid() == null && collection2.get(i).getDatePaid() == null) && 
+					!collection1.get(i).getDatePaid().split(" ")[0].equals(collection2.get(i).getDatePaid().split(" ")[0])){
+				System.out.println(collection1.get(i).getDatePaid().split(" ")[0].equals(collection2.get(i).getDatePaid().split(" ")[0]));
+				System.out.println(collection1.get(i).getDatePaid().split(" ")[0]);
+				System.out.println(collection2.get(i).getDatePaid().split(" ")[0]);
+				return false;
+			}
+		}
+		return true;
 	}
 }
