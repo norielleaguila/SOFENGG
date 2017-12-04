@@ -9,6 +9,7 @@ public class Account {
 	public static final String COL_TYPE_ID = "typeID";
 	public static final String COL_USER = "username";
 	public static final String COL_PASS = "password";
+	public static final String COL_SALT = "salt";
 
 	private final IntegerProperty accountID;
 	private final IntegerProperty typeID;
@@ -60,17 +61,6 @@ public class Account {
 
 	public void setUsername (String username) {
 		this.username.set (username);
-	}
-	
-	/**
-	 * Verifies the input password
-	 * @param password
-	 * @return true if given password matches, else false
-	 */
-	public boolean verifyPassword(String password){
-//		if(this.password.equals(password))
-//			return true;
-		return false;
 	}
 
 }

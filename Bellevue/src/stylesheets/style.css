@@ -11,6 +11,7 @@
 .button{
 	-fx-border-radius: 0;
 	-fx-background-radius: 0;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.25) , 10, 0.0 , 0 , 1);
 }
 
 .scroll-pane{
@@ -113,6 +114,20 @@
   -fx-text-fill: white;
 }
 
+.text-field{
+	-fx-prompt-text-fill: #4b4b4b;
+	-fx-font-size: 10pt
+}
+
+#appNameLbl{
+	-fx-alignment: CENTER;
+	-fx-border-color: transparent;
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+	-fx-font-size: 30pt;
+	-fx-padding: 20;
+}
+
 #loginBtn{
 	-fx-background-color: #A6BC3F;
 	-fx-text-fill: white;
@@ -193,11 +208,6 @@
 
 #table{
 	-fx-background-color: white;
-}
-
-#appNameLbl{
-	-fx-font-size: 30px;
-	-fx-text-fill: white;
 }
 
 #hiddenCol{

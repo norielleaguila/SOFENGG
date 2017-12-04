@@ -9,35 +9,35 @@ public class Category {
 	public static final String COL_MIN_RANGE = "minRange";
 	public static final String COL_MAX_RANGE = "maxRange";
 
-	private final IntegerProperty categoryID;
+	private final StringProperty categoryID;
 	private final IntegerProperty minRange;
 	private final IntegerProperty maxRange;
 
 	public Category () {
-		categoryID = new SimpleIntegerProperty ();
+		categoryID = new SimpleStringProperty ();
 		minRange = new SimpleIntegerProperty ();
 		maxRange = new SimpleIntegerProperty ();
 	}
 
-	public Category (int categoryID, int minRange, int maxRange) {
-		this.categoryID = new SimpleIntegerProperty (categoryID);
+	public Category (String categoryID, int minRange, int maxRange) {
+		this.categoryID = new SimpleStringProperty (categoryID);
 		this.minRange = new SimpleIntegerProperty (minRange);
 		this.maxRange = new SimpleIntegerProperty (maxRange);
 	}
 
-	public int getCategoryID () {
+	public String getCategoryID () {
 		return categoryID.get ();
 	}
 
-	public IntegerProperty categoryIDProperty () {
+	public StringProperty categoryIDProperty () {
 		return categoryID;
 	}
 
-	public void setCategoryID (int categoryID) {
+	public void setCategoryID (String categoryID) {
 		this.categoryID.set (categoryID);
 	}
 
-	public int getminRange () {
+	public int getMinRange () {
 		return minRange.get ();
 	}
 
@@ -48,15 +48,15 @@ public class Category {
 	public void setMinRange (int minRange) {
 		this.minRange.set (minRange);
 	}
-	
+
 	public int getMaxRange () {
 		return maxRange.get ();
 	}
-	
+
 	public IntegerProperty maxRangeProperty () {
 		return maxRange;
 	}
-	
+
 	public void setMaxRange (int maxRange) {
 		this.maxRange.set (maxRange);
 	}

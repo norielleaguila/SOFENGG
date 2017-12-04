@@ -1,68 +1,107 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import model.beans.*;
+import model.database.*;
 
-import model.beans.Unit;
+import java.util.*;
 
-public class UnitModel extends Model{
-	
-	private List<Unit> unitList;
-	
-	public UnitModel(){
-		unitList = new ArrayList<Unit>();
+public class UnitModel extends Model {
+
+	private UnitHelper unitHelper;
+	private AddressHelper addressHelper;
+	private BillingInfoHelper billingInfoHelper;
+	private CategoryHelper categoryHelper;
+	private StreetHelper streetHelper;
+	private List <Unit> units;
+
+	public UnitModel () {
+		unitHelper = new UnitHelper ();
+		addressHelper = new AddressHelper ();
+		billingInfoHelper = new BillingInfoHelper ();
+		categoryHelper = new CategoryHelper ();
+		streetHelper = new StreetHelper ();
+		units = new ArrayList<> ();
+		setUnits ();
 	}
-	
-	public UnitModel(ArrayList<Unit> unitList){
-		this.unitList = unitList;
+
+	public void setUnits () {
+		units.clear ();
+		units = unitHelper.getAllUnits ();
+		notifyViews ();
 	}
-	
-	public Unit getUnit(Unit unit){
-		if(unitList.contains(unit))
+
+	public void searchUnits (String key) {
+		units.clear ();
+		units = unitHelper.searchUnits (key);
+		notifyViews ();
+	}
+
+	public UnitContainer getUnit (String unitNo) {
+		UnitContainer unitContainer = new UnitContainer ();
+
+		Unit unit = unitHelper.getUnit (unitNo);
+		Address address = addressHelper.getAddress (unitNo);
+		BillingInfo billingInfo = billingInfoHelper.getBillingInfo (unitNo);
+		Category category = categoryHelper.getCategory (unit.getCategory ());
+		Street street = streetHelper.getStreet (address.getStreetID ());
+
+		unitContainer.setUnit (unit);
+		unitContainer.setAddress (address);
+		unitContainer.setBillingInfo (billingInfo);
+		unitContainer.setCategory (category);
+		unitContainer.setStreet (street);
+
+		return unitContainer;
+	}
+
+	public class UnitContainer {
+		private Unit unit;
+		private Address address;
+		private BillingInfo billingInfo;
+		private Category category;
+		private Street street;
+
+		private UnitContainer () {}
+
+		public Unit getUnit () {
 			return unit;
-		
-		return null;
-	}
-	
-	public Unit getUnit(String unitNo){
-		for(Unit unit: unitList)
-			if(unit.getUnitNo().equals(unitNo))
-				return unit;
-		return null;
-	}
-	
-	/**
-	 * Method used for the Searching feature of the program. 
-	 * Searches for all units that contain the searched {@code String} value.
-	 * @param searchParameter <p>The parameter in which the list of units will be searched for.
-	 * 						  <br>Must be convertible to an {@code integer} value.</p>
-	 * @return <b>searchResults</b> <p>Resulting {@code ArrayList} of the search done. 
-	 * 						 		<br>All units returned contain the searchParameter in its unit number.</p>
-	 * 								<p><i>Example:</i></p>
-	 * 						 		When the user enters the {@code String} {@literal 10}, the method returns
-	 * 								all units containing 10 in its unit number such as 10, 101, 210, etc.
-	 */
-	public ArrayList<Unit> searchForUnits(String searchParameter){
-		ArrayList<Unit> searchResults = new ArrayList<Unit>();
-		
-		try{
-			if(getUnit(searchParameter) != null)
-				searchResults.add(getUnit(searchParameter));
 		}
-		catch(NumberFormatException e){
-			// display error (Please enter a valid unit number)
-			
-			// return null, signifying that this exception was triggered.
-			return null;
-		}
-		
-		// Look for all units that contain the given search parameter
-		for(Unit unit: unitList){
-			if(unit.getUnitNo().contains(searchParameter))
-				searchResults.add(unit);
-		}
-		
-		return searchResults;
-	}
-}
 
+		public void setUnit (Unit unit) {
+			this.unit = unit;
+		}
+
+		public Address getAddress () {
+			return address;
+		}
+
+		public void setAddress (Address address) {
+			this.address = address;
+		}
+
+		public BillingInfo getBillingInfo () {
+			return billingInfo;
+		}
+
+		public void setBillingInfo (BillingInfo billingInfo) {
+			this.billingInfo = billingInfo;
+		}
+
+		public Category getCategory () {
+			return category;
+		}
+
+		public void setCategory (Category category) {
+			this.category = category;
+		}
+
+		public Street getStreet () {
+			return street;
+		}
+
+		public void setStreet (Street street) {
+			this.street = street;
+		}
+	}
+
+}
