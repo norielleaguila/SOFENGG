@@ -1,26 +1,25 @@
 package controller;
 
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import model.*;
 import view.*;
-import view.LoginView.OnLoginListener;
+import view.popup.ViewUnitPopup;
 
-public class LoginController extends Controller<LoginView> {
-	
-	public LoginController (MainController mainController) {
+public class LoginController extends Controller<LoginView, ApplicationController> {
+	public LoginController (ApplicationController mainController) {
 		super (mainController);
 	}
 
 	protected void initView () {
 		view = new LoginView ();
+		
 
-		view.setOnLoginListener(new LoginView.OnLoginListener() {
-			
-			@Override
-			public void OnAction(String username, String password) {
-				// login
-			}
+		view.setOnLoginListener ((user, pass) -> {
+			boolean successful = AccountModel.getInstance ().login (user, pass);
+
+			if (successful)
+				mainController.getProgramController ().setAsScene ();
 		});
 	}
-	
-	
 }

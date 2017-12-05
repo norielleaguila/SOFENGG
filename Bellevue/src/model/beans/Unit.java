@@ -7,24 +7,24 @@ public class Unit {
 	public static final String TABLE_NAME = "Unit";
 	public static final String COL_UNIT_NO = "unitNo";
 	public static final String COL_LOT_AREA = "lotArea";
-	public static final String COL_CATEGORY = "category";
+	public static final String COL_CATEGORY = "categoryID";
 	public static final String COL_PHASE_NO = "phaseNo";
 
 	private final StringProperty unitNo;
-	private final IntegerProperty lotArea;
+	private final DoubleProperty lotArea;
 	private final StringProperty category;
 	private final IntegerProperty phaseNo;
 
 	public Unit () {
 		unitNo = new SimpleStringProperty ();
-		lotArea = new SimpleIntegerProperty ();
+		lotArea = new SimpleDoubleProperty ();
 		category = new SimpleStringProperty ();
 		phaseNo = new SimpleIntegerProperty ();
 	}
 
-	public Unit (String unitNo, int lotArea, String category, int phaseNo) {
+	public Unit (String unitNo, double lotArea, String category, int phaseNo) {
 		this.unitNo = new SimpleStringProperty (unitNo);
-		this.lotArea = new SimpleIntegerProperty (lotArea);
+		this.lotArea = new SimpleDoubleProperty (lotArea);
 		this.category = new SimpleStringProperty (category);
 		this.phaseNo = new SimpleIntegerProperty (phaseNo);
 	}
@@ -41,15 +41,15 @@ public class Unit {
 		this.unitNo.set (unitNo);
 	}
 
-	public int getLotArea () {
+	public double getLotArea () {
 		return lotArea.get ();
 	}
 
-	public IntegerProperty lotAreaProperty () {
+	public DoubleProperty lotAreaProperty () {
 		return lotArea;
 	}
 
-	public void setLotArea (int lotArea) {
+	public void setLotArea (double lotArea) {
 		this.lotArea.set (lotArea);
 	}
 

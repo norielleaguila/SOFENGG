@@ -2,7 +2,9 @@ package view;
 
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import view.popup.ViewUnitPopup;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
@@ -12,7 +14,7 @@ public class LoginView extends VBox implements View {
 	
 	private Label appName;
 	private TextField usernameTF;
-	private TextField passwordTF;
+	private PasswordField passwordPF;
 	private Button loginBtn;
 	
 	private OnLoginListener onLoginListener;
@@ -20,14 +22,11 @@ public class LoginView extends VBox implements View {
 	public LoginView(){
 		super ();
 		init ();
-		
-		
 	}
 	
 	private void init(){
 		
 		getStylesheets().add("stylesheets/style.css");
-		getStylesheets().add("stylesheets/loginStylesheet.css");
 		
 		this.setAlignment(Pos.CENTER);
 		this.setSpacing(10);
@@ -35,6 +34,11 @@ public class LoginView extends VBox implements View {
 		initAppName();
 		initLoginTF();
 		initLoginBtn();
+		
+		this.setOnKeyPressed(e -> {
+			if(e.getCode() == KeyCode.ENTER)
+				loginBtn.fire();
+		});
 	}
 	
 	private void initAppName(){
@@ -49,7 +53,7 @@ public class LoginView extends VBox implements View {
 	
 	private void initLoginTF(){
 		usernameTF = new TextField();
-		passwordTF = new TextField();
+		passwordPF = new PasswordField();
 		
 		// username field styling
 		usernameTF.setMaxSize(Size.TF_PREF_WIDTH, Size.TF_PREF_HEIGHT);
@@ -58,14 +62,14 @@ public class LoginView extends VBox implements View {
 		usernameTF.setPromptText("Enter username");
 		
 		// password field styling
-		passwordTF.setMaxSize(Size.TF_PREF_WIDTH, Size.TF_PREF_HEIGHT);
-		passwordTF.setMinSize(Size.TF_PREF_WIDTH, Size.TF_PREF_HEIGHT);
+		passwordPF.setMaxSize(Size.TF_PREF_WIDTH, Size.TF_PREF_HEIGHT);
+		passwordPF.setMinSize(Size.TF_PREF_WIDTH, Size.TF_PREF_HEIGHT);
 		
-		passwordTF.setPromptText("Enter password");
+		passwordPF.setPromptText("Enter password");
 		
 		// add elements to layout
 		getChildren().add(usernameTF);
-		getChildren().add(passwordTF);
+		getChildren().add(passwordPF);
 	}
 	
 	private void initLoginBtn(){
@@ -79,7 +83,7 @@ public class LoginView extends VBox implements View {
 		
 		loginBtn.setOnAction(e -> {
 			if(onLoginListener != null)
-				onLoginListener.OnAction(usernameTF.getText(), passwordTF.getText());
+				onLoginListener.onAction(usernameTF.getText(), passwordPF.getText());
 		});
 		
 		getChildren().add(loginBtn);
@@ -95,6 +99,6 @@ public class LoginView extends VBox implements View {
 	}
 	
 	public interface OnLoginListener{
-		public void OnAction(String username, String password);
+		public void onAction(String username, String password);
 	}
 }

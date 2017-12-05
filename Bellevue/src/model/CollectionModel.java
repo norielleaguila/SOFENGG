@@ -1,7 +1,21 @@
 package model;
 
+import model.beans.*;
+import model.database.*;
+
 public class CollectionModel extends Model {
 
+	private FeeHelper feeHelper;
+	private FeeTypeHelper feeTypeHelper;
+	private IncurredFeeHelper incurredFeeHelper;
+	private MonthlyCollectionHelper monthlyCollectionHelper;
+
+	public CollectionModel () {
+		feeHelper = new FeeHelper ();
+		feeTypeHelper = new FeeTypeHelper ();
+		incurredFeeHelper = new IncurredFeeHelper ();
+		monthlyCollectionHelper = new MonthlyCollectionHelper ();
+	}
 
 	private static enum BillingMonth {
 		JANUARY ("1-1", "2-1"),

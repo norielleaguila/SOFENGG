@@ -21,7 +21,7 @@ public class UnitHelper extends MySQLHelper {
 		try {
 			if (rs.next ()) {
 				String uNo = rs.getString (Unit.COL_UNIT_NO);
-				int lotArea = rs.getInt (Unit.COL_LOT_AREA);
+				double lotArea = rs.getDouble (Unit.COL_LOT_AREA);
 				String category = rs.getString (Unit.COL_CATEGORY);
 				int phaseNo = rs.getInt (Unit.COL_PHASE_NO);
 
@@ -72,7 +72,7 @@ public class UnitHelper extends MySQLHelper {
 		try {
 			while (rs.next ()) {
 				String unitNo = rs.getString (Unit.COL_UNIT_NO);
-				int lotArea = rs.getInt (Unit.COL_LOT_AREA);
+				double lotArea = rs.getDouble (Unit.COL_LOT_AREA);
 				String category = rs.getString (Unit.COL_CATEGORY);
 				int phaseNo = rs.getInt (Unit.COL_PHASE_NO);
 

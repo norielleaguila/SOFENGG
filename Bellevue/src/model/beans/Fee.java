@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 
 public class Fee {
 
-	public static final String TABLE_NAME = "Fee";
+	public static final String TABLE_NAME = "Fees";
 	public static final String COL_FEE_ID = "feeID";
 	public static final String COL_FEE_NAME = "feeName";
 	public static final String COL_FEE_TYPE_ID = "feeTypeID";

@@ -3,12 +3,12 @@ package controller;
 import javafx.scene.*;
 import view.*;
 
-public abstract class Controller <T extends Parent & View> {
+public abstract class Controller <T extends Parent & View, E extends MainController> {
 	
 	protected T view;
-	protected MainController mainController;
+	protected E mainController;
 	
-	protected Controller (MainController mainController) {
+	protected Controller (E mainController) {
 		this.mainController = mainController;
 		initView ();
 	}

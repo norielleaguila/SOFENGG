@@ -11,7 +11,7 @@
 .button{
 	-fx-border-radius: 0;
 	-fx-background-radius: 0;
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.25) , 10, 0.0 , 0 , 1);
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.1) , 10, 0.0 , 0 , 1);
 }
 
 .scroll-pane{
@@ -234,19 +234,14 @@
 }
 
 #closePopup{
-	-fx-background-color: #eebe59;
+	-fx-background-color: #dd0000;
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
 	-fx-border-radius: 200px;
+	-fx-border-width: 1px;
+	-fx-border-color: #c40000;
 	-fx-background-radius: 200px;
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 1);
-}
-
-#popup{
-	-fx-background-color: white;
-	-fx-border-width: 1px;
-	-fx-border-color: lightgrey;
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 5);
 }
 
 #tfPopup{
