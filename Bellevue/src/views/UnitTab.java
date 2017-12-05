@@ -1,11 +1,18 @@
 package views;
 
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+=======
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import models.Unit;
 import models.UnitList;
 
@@ -63,13 +70,13 @@ public class UnitTab extends Tabs{
 
 	@Override
 	public void update() {
-		this.getChildren().clear();
+//		this.getChildren().clear();
 		
 		for(Unit unit : model.getUnits()){
 			table.updateRow(unit);
 		}
 		
-		initLayout();
+//		initLayout();
 	}
 	
 	public void updateRow(Unit unit){
@@ -136,6 +143,34 @@ public class UnitTab extends Tabs{
 			
 		}
 		
+	public UnitList getUnitList(){
+		return model;
+	}
+	public void initTimer(){
+		/*Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+			if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15){
+				for(Unit unit : model.getUnits()){
+					if(!unit.isPaid()){
+						unit.setOverdue(true);
+						DB.DBaccess.changeStatus(model.getUnit(unit.getUnitNo()));
+					}
+				}
+				update();
+			}
+			else if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) == 1){
+				for(Unit unit : model.getUnits()){
+					if(unit.isPaid()){
+						unit.setPaid(false);
+						DB.DBaccess.changeStatus(model.getUnit(unit.getUnitNo()));
+					}
+				}
+				update();
+			}
+	    }),
+	        new KeyFrame(Duration.seconds(1))
+	    );
+	    clock.setCycleCount(Animation.INDEFINITE);
+	    clock.play();*/
 	}
 	
 }

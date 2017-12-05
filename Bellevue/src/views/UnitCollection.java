@@ -2,6 +2,9 @@ package views;
 
 import java.util.ArrayList;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -19,6 +22,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.Collection;
 import models.CollectionList;
 import models.FeeIncurred;
@@ -355,6 +359,43 @@ public class UnitCollection extends View{
 			
 			
 		});
+		/*Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+	        System.out.println(java.time.LocalDateTime.now().toString().split("T")[0]);
+	        if(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2].equals("15") && !unit.isPaid()){
+	        	paidLabel.setText("OVERDUE");
+	        	paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#F95959;");
+				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#FF0606");
+	        }
+	        else if(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2].equals("01") && unit.isPaid()){
+	        	paidLabel.setText("UNPAID");
+				paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");	
+				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
+	        }
+	        
+	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15){
+				for(Unit unit : view.getUnitList().getUnits()){
+					if(!unit.isPaid()){
+						unit.setOverdue(true);
+						DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
+					}
+				}
+				view.update();
+				
+			}
+	        else if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) == 1){
+				for(Unit unit : view.getUnitList().getUnits()){
+					if(unit.isPaid()){
+						unit.setPaid(false);
+						DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
+					}
+				}
+				view.update();
+			}
+	    }),
+	         new KeyFrame(Duration.seconds(1))
+	    );
+	    clock.setCycleCount(Animation.INDEFINITE);
+	    clock.play();*/
 		saveButton.setOnAction(e -> {
 			collection.addFee(addedFee);	
 			if(paidRadio.isSelected()){
