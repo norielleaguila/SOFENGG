@@ -68,6 +68,7 @@ public class UnitCollection extends View{
 	private Button saveButton;
 	private Button addButton;
 	private Button printButton;
+	private Button deleteButton;
 	private VBox unitVBox;
 	private VBox tablePane;
 	
@@ -269,6 +270,7 @@ public class UnitCollection extends View{
 		saveButton = new Button("Save Changes");
 		addButton = new Button("Add Expenses");
 		printButton = new Button("Print Bill");
+		deleteButton = new Button("Delete Expense");
 		
 		saveButton.setDisable(true);
 		saveButton.setPrefWidth(200);
@@ -278,18 +280,38 @@ public class UnitCollection extends View{
 		
 		printButton.setPrefWidth(200);
 		
+		deleteButton.setDisable(true);
+		
 		saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 		printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+		deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		
 		unpaidRadio.setOnAction(e -> {
 			saveButton.setDisable(false);
 	        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+	        
+	        deleteButton.setDisable(true);
+			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		
 		paidRadio.setOnAction(e -> {
 			saveButton.setDisable(false);
 	        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+	        
+	        deleteButton.setDisable(true);
+			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+		});
+		
+		unitTable.setOnMouseClicked(event -> {
+			if(unitTable.getSelectionModel().getSelectedItem() != null){
+				deleteButton.setDisable(false);
+				deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+			}
+		});
+		unitTable.setOnMouseReleased(event -> {
+			deleteButton.setDisable(true);
+			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		
 		if(accountType != 1)
@@ -300,6 +322,9 @@ public class UnitCollection extends View{
 		else
 			paidToggle.selectToggle(unpaidRadio);
 		
+		deleteButton.setOnAction(e ->{
+			
+		});
 		addButton.setOnAction(e ->{
 			System.out.println("add button pushed");
 			AddExpense ae = new AddExpense();
@@ -359,43 +384,6 @@ public class UnitCollection extends View{
 			
 			
 		});
-		/*Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-	        System.out.println(java.time.LocalDateTime.now().toString().split("T")[0]);
-	        if(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2].equals("15") && !unit.isPaid()){
-	        	paidLabel.setText("OVERDUE");
-	        	paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#F95959;");
-				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#FF0606");
-	        }
-	        else if(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2].equals("01") && unit.isPaid()){
-	        	paidLabel.setText("UNPAID");
-				paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");	
-				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
-	        }
-	        
-	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15){
-				for(Unit unit : view.getUnitList().getUnits()){
-					if(!unit.isPaid()){
-						unit.setOverdue(true);
-						DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
-					}
-				}
-				view.update();
-				
-			}
-	        else if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) == 1){
-				for(Unit unit : view.getUnitList().getUnits()){
-					if(unit.isPaid()){
-						unit.setPaid(false);
-						DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
-					}
-				}
-				view.update();
-			}
-	    }),
-	         new KeyFrame(Duration.seconds(1))
-	    );
-	    clock.setCycleCount(Animation.INDEFINITE);
-	    clock.play();*/
 		saveButton.setOnAction(e -> {
 			collection.addFee(addedFee);	
 			if(paidRadio.isSelected()){
@@ -426,7 +414,7 @@ public class UnitCollection extends View{
 			}
 //			view.update();
 		});
-		buttonsHBox.getChildren().addAll(saveButton,addButton,printButton);
+		buttonsHBox.getChildren().addAll(deleteButton,saveButton,addButton,printButton);
 		buttonsHBox.setSpacing(10);
 		buttonsVBox.getChildren().addAll(paidHBox,buttonsHBox);
 		bottomContainer.getChildren().addAll(region1,buttonsVBox);
