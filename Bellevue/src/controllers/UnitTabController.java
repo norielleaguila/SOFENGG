@@ -104,12 +104,11 @@ public class UnitTabController extends Controller{
 				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
 	        }*/
 	        
-	        /*if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15 && setOverdue){
+	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15 && setOverdue){
 				for(Unit unit : view.getUnitList().getAllUnpaidUnits()){
 					unit.setOverdue(true);
 					DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
 				}
-				view.getChildren().clear();
 				view.update();
 				setOverdue = false;
 				
@@ -119,14 +118,13 @@ public class UnitTabController extends Controller{
 					unit.setPaid(false);
 					DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
 				}
-				view.getChildren().clear();
 				view.update();
 				resetPaid = false; 
 			}
 	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) != 1 && !resetPaid)
 	        	resetPaid = true;
 	        if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) < 16 && !setOverdue)
-	        	setOverdue = true;*/
+	        	setOverdue = true;
 	    }),
 	         new KeyFrame(Duration.seconds(1))
 	    );
