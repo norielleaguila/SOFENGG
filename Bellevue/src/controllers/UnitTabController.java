@@ -126,7 +126,82 @@ public class UnitTabController extends Controller{
 					public void onAction(Unit unit) {
 						// TODO Auto-generated method stub
 						PrinterJob printerJob = PrinterJob.createPrinterJob();
-						ListView<String> printList = new ListView<>();
+						
+						VBox printOutput = new VBox();
+						printOutput.setPrefWidth(475);
+						
+						VBox header = new VBox();
+						Label header1 = new Label("BELLEVUE HOMEOWNER ASSOCIATION");
+						header.setStyle("-fx-font-weight:bold;");
+						Label header2 = new Label("Apolonio Samson Road , The Bellevue QC");
+						header.getChildren().addAll(header1,header2);
+						
+						HBox billingDate = new HBox();
+						billingDate.setPrefWidth(475);
+						billingDate.setAlignment(Pos.CENTER_RIGHT);
+						Label billLabel = new Label("Billing Date: ");
+						billLabel.setStyle("-fx-font-size:10px;");
+						Label billDate = new Label(java.time.LocalDateTime.now().toString().split("T")[0]);
+						billDate.setStyle("-fx-font-size:10px;");
+						billingDate.getChildren().addAll(billLabel, billDate);
+						
+						VBox unitInfo = new VBox();
+						Label nameofOwner = new Label("Name of Homeowner: " + unit.getBilledTo());
+						nameofOwner.setStyle("-fx-font-size:10px;");
+						Label unitNum = new Label("Unit Number: " + unit.getUnitNo());
+						unitNum.setStyle("-fx-font-size:10px;");
+						unitInfo.getChildren().addAll(nameofOwner, unitNum);
+						
+						HBox feeTable = new HBox();
+						feeTable.setPrefWidth(475);
+						
+						VBox feeNameCol = new VBox();
+						feeNameCol.setStyle("-fx-font-size:10px;");
+						feeNameCol.setPrefWidth(150);
+						Label feeNameLabel = new Label("FEE NAME");
+						feeNameLabel.setStyle("-fx-font-weight:bold;-fx-font-size:10px;");
+						feeNameCol.getChildren().add(feeNameLabel);
+						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
+							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+							//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+							feeNameCol.getChildren().add(new Label(fee.getName()));
+						}
+						
+						VBox quantityCol = new VBox();
+						quantityCol.setStyle("-fx-font-size:10px;");
+						quantityCol.setPrefWidth(150);
+						Label quantityLabel = new Label("QUANTITY");
+						quantityLabel.setStyle("-fx-font-weight:bold;");
+						quantityCol.getChildren().add(quantityLabel);
+						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
+							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+							//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+							quantityCol.getChildren().add(new Label(Integer.toString(fee.getTimes())));
+						}
+						
+						VBox priceCol = new VBox();
+						priceCol.setStyle("-fx-font-size:10px;");
+						priceCol.setPrefWidth(150);
+						Label priceLabel = new Label("PRICE");
+						priceLabel.setStyle("-fx-font-weight:bold;");
+						priceCol.getChildren().add(priceLabel);
+						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
+							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+							//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+							priceCol.getChildren().add(new Label(Double.toString(fee.getPrice())));
+						}
+						
+						feeTable.getChildren().addAll(feeNameCol,quantityCol,priceCol);
+						
+						HBox totalPrice = new HBox();
+						totalPrice.setStyle("-fx-font-size:10px;");
+						totalPrice.setPrefWidth(475);
+						totalPrice.setAlignment(Pos.CENTER_RIGHT);
+						Label totalPriceLabel = new Label("TOTAL PHP " + collectionModel.getUnit(unit.getUnitNo()).getTotal());
+						totalPriceLabel.setStyle("-fx-font-weight:bold;");
+						totalPrice.getChildren().addAll(totalPriceLabel);
+						printOutput.getChildren().addAll(header,billingDate,unitInfo,feeTable,totalPrice);
+						/*ListView<String> printList = new ListView<>();
 						ObservableList<String> items =FXCollections.observableArrayList ();
 						printList.setItems(items);
 						
@@ -139,8 +214,8 @@ public class UnitTabController extends Controller{
 							items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
 						}
 						printList.setPrefWidth(1000);
-						//items.add(unitTable.rowFactoryProperty().getValue());
-						if(printerJob.showPrintDialog(window) && printerJob.printPage(printList))
+						//items.add(unitTable.rowFactoryProperty().getValue());*/
+						if(printerJob.showPrintDialog(window) && printerJob.printPage(printOutput))
 						       printerJob.endJob();
 					}
 				});
