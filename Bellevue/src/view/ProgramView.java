@@ -1,56 +1,34 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.*;
+import javafx.scene.control.*;
 
-import controller.MainController;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.stage.Stage;
-import view.popup.ViewUnitPopup;
+import java.util.*;
 
 public class ProgramView extends TabPane implements View{
-	
-	private List<Tab> tabs;
-	private Tab unitTab;
-	private Tab collectionTab;
-	
-	public ProgramView(Stage window){
-		super();
-		
-		init();
 
-		
+	private List<Tab> tabs;
+
+	public ProgramView(){
+		super();
+		init();
 	}
 	
 	private void init(){
-		
-		initTabs();
-		
-		getStylesheets().add("stylesheets/style.css");
-		
+		getStylesheets().add("style/style.css");
+		tabs = new ArrayList<> ();
 	}
-	
-	private void initTabs(){
-		tabs = new ArrayList<Tab>();
-		
-		// create individual tabs
-		unitTab = new Tab("UNIT", new UnitTab());
-		collectionTab = new Tab("COLLECTION");
-		
-		tabs.add(unitTab);
-		tabs.add(collectionTab);
-		
-		for(int i = 0; i < tabs.size(); i++){
-			tabs.get(i).setClosable(false);
-		}
-		
-		getTabs().addAll(tabs);
+
+	public void addTab (String name, Parent view) {
+		Tab tab = new Tab (name, view);
+		tab.setClosable (false);
+
+		getTabs ().add (tab);
 	}
-	
+
 	@Override
 	public void update() {
 		
 	}
-	
+
 }

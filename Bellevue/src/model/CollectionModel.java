@@ -3,6 +3,8 @@ package model;
 import model.beans.*;
 import model.database.*;
 
+import java.util.*;
+
 public class CollectionModel extends Model {
 
 	private FeeHelper feeHelper;
@@ -15,6 +17,81 @@ public class CollectionModel extends Model {
 		feeTypeHelper = new FeeTypeHelper ();
 		incurredFeeHelper = new IncurredFeeHelper ();
 		monthlyCollectionHelper = new MonthlyCollectionHelper ();
+	}
+
+	public CollectionContainer getCollection (String unitNo, int year, String date) {
+		CollectionContainer collectionContainer = new CollectionContainer ();
+		List<IncurredFeeContainer> incurredFeeContainers = new ArrayList<> ();
+
+		BillingMonth billingMonth = BillingMonth.getMonthByStart (date);
+
+		MonthlyCollection monthlyCollection =
+				monthlyCollectionHelper
+						.getCollection (unitNo,
+								billingMonth.getStart (year));
+		collectionContainer.monthlyCollection = monthlyCollection;
+
+		List<IncurredFee> incurredFees =
+				incurredFeeHelper
+						.getUnitFeesByRange (unitNo,
+								billingMonth.getStart (year),
+								billingMonth.getEnd (year));
+
+		for (IncurredFee i: incurredFees) {
+			IncurredFeeContainer ifc = new IncurredFeeContainer ();
+
+			Fee fee = feeHelper.getFee (i.getFeeID ());
+			FeeType feeType = feeTypeHelper.getFeeType (fee.getFeeType ());
+
+			ifc.incurredFee = i;
+			ifc.fee = fee;
+			ifc.feeType = feeType;
+
+			incurredFeeContainers.add (ifc);
+		}
+
+		incurredFeeContainers.sort ((i1, i2) -> {
+			int c1 = i1.feeType.getFeeType ().compareToIgnoreCase (i2.feeType.getFeeType ());
+			if (c1 != 0)
+				return c1;
+
+			return i1.fee.getFeeName ().compareToIgnoreCase (i2.fee.getFeeName ());
+		});
+
+		collectionContainer.incurredFeeContainers = incurredFeeContainers;
+
+		return collectionContainer;
+	}
+
+	public class CollectionContainer {
+		private MonthlyCollection monthlyCollection;
+		private List<IncurredFeeContainer> incurredFeeContainers;
+
+		public MonthlyCollection getMonthlyCollection () {
+			return monthlyCollection;
+		}
+
+		public List<IncurredFeeContainer> getIncurredFeeContainers () {
+			return incurredFeeContainers;
+		}
+	}
+
+	public class IncurredFeeContainer {
+		private IncurredFee incurredFee;
+		private Fee fee;
+		private FeeType feeType;
+
+		public IncurredFee getIncurredFee () {
+			return incurredFee;
+		}
+
+		public Fee getFee () {
+			return fee;
+		}
+
+		public FeeType getFeeType () {
+			return feeType;
+		}
 	}
 
 	private static enum BillingMonth {
@@ -39,6 +116,22 @@ public class CollectionModel extends Model {
 			this.end = end;
 		}
 
+		public static BillingMonth getMonthByStart (String s) {
+			for (BillingMonth bm : BillingMonth.values ())
+				if (bm.start.equals (s))
+					return bm;
+
+			return null;
+		}
+
+		public static BillingMonth getMonthByEnd (String e) {
+			for (BillingMonth bm : BillingMonth.values ())
+				if (bm.end.equals (e))
+					return bm;
+
+			return null;
+		}
+
 		public String getStart (int year) {
 			StringBuilder sb = new StringBuilder ();
 			sb.append (year).append ("-").append (start);
@@ -56,4 +149,5 @@ public class CollectionModel extends Model {
 			return sb.toString ();
 		}
 	}
+
 }

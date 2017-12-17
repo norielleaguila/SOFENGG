@@ -1,0 +1,12 @@
+.root{
+	-fx-background-color: #f7bb97;
+}
+
+.label{
+	-fx-font-size: 12pt;
+}
+
+
+#tableHeader{
+	-fx-padding: 5;
+}

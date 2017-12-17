@@ -1,0 +1,15 @@
+#actionsVBox{
+	-fx-padding: 0 50 50 0;
+}
+
+#actionBtn{
+	-fx-background-color: linear-gradient(to top, #BDD358 0%, #BDD358 85%, #a6ba4a 100%);
+	-fx-background-color: #BDD358;
+	-fx-border: none;
+	-fx-border-radius: 200px;
+	-fx-background-radius: 200px;
+	-fx-text-fill: white;
+	-fx-font-size: 18pt;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 1);
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 2);
+}

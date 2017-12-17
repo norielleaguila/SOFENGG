@@ -129,7 +129,7 @@ public class AccountHelper extends MySQLHelper {
 		StringBuilder sb = new StringBuilder ();
 		sb.append ("select ").append (Account.COL_SALT)
 				.append (" from ").append (Account.TABLE_NAME)
-				.append (" where ").append (Account.COL_USER).append (" = ?;");
+				.append (" where BINARY ").append (Account.COL_USER).append (" = ?;");
 
 		String query = sb.toString ();
 
@@ -157,7 +157,7 @@ public class AccountHelper extends MySQLHelper {
 		StringBuilder sb = new StringBuilder ();
 		sb.append ("select ").append (Account.COL_ACCOUNT_ID)
 				.append (" from ").append (Account.TABLE_NAME)
-				.append (" where ")
+				.append (" where BINARY ")
 				.append (Account.COL_USER).append (" = ? and ")
 				.append (Account.COL_PASS).append (" = ?;");
 

@@ -1,6 +1,5 @@
 import model.*;
 import model.database.*;
-import view.popup.ViewUnitPopup;
 
 public class Test {
 
@@ -26,8 +25,8 @@ public class Test {
 //			e.printStackTrace ();
 //		}
 
-//		am.login ("hello", "1234");
-//		System.out.println (am.getAccessLevel ());
+		am.login ("nry", "jasper");
+		System.out.println (am.getAccessLevel ());
 		MySQLDatabase.getInstance ().close ();
 	}
 

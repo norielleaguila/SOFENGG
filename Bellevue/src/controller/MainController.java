@@ -7,20 +7,20 @@ import javafx.stage.*;
 
 public abstract class MainController {
 	
-	protected static Stage mainStage;
+	protected Stage mainStage;
 	protected Scene scene;
 	
 	public MainController (Stage stage) {
 		mainStage = stage;
-		mainStage.setMinWidth (1280);
-		mainStage.setMinHeight (720);
+		mainStage.setMinWidth (1024);
+		mainStage.setMinHeight (768);
 		
 		scene = new Scene (new Group (), mainStage.getWidth (), mainStage.getHeight ());
 		
 		initControllers ();
 		
 		stage.setScene (scene);
-//		stage.show ();
+		stage.show ();
 	}
 	
 	protected abstract void initControllers ();

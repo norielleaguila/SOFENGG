@@ -7,12 +7,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import model.UnitModel.UnitContainer;
+import model.beans.Unit;
+import model.database.StreetHelper;
 
 public class ViewUnitPopup extends Popup{
 	
 	private static final double CHILD_GAP = 10;
 	private static final double WIDTH = 500,
 								HEIGHT = 500;
+	private static final double LBL_WIDTH = 100;
 	
 	private BorderPane mainLayout;
 	private Pane headerPane;
@@ -24,12 +28,18 @@ public class ViewUnitPopup extends Popup{
 	private Label billNameLbl;
 	private Label tctLbl;
 	private Label lotAreaLbl;
+	private Label addressLbl;
 	
 	private int numChildren = 0;
 	private double headerHeight = 0;
 	
-	public ViewUnitPopup(){
+	private UnitContainer unit;
+	
+	public ViewUnitPopup(UnitContainer unit){
 		super();
+		
+		this.unit = unit;
+		
 		init();
 		
 		setAutoHide(true);
@@ -52,8 +62,8 @@ public class ViewUnitPopup extends Popup{
 		mainLayout.setMaxSize(WIDTH, HEIGHT);
 		mainLayout.setId("popup");
 		
-		mainLayout.getStylesheets().add("stylesheets/style.css");
-		mainLayout.getStylesheets().add("stylesheets/popupStylesheet.css");
+		mainLayout.getStylesheets().add("style/style.css");
+		mainLayout.getStylesheets().add("style/popupStylesheet.css");
 	}
 	
 	private void initHeader(){
@@ -64,15 +74,16 @@ public class ViewUnitPopup extends Popup{
 		headerPane.setMinHeight(CHILD_GAP * 2 + 15);
 		
 		initExitBtn();
-		initUnitNumLbl();
 	}
 	
 	private void initCollectionInfo(){
 		collectionInfoPane = new Pane();
-		
+
+		initUnitNumLbl();
 		initBillNameLbl();
 		initTCTLbl();
 		initLotAreaLbl();
+		initAddressLbl();
 	}
 	
 	private void initButtonContainer(){
@@ -99,14 +110,18 @@ public class ViewUnitPopup extends Popup{
 	private void initUnitNumLbl(){
 		unitNumLbl = new Label();
 		
-		unitNumLbl.setText("Unit 1088a");
+		unitNumLbl.setText("Unit " + unit.getUnit().getUnitNo());
 		
 		unitNumLbl.setLayoutX(CHILD_GAP);
-		unitNumLbl.setLayoutY(CHILD_GAP);
+		unitNumLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight);
+		
+		headerHeight += CHILD_GAP;
+		
+		numChildren++;
 		
 		unitNumLbl.setId("unitNumLbl");
 		
-		headerPane.getChildren().add(unitNumLbl);
+		collectionInfoPane.getChildren().add(unitNumLbl);
 	}
 
 	private void initBillNameLbl(){
@@ -115,13 +130,20 @@ public class ViewUnitPopup extends Popup{
 		billNameLbl.setText("Bill To: ");
 		
 		billNameLbl.setLayoutX(CHILD_GAP);
-		billNameLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight);
+		billNameLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+
+		billNameLbl.setId("lblBold");
+		
+		Label unitInfo = new Label("" + unit.getBillingInfo().getBilledTo());
+		unitInfo.setLayoutX(LBL_WIDTH);
+		unitInfo.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
 		
 		headerHeight += CHILD_GAP;
 		
 		numChildren++;
 		
 		collectionInfoPane.getChildren().add(billNameLbl);
+		collectionInfoPane.getChildren().add(unitInfo);
 	}
 	
 	private void initTCTLbl(){
@@ -130,13 +152,20 @@ public class ViewUnitPopup extends Popup{
 		tctLbl.setText("TCT: ");
 		
 		tctLbl.setLayoutX(CHILD_GAP);
-		tctLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight);
+		tctLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+
+		tctLbl.setId("lblBold");
+		
+		Label unitInfo = new Label("" + unit.getBillingInfo().getTCT());
+		unitInfo.setLayoutX(LBL_WIDTH);
+		unitInfo.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
 		
 		headerHeight += CHILD_GAP;
 		
 		numChildren++;
 		
 		collectionInfoPane.getChildren().add(tctLbl);
+		collectionInfoPane.getChildren().add(unitInfo);
 	}
 	
 	private void initLotAreaLbl(){
@@ -145,13 +174,43 @@ public class ViewUnitPopup extends Popup{
 		lotAreaLbl.setText("Lot Area: ");
 		
 		lotAreaLbl.setLayoutX(CHILD_GAP);
-		lotAreaLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight);
+		lotAreaLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+
+		lotAreaLbl.setId("lblBold");
+		
+		Label unitInfo = new Label(""  + unit.getUnit().getLotArea() + " sqm");
+		unitInfo.setLayoutX(LBL_WIDTH);
+		unitInfo.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
 		
 		headerHeight += CHILD_GAP;
 		
 		numChildren++;
 		
 		collectionInfoPane.getChildren().add(lotAreaLbl);
+		collectionInfoPane.getChildren().add(unitInfo);
 		
+	}
+	
+	private void initAddressLbl(){
+		addressLbl = new Label();
+		
+		addressLbl.setText("Address: ");
+		
+		addressLbl.setLayoutX(CHILD_GAP);
+		addressLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		
+		addressLbl.setId("lblBold");
+		
+		Label unitInfo = new Label("" + unit.getAddress().getAddressNo() + " " + 
+				unit.getStreet().getStreetName());
+		unitInfo.setLayoutX(LBL_WIDTH);
+		unitInfo.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		
+		headerHeight += CHILD_GAP;
+		
+		numChildren++;
+		
+		collectionInfoPane.getChildren().add(addressLbl);
+		collectionInfoPane.getChildren().add(unitInfo);
 	}
 }

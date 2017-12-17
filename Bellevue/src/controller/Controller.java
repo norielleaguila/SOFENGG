@@ -18,5 +18,5 @@ public abstract class Controller <T extends Parent & View, E extends MainControl
 	public void setAsScene () {
 		mainController.setScene (view);
 	}
-	
+
 }

@@ -2,7 +2,6 @@ import javafx.application.*;
 import javafx.stage.*;
 import controller.*;
 import model.database.*;
-import view.popup.ViewUnitPopup;
 
 public class Driver extends Application {
 
@@ -20,12 +19,8 @@ public class Driver extends Application {
 	public void start (Stage mainStage) {
 		Driver.login ();
 		
-		
 		mainStage.show();
-		
-		
-		
-		
+
 		new ApplicationController (mainStage);
 	}
 	

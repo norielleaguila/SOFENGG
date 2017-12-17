@@ -1,16 +1,14 @@
 package view;
 
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import view.popup.ViewUnitPopup;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.*;
+import javafx.scene.input.*;
+import javafx.geometry.*;
 import controller.*;
 
 public class LoginView extends VBox implements View {
+
+	private VBox loginVBox;
 	
 	private Label appName;
 	private TextField usernameTF;
@@ -19,26 +17,42 @@ public class LoginView extends VBox implements View {
 	
 	private OnLoginListener onLoginListener;
 	
+	public interface OnLoginListener{
+		public void onAction(String username, String password);
+	}
+	
 	public LoginView(){
 		super ();
 		init ();
 	}
 	
 	private void init(){
-		
-		getStylesheets().add("stylesheets/style.css");
+		getStylesheets().add("style/loginStylesheet.css");
 		
 		this.setAlignment(Pos.CENTER);
-		this.setSpacing(10);
-		
-		initAppName();
-		initLoginTF();
-		initLoginBtn();
+		this.setFillWidth(false);
+
+		initLoginVBox();
 		
 		this.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER)
 				loginBtn.fire();
 		});
+		
+		getChildren().add(loginVBox);
+	}
+	
+	private void initLoginVBox(){
+		loginVBox = new VBox();
+		
+		loginVBox.setAlignment(Pos.CENTER);
+		loginVBox.setSpacing(15);
+		
+		loginVBox.setId("loginVBox");
+		
+		initAppName();
+		initLoginTF();
+		initLoginBtn();
 	}
 	
 	private void initAppName(){
@@ -48,7 +62,7 @@ public class LoginView extends VBox implements View {
 		
 		appName.setId("appNameLbl");
 		
-		getChildren().add(appName);
+		loginVBox.getChildren().add(appName);
 	}
 	
 	private void initLoginTF(){
@@ -68,8 +82,8 @@ public class LoginView extends VBox implements View {
 		passwordPF.setPromptText("Enter password");
 		
 		// add elements to layout
-		getChildren().add(usernameTF);
-		getChildren().add(passwordPF);
+		loginVBox.getChildren().add(usernameTF);
+		loginVBox.getChildren().add(passwordPF);
 	}
 	
 	private void initLoginBtn(){
@@ -86,7 +100,7 @@ public class LoginView extends VBox implements View {
 				onLoginListener.onAction(usernameTF.getText(), passwordPF.getText());
 		});
 		
-		getChildren().add(loginBtn);
+		loginVBox.getChildren().add(loginBtn);
 	}
 	
 	@Override
@@ -98,7 +112,5 @@ public class LoginView extends VBox implements View {
 		this.onLoginListener = onLoginListener;
 	}
 	
-	public interface OnLoginListener{
-		public void onAction(String username, String password);
-	}
+	
 }

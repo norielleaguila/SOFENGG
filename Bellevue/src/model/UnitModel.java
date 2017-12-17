@@ -53,6 +53,20 @@ public class UnitModel extends Model {
 
 		return unitContainer;
 	}
+	
+	public List<Unit> getUnits(){
+		return units;
+	}
+	
+	public ArrayList<UnitContainer> getAllUnits(){
+		ArrayList<UnitContainer> unitList = new ArrayList<>();
+		
+		for(Unit unit : units){
+			unitList.add(getUnit(unit.getUnitNo()));
+		}
+		
+		return unitList;
+	}
 
 	public class UnitContainer {
 		private Unit unit;
