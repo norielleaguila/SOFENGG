@@ -29,6 +29,29 @@ public class FeeHelper extends MySQLHelper {
 
 		return fee;
 	}
+	
+	public Fee getFee (String id) {
+		StringBuilder sb = new StringBuilder ();
+		sb.append ("select * from ").append (Fee.TABLE_NAME)
+				.append (" where ").append (Fee.COL_FEE_NAME)
+				.append (" = ?;");
+
+		String query = sb.toString ();
+
+		ResultSet rs = database.executeQuery (query, new Object[] {id});
+
+		Fee fee = null;
+
+		try {
+			if (rs.next ()) {
+				fee = createFee (rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace ();
+		}
+
+		return fee;
+	}
 
 	public List<Fee> getAllFees () {
 		StringBuilder sb = new StringBuilder ();

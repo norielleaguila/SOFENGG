@@ -63,6 +63,7 @@ public class IncurredFeeHelper extends MySQLHelper {
 
 	public boolean addIncurredFee (IncurredFee incurredFee) {
 		StringBuilder sb = new StringBuilder ();
+		
 		sb.append ("insert into ").append (IncurredFee.TABLE_NAME)
 				.append (" (")
 				.append (IncurredFee.COL_UNIT_NO).append (", ")
@@ -72,9 +73,9 @@ public class IncurredFeeHelper extends MySQLHelper {
 				.append (IncurredFee.COL_TOTAL).append (", ")
 				.append (IncurredFee.COL_PAYMENT).append (") ")
 				.append ("values (?,?,?,?,?,?);");
-
+		
 		String query = sb.toString ();
-
+		
 		int result = database.executeUpdate (query,
 					new Object[] {
 						incurredFee.getUnitNo (),

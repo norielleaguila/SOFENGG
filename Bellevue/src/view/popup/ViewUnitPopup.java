@@ -13,6 +13,8 @@ import javafx.stage.*;
 import model.CollectionModel;
 import model.UnitModel.UnitContainer;
 import model.beans.*;
+import model.database.FeeHelper;
+import model.database.IncurredFeeHelper;
 import view.Size;
 import view.UnitRow;
 
@@ -371,10 +373,26 @@ public class ViewUnitPopup extends Popup{
 		addBtn.getStyleClass().add("btn");
 
 		addBtn.setOnAction (event -> {
-			Popup p = new AddExpenses ();
+			AddExpenses p = new AddExpenses ();
 			p.show (mainStage);
 			p.setX (250);
 			p.setY (200);
+			
+			p.setOnAddExpenseListener((String name, int count)->{
+				FeeHelper feeHelper = new FeeHelper();
+				Fee fee = feeHelper.getFee(name);
+				IncurredFee infee = new IncurredFee();
+				infee.setCount(count);
+				infee.setFeeID(fee.getFeeID());
+				infee.setUnitNo(unit.getUnit().getUnitNo());
+				infee.setDate(java.time.LocalDateTime.now().toString().split("T")[0]);
+				infee.setTotal(feeHelper.getFee(fee.getFeeID()).getFeePrice());
+				infee.setPayment(0);
+				
+				IncurredFeeHelper ifh = new IncurredFeeHelper();
+				System.out.println(ifh.addIncurredFee(infee));
+				
+			});
 		});
 
 		buttonContainerHBox.getChildren().add(addBtn);

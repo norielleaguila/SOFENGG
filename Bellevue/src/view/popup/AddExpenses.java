@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import model.*;
 import model.beans.*;
+import model.database.FeeHelper;
 import view.Size;
 
 import java.util.*;
@@ -240,7 +241,7 @@ public class AddExpenses extends Popup{
 		cancelBtn = new Button("CANCEL");
 		cancelBtn.setMinSize(Size.BTN_PREF_WIDTH, Size.BTN_PREF_HEIGHT);
 		cancelBtn.getStyleClass().add("btn");
-		
+	
 		cancelBtn.setOnAction(e->{
 			hide();
 		});
@@ -253,6 +254,12 @@ public class AddExpenses extends Popup{
 		addBtn.setMinSize(Size.BTN_PREF_WIDTH, Size.BTN_PREF_HEIGHT);
 		
 		addBtn.getStyleClass().add("btn");
+		
+		addBtn.setOnAction(e -> {
+			if(onAddExpenseListener != null)
+				onAddExpenseListener.onAction(feeNameCB.getValue(), Integer.parseInt(qtyTF.getText()));
+			hide();
+		});
 		
 		btnContainerHBox.getChildren().add(addBtn);
 	}
