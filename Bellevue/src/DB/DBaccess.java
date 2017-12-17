@@ -14,12 +14,13 @@ import models.Collection;
 import models.Fee;
 import models.FeeIncurred;
 import models.FeeList;
+import models.FeesIncurred;
 import models.Unit;
 public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	static final String USER = "root";
-	static final String PASS = "0825";
+	static final String PASS = "none";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -58,6 +59,12 @@ public class DBaccess {
 			connect();
 			for(Collection collection:retval){
 				collection.addFees();
+				for(FeeIncurred f:collection.getAllFee()){
+					//System.out.println("notice me -- "+collection.getUnitNo()+" "+
+						//	collection.getCollectionID()+" "+
+						//	f.getFeeID()+" "+f.getName());
+					
+				}
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -75,7 +82,7 @@ public class DBaccess {
 			String sql = "SELECT * FROM feesincurred where CollectionID="+CollectionID+";" ;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				retval.add(new FeeIncurred(FeeList.fees.get(rs.getInt("FeeID")-1),rs.getInt("NoOfIncurs"),
+				retval.add(new FeeIncurred(FeeList.getFeeByID(rs.getInt("FeeID")),rs.getInt("NoOfIncurs"),
 						rs.getString("DateIncurred"),rs.getInt("CollectionID"),rs.getInt("UnitNo")));
 			}
 			connect();
@@ -181,6 +188,36 @@ public class DBaccess {
 			e.printStackTrace();
 		}
 		return retval;
+	}
+	public static void removeFee(FeeIncurred fee){
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "Delete from feesincurred where UnitNo="+fee.getUnitNo()+" and FeeID="+
+					fee.getFeeID()+" and CollectionID="+fee.getCollectionID()+";";
+			stmt.executeUpdate(sql);
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	public static void editFee(FeeIncurred prev,FeeIncurred post){
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "Update feesincurred SET FeeID="+post.getFeeID()+", NoOfIncurs="+post.getTimes()+" where UnitNo="+prev.getUnitNo()+" and FeeID="+
+					prev.getFeeID()+" and CollectionID="+prev.getCollectionID()+";";
+			stmt.executeUpdate(sql);
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static ArrayList<Fee> getUnitUnpaidList(Unit u){

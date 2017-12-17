@@ -71,6 +71,7 @@ public class CollectionTabController extends Controller{
 					DBaccess.addFee(f);
 					cd.hide();
 					cd.update();
+					
 					view.update();
 				}
 			}

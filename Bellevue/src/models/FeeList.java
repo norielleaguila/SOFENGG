@@ -23,6 +23,10 @@ public class FeeList extends Model{
 		this.fees = fees;
 		sortByType();
 	}
+	public static void update(){
+		fees=DBaccess.getFees();
+		sortByType();
+	}
 	
 	public Fee getFee(Fee fee){
 		if(fees.contains(fee))
@@ -36,6 +40,7 @@ public class FeeList extends Model{
 		}
 		return retval;
 	}
+	
 	
 	public static Fee getFee(String name){
 		
@@ -55,6 +60,14 @@ public class FeeList extends Model{
 		return null;
 	}
 	
+	public static Fee getFeeByID(int id){
+		for(Fee fee:fees){
+			if(id==fee.getFeeID())
+				return fee;
+		}
+		return null;
+	}
+	
 	public ArrayList<Fee> getFees(){
 		return fees;
 	}
@@ -65,7 +78,7 @@ public class FeeList extends Model{
 	 */
 
 	
-	public ArrayList<Fee> sortByType(){
+	public static ArrayList<Fee> sortByType(){
 		fees.sort((f1, f2) -> {
 			return f1.getType().compareTo(f2.getType());
 		});
@@ -80,7 +93,6 @@ public class FeeList extends Model{
 	 */
 	public ArrayList<Fee> filterType(String type){
 		ArrayList<Fee> temp = new ArrayList<Fee>();
-		
 		for(Fee f: fees){
 			if(f.getType().equals(type))
 				temp.add(f);
@@ -91,6 +103,7 @@ public class FeeList extends Model{
 	
 	public void addFee(Fee fee){
 		fees.add(fee);
+		sortByType();
 	}
 	
 	private void createDummyData(){

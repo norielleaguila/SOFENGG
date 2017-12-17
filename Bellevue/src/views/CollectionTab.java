@@ -115,8 +115,8 @@ public class CollectionTab extends Tabs{
 		case 0:
 			cddialog.updateCat();
 			cddialog.show(window);
-			acdialog.setX(200);
-			acdialog.setY(200);
+			cddialog.setX(200);
+			cddialog.setY(200);
 			break;
 		case 1:
 			acdialog.show(window);

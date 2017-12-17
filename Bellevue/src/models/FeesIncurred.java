@@ -29,6 +29,28 @@ public class FeesIncurred extends Model{
 	public void addFee(Fee newFee,int times){
 		this.fees.add(new FeeIncurred(newFee,times));
 	}
+	public void deleteFee(FeeIncurred fee){
+		int val=-1;
+		for(int i=0;i<fees.size();i++){
+			if(fees.get(i).getName().equals(fee.getName())){
+				val=i;
+				break;
+			}
+		}
+		if(val>=0)
+			fees.remove(val);
+	}
+	public void editFee(FeeIncurred pre,FeeIncurred post){
+		int val=-1;
+		for(int i=0;i<fees.size();i++){
+			if(fees.get(i).getName().equals(pre.getName())){
+				val=i;
+				break;
+			}
+		}
+		if(val>=0)
+			fees.set(val, post);
+	}
 	public FeeIncurred addFee(FeeIncurred fee){
 		FeeIncurred temp =getFeeIncurred(fee.getFeeID());
 		if(temp==null){

@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Collection;
 import models.CollectionList;
+import models.Fee;
 import models.FeeIncurred;
 import models.FeeList;
 import models.Unit;
@@ -42,6 +43,10 @@ public class UnitCollection extends View{
 	private Popup unitPopup;
 	private Collection collection;
 	private ArrayList<FeeIncurred> addedFee;
+	private ArrayList<Integer> sequence;
+	private ArrayList<FeeIncurred> deletedFee;
+	private ArrayList<FeeIncurred> preEditFee;
+	private ArrayList<FeeIncurred> postEditFee;
 	private ArrayList<displayval> displayList;
 	private Button close;
 	private Region headerDivider;
@@ -69,6 +74,7 @@ public class UnitCollection extends View{
 	private Button addButton;
 	private Button printButton;
 	private Button deleteButton;
+	private Button editButton;
 	private VBox unitVBox;
 	private VBox tablePane;
 	
@@ -98,6 +104,10 @@ public class UnitCollection extends View{
 		// TODO Auto-generated method stub
 		collection = collectionModel.getUnit(unit.getUnitNo());
 		addedFee = new ArrayList<FeeIncurred>();
+		deletedFee=new ArrayList<FeeIncurred>();
+		preEditFee=new ArrayList<FeeIncurred>();
+		postEditFee=new ArrayList<FeeIncurred>();
+		sequence=new ArrayList<Integer>();
 		displayList = new ArrayList<displayval>();
 		
 		unitnumLabel = new Label("UNIT#" + unit.getUnitNo());
@@ -271,7 +281,7 @@ public class UnitCollection extends View{
 		addButton = new Button("Add Expenses");
 		printButton = new Button("Print Bill");
 		deleteButton = new Button("Delete Expense");
-		
+		editButton=new Button("Edit Expense");
 		saveButton.setDisable(true);
 		saveButton.setPrefWidth(200);
 		saveButton.setPrefHeight(20);
@@ -280,16 +290,21 @@ public class UnitCollection extends View{
 		
 		printButton.setPrefWidth(200);
 		
+		editButton.setDisable(true);
 		deleteButton.setDisable(true);
 		
 		saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 		printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
 		deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+		editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		
 		unpaidRadio.setOnAction(e -> {
 			saveButton.setDisable(false);
 	        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+	        
+	        editButton.setDisable(true);
+	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 	        
 	        deleteButton.setDisable(true);
 			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
@@ -299,17 +314,27 @@ public class UnitCollection extends View{
 			saveButton.setDisable(false);
 	        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 	        
+	        editButton.setDisable(true);
+	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+	        
 	        deleteButton.setDisable(true);
 			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		
 		unitTable.setOnMouseClicked(event -> {
 			if(unitTable.getSelectionModel().getSelectedItem() != null){
+				
+				editButton.setDisable(false);
+		        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+				
 				deleteButton.setDisable(false);
 				deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 			}
 		});
 		unitTable.setOnMouseReleased(event -> {
+			editButton.setDisable(true);
+	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			
 			deleteButton.setDisable(true);
 			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
@@ -321,9 +346,86 @@ public class UnitCollection extends View{
 			paidToggle.selectToggle(paidRadio);
 		else
 			paidToggle.selectToggle(unpaidRadio);
-		
-		deleteButton.setOnAction(e ->{
+		editButton.setOnAction(e->{
+			displayval temp=(displayval) unitTable.getSelectionModel().getSelectedItem();
+			EditExpense ee = new EditExpense(displayList,temp.getName(),temp.getTimes());
+			ee.updateCat();
+			ee.show(window);
+			ee.setX(200);
+			ee.setY(200);
 			
+			ee.setOnAddEventHandler(new views.EditExpense.OnAddEventHandler(){
+
+				@Override
+				public void onAction(String FeeName, String times) {
+					boolean costNaN = false;
+					int num=0;
+					try{num=Integer.parseInt(times);}
+					catch(NumberFormatException e){costNaN = true;}
+					
+					if(times == "")
+						ee.error(1);
+					else if(costNaN)
+						ee.error(2);
+					else if(FeeName == null)
+						ee.error(3);
+					else{
+						itemsList.removeAll(itemsList);
+						FeeIncurred prev=null;
+						for(FeeIncurred fee:collection.getAllFee()){
+							if(fee.getName().equals(temp.getName())){
+								prev=fee;
+								break;
+							}
+						}
+						int val=-1;
+						for(int i=0;i<displayList.size();i++){
+							if(displayList.get(i).getName().equals(temp.getName())){
+								val=i;
+								break;
+							}
+						}	
+						Fee feetemp=FeeList.getFee(FeeName);
+						FeeIncurred post= new FeeIncurred(feetemp,num,
+								prev.getDateIncurred(),collection.getCollectionID(),collection.getUnitNo()); 
+						displayval tempval=new displayval(FeeName,num,feetemp.getPrice());
+						displayList.set(val, tempval);
+						itemsList.addAll(displayList);
+						
+						preEditFee.add(prev);
+						postEditFee.add(post);
+						sequence.add(2);
+						ee.hide();
+						ee.update();
+						view.update();
+						saveButton.setDisable(false);
+						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+					}
+				}
+				
+			});
+			deleteButton.setDisable(true);
+			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			editButton.setDisable(true);
+	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+		});
+		deleteButton.setOnAction(e ->{
+			sequence.add(1);
+			displayval temp=(displayval) unitTable.getSelectionModel().getSelectedItem();
+			unitTable.getItems().remove(temp);
+			displayList.remove(temp);
+			for(FeeIncurred fee:collection.getAllFee()){
+				if(fee.getName().equals(temp.getName())){
+					deletedFee.add(fee);
+					break;
+				}
+			}
+			saveButton.setDisable(false);
+			saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+			deleteButton.setDisable(true);
+			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			editButton.setDisable(true);
+	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		addButton.setOnAction(e ->{
 			System.out.println("add button pushed");
@@ -378,6 +480,7 @@ public class UnitCollection extends View{
 						ae.hide();
 						ae.update();
 						view.update();
+						sequence.add(0);
 					}
 				}
 			});
@@ -385,7 +488,21 @@ public class UnitCollection extends View{
 			
 		});
 		saveButton.setOnAction(e -> {
-			collection.addFee(addedFee);	
+			for(int i:sequence){
+				if(i==0){
+					collection.addFee(addedFee.get(0));
+					addedFee.remove(0);
+				}else if(i==1){
+					collection.deleteFee(deletedFee.get(0));
+					deletedFee.remove(0);
+				}else if(i==2){
+					collection.editFee(preEditFee.get(0), postEditFee.get(0));
+					preEditFee.remove(0);
+					postEditFee.remove(0);
+				}
+			}
+			
+			;
 			if(paidRadio.isSelected()){
 				collectionModel.getUnit(unit.getUnitNo()).setDatePaid(java.time.LocalDateTime.now().toString().split("T")[0]);
 				unit.setPaid(true);
@@ -412,9 +529,15 @@ public class UnitCollection extends View{
 						row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
 				}
 			}
+			saveButton.setDisable(true);
+			addedFee = new ArrayList<FeeIncurred>();
+			preEditFee=new ArrayList<FeeIncurred>();
+			postEditFee=new ArrayList<FeeIncurred>();
+			deletedFee=new ArrayList<FeeIncurred>();
+			sequence=new ArrayList<Integer>();
 //			view.update();
 		});
-		buttonsHBox.getChildren().addAll(deleteButton,saveButton,addButton,printButton);
+		buttonsHBox.getChildren().addAll(editButton,deleteButton,saveButton,addButton,printButton);
 		buttonsHBox.setSpacing(10);
 		buttonsVBox.getChildren().addAll(paidHBox,buttonsHBox);
 		bottomContainer.getChildren().addAll(region1,buttonsVBox);
@@ -476,6 +599,12 @@ public class UnitCollection extends View{
 		}
 		public int getTimes() {
 			return times;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public void setTimes(int times) {
+			this.times = times;
 		}
 	}
 }

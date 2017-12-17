@@ -53,9 +53,13 @@ public class CollectionTable extends ScrollPane implements ViewInterface{
 	
 	public void initTables(){
 		tables = new ArrayList<>();
-		
+		System.out.println("------I Reached HERE------ FEETYPE IS"+Fee.FEETYPE.size());
 		// create tables
 		for(int i = 0; i < Fee.FEETYPE.size(); i++){
+			System.out.println("------I AM IMPORTANT NOTICE ME------");
+			
+			
+			
 			tables.add(new TableView());
 			TableColumn typeCol = new TableColumn(Fee.FEETYPE.get(i));
 			TableColumn nameCol = new TableColumn("");
@@ -95,6 +99,7 @@ public class CollectionTable extends ScrollPane implements ViewInterface{
 	}
 	
 	public void updateTables(){
+		System.out.println("------I UPDATED MY DEAR------");
 		initTables();
 		
 		tableContainer.getChildren().addAll(tables);

@@ -48,6 +48,25 @@ public class Collection{
 			addFee(fee);
 	}
 	
+	public void deleteFee(FeeIncurred fee){
+		this.feesIncurred.deleteFee(fee);
+		DBaccess.removeFee(fee);
+	}
+	public void deleteFee(ArrayList<FeeIncurred> fees){
+		for(FeeIncurred fee:fees)
+			deleteFee(fee);
+		
+	}
+	public void editFee(ArrayList<FeeIncurred> pre,ArrayList<FeeIncurred> post){
+		for(int i=0;i<pre.size();i++)
+			editFee(pre.get(i),post.get(i));
+		
+	}
+	public void editFee(FeeIncurred pre,FeeIncurred post){
+		this.feesIncurred.editFee(pre, post);
+		DBaccess.editFee(pre, post);
+	}
+	
 	public ArrayList<FeeIncurred> getAllFee(){
 		return feesIncurred.getFeesIncurred();
 	}

@@ -22,24 +22,21 @@ public class Fee{
 //	private String feeName;
 //	private String type;
 //	private double price;
-	public static ArrayList<String> FEETYPE;
+	public static ArrayList<String> FEETYPE = new ArrayList<String>();
 	private IntegerProperty feeID;
 	private StringProperty feeName;
 	private StringProperty type;
 	private DoubleProperty price;
 	
 	public Fee(){
-		String[] startTypes = new String[]{"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
-				"Special Activities and Events"};
+		//String[] startTypes = new String[]{"Basic Charges","Monthly Association Dues","Others","Renovation","Rentals",
+		//		"Special Activities and Events"};
 		
 		feeID = new SimpleIntegerProperty();
 		feeName = new SimpleStringProperty();
 		type = new SimpleStringProperty();
 		price = new SimpleDoubleProperty();
 		
-		FEETYPE = new ArrayList<>();
-		
-		FEETYPE.addAll(Arrays.asList(startTypes));
 	}
 	
 	public Fee(String feeName, String type, double price){

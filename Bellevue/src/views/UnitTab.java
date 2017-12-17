@@ -1,13 +1,13 @@
 package views;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-=======
+//=======
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -142,10 +142,7 @@ public class UnitTab extends Tabs{
 		private void initFitler(){
 			
 		}
-		
-	public UnitList getUnitList(){
-		return model;
-	}
+	
 	public void initTimer(){
 		/*Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
 			if(Integer.parseInt(java.time.LocalDateTime.now().toString().split("T")[0].split("-")[2]) > 15){
@@ -173,4 +170,10 @@ public class UnitTab extends Tabs{
 	    clock.play();*/
 	}
 	
+}
+
+	public UnitList getUnitList() {
+		// TODO Auto-generated method stub
+		return model;
+	}
 }
