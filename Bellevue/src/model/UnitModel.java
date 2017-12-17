@@ -2,7 +2,6 @@ package model;
 
 import model.beans.*;
 import model.database.*;
-
 import java.util.*;
 
 public class UnitModel extends Model {
@@ -12,6 +11,7 @@ public class UnitModel extends Model {
 	private BillingInfoHelper billingInfoHelper;
 	private CategoryHelper categoryHelper;
 	private StreetHelper streetHelper;
+	private MonthlyCollectionHelper monthlyCollectionHelper;
 	private List <Unit> units;
 
 	public UnitModel () {
@@ -20,6 +20,7 @@ public class UnitModel extends Model {
 		billingInfoHelper = new BillingInfoHelper ();
 		categoryHelper = new CategoryHelper ();
 		streetHelper = new StreetHelper ();
+		monthlyCollectionHelper = new MonthlyCollectionHelper ();
 		units = new ArrayList<> ();
 		setUnits ();
 	}
@@ -58,15 +59,41 @@ public class UnitModel extends Model {
 		return units;
 	}
 	
-	public ArrayList<UnitContainer> getAllUnits(){
-		ArrayList<UnitContainer> unitList = new ArrayList<>();
-		
+	public List<UnitContainer> getAllUnits(){
+		List<UnitContainer> unitList = new ArrayList<>();
+		units = unitHelper.getAllUnits ();
+
 		for(Unit unit : units){
 			unitList.add(getUnit(unit.getUnitNo()));
 		}
 		
 		return unitList;
 	}
+
+	public ArrayList<Unit> getAllPaidUnits () {
+		ArrayList<Unit> unitList = new ArrayList<> ();
+
+		List<String> list = monthlyCollectionHelper.getUnitNoByOverdue ("<=");
+		
+		if(list != null && !list.isEmpty()){
+			for (String str: list)
+				unitList.add (unitHelper.getUnit (str));
+		}
+
+		return unitList;
+	}
+
+	public ArrayList<Unit> getAllUnpaidUnits () {
+		ArrayList<Unit> unitList = new ArrayList<> ();
+
+		List<String> list = monthlyCollectionHelper.getUnitNoByOverdue (">");
+
+		for (String str: list)
+			unitList.add (unitHelper.getUnit (str));
+
+		return unitList;
+	}
+
 
 	public class UnitContainer {
 		private Unit unit;

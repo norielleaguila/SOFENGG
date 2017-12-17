@@ -4,6 +4,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
 import view.*;
+import view.popup.AddExpenses;
 import view.popup.ViewUnitPopup;
 
 public class LoginController extends Controller<LoginView, ApplicationController> {

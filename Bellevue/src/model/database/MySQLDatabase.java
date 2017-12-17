@@ -51,7 +51,7 @@ public class MySQLDatabase extends DatabaseManager {
 
 			rs = preparedStatement.executeQuery ();
 			connection.commit ();
-			connection.setSavepoint ();
+			savepoint = connection.setSavepoint ();
 		} catch (SQLException e) {
 			try {
 				connection.rollback (savepoint);

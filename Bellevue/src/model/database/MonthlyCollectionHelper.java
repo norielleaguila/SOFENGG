@@ -3,6 +3,7 @@ package model.database;
 import model.beans.*;
 
 import java.sql.*;
+import java.util.*;
 
 public class MonthlyCollectionHelper extends MySQLHelper {
 
@@ -28,6 +29,39 @@ public class MonthlyCollectionHelper extends MySQLHelper {
 		}
 
 		return monthlyCollection;
+	}
+
+	public List<String> getUnitNoByOverdue (String overdueFlag) {
+		StringBuilder sb = new StringBuilder ();
+
+		sb.append ("select ").append (MonthlyCollection.COL_UNIT_NO)
+				.append (" , ")
+				.append (" sum(").append (MonthlyCollection.COL_MONTHLY_OVERDUE)
+				.append (") as od")
+				.append (" from ").append (MonthlyCollection.TABLE_NAME)
+				.append (" group by ").append (MonthlyCollection.COL_UNIT_NO)
+				.append (" having ").append (" od ").append (overdueFlag)
+				.append (" 0;");
+
+		String query = sb.toString ();
+
+		ResultSet rs = database.executeQuery (query, new Object[] {});
+		ArrayList<String> list = new ArrayList<> ();
+
+		try {
+			while (rs.next ()) {
+				list.add (rs.getString (MonthlyCollection.COL_UNIT_NO));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace ();
+		}
+		catch (NullPointerException e){
+			
+		}
+		
+
+		return list;
 	}
 
 	public boolean addCollection (MonthlyCollection monthlyCollection) {

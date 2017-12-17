@@ -44,7 +44,7 @@ public class UnitTabController extends Controller<UnitTab, ApplicationController
 
 			@Override
 			public void onAction(int which) {
-				
+				view.filter(which);
 			}
 			
 		});

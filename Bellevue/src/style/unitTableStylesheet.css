@@ -2,11 +2,61 @@
 	-fx-background-color: #f7bb97;
 }
 
+.root *{
+	-fx-background-color: white;
+}
+
 .label{
 	-fx-font-size: 12pt;
 }
 
+.button{
+	-fx-padding: 5;
+	-fx-background-radius: 5;
+	-fx-border-radius: 5;
+	-fx-border-color: transparent;
+	-fx-alignment: CENTER;
+	-fx-background-color: #BDD358;
+	-fx-text-fill: #4b4b4b;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 2);
+}
 
 #tableHeader{
+	-fx-padding: 5;
+}
+
+.unitRowLbl{
+	-fx-alignment: CENTER;
+	-fx-border-color: transparent;
+	-fx-background-color: transparent;
+	-fx-text-fill: #4b4b4b;
+	-fx-font-size: 12pt;
+}
+
+.statusLbl{
+	-fx-border-radius: 200px;
+	-fx-background-radius: 200px;
+}
+
+#paid_StatusLbl{
+	-fx-background-color: #3F561E;
+}
+
+#unpaid_StatusLbl{
+	-fx-background-color: #95989A;
+}
+
+#overdue_StatusLbl{
+	-fx-background-color: #FF0606;
+}
+
+#unitNumLbl{
+	-fx-border-radius: 5;
+	-fx-background-radius: 5;
+	-fx-border-color: #f7bb97;
+	-fx-text-fill: #4b4b4b;
+}
+
+#unitRow{
 	-fx-padding: 5;
 }

@@ -1,15 +1,19 @@
 package view;
 
+import java.time.LocalDateTime;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
+import model.CollectionModel;
+import model.CollectionModel.CollectionContainer;
 import view.UnitsTable.OnActionListener;
 import view.popup.ViewUnitPopup;
 
 public class UnitRow extends HBox implements View{
-	private final static String ID_STATUS_LBL = "_StatusLbl";
+	public final static String ID_STATUS_LBL = "_StatusLbl";
 	
 	private Label statusLbl;
 	private Label unitNumLbl;
@@ -17,6 +21,8 @@ public class UnitRow extends HBox implements View{
 	private Button printBtn;
 	
 	private String unitNum;
+	
+	private CollectionModel collectionModel;
 	
 	public OnActionListener onActionListener;
 	
@@ -29,13 +35,14 @@ public class UnitRow extends HBox implements View{
 		super();
 		
 		this.unitNum = unitNum;
+		this.collectionModel = new CollectionModel();
 		
 		init();
 	}
 	
 	public void init(){
 		
-		getStylesheets().add("style/unitTabStylesheet.css");
+		getStylesheets().add("style/unitTableStylesheet.css");
 		
 		setSpacing(Size.TABLE_SPACING);
 		setAlignment(Pos.CENTER);
@@ -56,8 +63,16 @@ public class UnitRow extends HBox implements View{
 		
 		statusLbl.setMaxSize(30, 30);
 		statusLbl.setMinSize(30, 30);
+
+//		String[] now = java.time.LocalDateTime.now().toString().split("T")[0].split("-");
+//		
+//		CollectionContainer cc = collectionModel.getCollection(unitNum, Integer.parseInt(now[2]), now[0] + "-1");
 		
-		statusLbl.setId("unpaid" + ID_STATUS_LBL);	// all units are unpaid by default
+		setStatus(2);	// all units are unpaid by default
+		
+//		if(cc.getMonthlyCollection().getDatePaid() != null){
+//			setStatus(1);
+//		}
 		
 		getChildren().add(statusLbl);
 	}
@@ -108,6 +123,20 @@ public class UnitRow extends HBox implements View{
 		});
 		
 		getChildren().add(printBtn);
+	}
+	
+	public void setStatus(int status){
+		switch(status){
+		case 1:
+			statusLbl.setId("paid" + ID_STATUS_LBL);
+			break;
+		case 2:
+			statusLbl.setId("unpaid" + ID_STATUS_LBL);
+			break;
+		case 3:
+			statusLbl.setId("overdue" + ID_STATUS_LBL);
+			break;
+		}
 	}
 	
 	public void setOnActionListener(OnActionListener onActionListener){

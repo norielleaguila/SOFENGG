@@ -56,7 +56,7 @@ public class IncurredFeeHelper extends MySQLHelper {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace ();
-		}
+		} catch (NullPointerException e){}
 
 		return incurredFees;
 	}

@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.image.Image;
 import javafx.stage.*;
+import view.popup.AddExpenses;
 
 public class ApplicationController extends MainController {
 

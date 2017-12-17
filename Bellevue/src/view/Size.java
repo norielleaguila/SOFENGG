@@ -15,4 +15,6 @@ public class Size {
 	public static final double SPACING = 20;
 	public static final double TABLE_SPACING = 10;
 	public static final double SPACING_RADIO_BTN = 5;
+	
+	public static final double CHILD_GAP = 10;
 }

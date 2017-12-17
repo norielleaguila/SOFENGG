@@ -5,6 +5,7 @@ import model.UnitModel;
 import model.UnitModel.UnitContainer;
 import view.UnitRow;
 import view.UnitsTable.OnActionListener;
+import view.popup.AddExpenses;
 import view.popup.ViewUnitPopup;
 
 public class UnitRowController extends Controller<UnitRow, ApplicationController>{
@@ -26,8 +27,8 @@ public class UnitRowController extends Controller<UnitRow, ApplicationController
 
 			@Override
 			public void onAction(int button, String unitNum) {
-				
 				showPopup(button, unitNum);
+				
 			}
 			
 		});
@@ -37,7 +38,7 @@ public class UnitRowController extends Controller<UnitRow, ApplicationController
 		Popup p = null;
 		
 		if(which == 1)	// view unit
-			p = new ViewUnitPopup(unitModel.getUnit(unitNum));
+			p = new ViewUnitPopup(unitModel.getUnit(unitNum), mainController.getStage ());
 		
 		p.show(mainController.mainStage);
 		p.setX(200);

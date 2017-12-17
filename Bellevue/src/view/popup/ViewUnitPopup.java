@@ -1,27 +1,34 @@
 package view.popup;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
+import javafx.stage.*;
+import model.CollectionModel;
 import model.UnitModel.UnitContainer;
-import model.beans.Unit;
-import model.database.StreetHelper;
+import model.beans.*;
+import view.Size;
+import view.UnitRow;
 
 public class ViewUnitPopup extends Popup{
-	
-	private static final double CHILD_GAP = 10;
 	private static final double WIDTH = 500,
 								HEIGHT = 500;
 	private static final double LBL_WIDTH = 100;
+	private static final double CHILD_GAP = Size.CHILD_GAP;
 	
 	private BorderPane mainLayout;
 	private Pane headerPane;
 	private Pane collectionInfoPane;
 	private HBox buttonContainerHBox;
+
+	private TableView<CollectionModel.UnitFeeContainer> tableView;
+	private CollectionModel collectionModel;
 	
 	private Button exitBtn;
 	private Label unitNumLbl;
@@ -29,21 +36,31 @@ public class ViewUnitPopup extends Popup{
 	private Label tctLbl;
 	private Label lotAreaLbl;
 	private Label addressLbl;
+	private Label statusLbl;
+	private Label totalLbl;
+	private Label dueLbl;
+	
+	private Button editBtn;
+	private Button deleteBtn;
+	private Button payBtn;
+	private Button saveBtn;
+	private Button addBtn;
+	private Button printBtn;
 	
 	private int numChildren = 0;
-	private double headerHeight = 0;
+	private double headerHeight = 10;
+	private Stage mainStage;
 	
+	private boolean changed;
 	private UnitContainer unit;
 	
-	public ViewUnitPopup(UnitContainer unit){
+	public ViewUnitPopup(UnitContainer unit, Stage mainStage){
 		super();
-		
 		this.unit = unit;
-		
+		this.mainStage = mainStage;
+		this.changed = false;
 		init();
-		
 		setAutoHide(true);
-		
 		getContent().addAll(mainLayout);
 	}
 	
@@ -84,10 +101,20 @@ public class ViewUnitPopup extends Popup{
 		initTCTLbl();
 		initLotAreaLbl();
 		initAddressLbl();
+		initTable();
+		initStatusLbl();
+		initTotalLbl();
+		initDueLbl();
 	}
 	
 	private void initButtonContainer(){
 		buttonContainerHBox = new HBox(CHILD_GAP);
+		buttonContainerHBox.setAlignment(Pos.CENTER);
+		buttonContainerHBox.setPadding(new Insets(10));
+		
+		initSaveBtn();
+		initAddBtn();
+		initPrintBtn();
 	}
 	
 	private void initExitBtn(){
@@ -212,5 +239,152 @@ public class ViewUnitPopup extends Popup{
 		
 		collectionInfoPane.getChildren().add(addressLbl);
 		collectionInfoPane.getChildren().add(unitInfo);
+	}
+
+	private void initTable(){
+		numChildren++;
+		
+		tableView = new TableView<> ();
+		collectionModel = new CollectionModel ();
+
+		ObservableList<CollectionModel.UnitFeeContainer> unitFeeContainers = collectionModel.getUnitFee (unit.getUnit ().getUnitNo ());
+
+		TableColumn<CollectionModel.UnitFeeContainer, String> feeName = new TableColumn<> (Fee.COL_FEE_NAME);
+		TableColumn<CollectionModel.UnitFeeContainer, String > count = new TableColumn<> (IncurredFee.COL_COUNT);
+		TableColumn<CollectionModel.UnitFeeContainer, String> total = new TableColumn<> (IncurredFee.COL_TOTAL);
+
+		feeName.setCellValueFactory (new PropertyValueFactory<CollectionModel.UnitFeeContainer, String> (Fee.COL_FEE_NAME));
+		count.setCellValueFactory (new PropertyValueFactory<CollectionModel.UnitFeeContainer, String > (IncurredFee.COL_COUNT));
+		total.setCellValueFactory (new PropertyValueFactory<CollectionModel.UnitFeeContainer, String> (IncurredFee.COL_TOTAL));
+
+		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		tableView.getColumns ().add (feeName);
+		tableView.getColumns ().add (count);
+		tableView.getColumns ().add (total);
+
+		tableView.setItems (unitFeeContainers);
+		
+		tableView.setLayoutX(CHILD_GAP);
+		tableView.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		
+		tableView.setPrefHeight((unitFeeContainers.size() + 1) * 50 + 3);
+		tableView.setPrefWidth(WIDTH - CHILD_GAP * 2);
+
+		headerHeight += CHILD_GAP + (unitFeeContainers.size() + 1) * 50 + 3;
+//		numChildren++;
+
+		collectionInfoPane.getChildren ().add (tableView);
+	}
+	
+	private void initStatusLbl(){
+		numChildren++;
+		
+		statusLbl = new Label();
+		
+		statusLbl.setMaxSize(Size.BTN_PREF_HEIGHT, Size.BTN_PREF_HEIGHT);
+		statusLbl.setMinSize(Size.BTN_PREF_HEIGHT, Size.BTN_PREF_HEIGHT);
+		
+		statusLbl.setLayoutX(CHILD_GAP * 2);
+		statusLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		
+		statusLbl.getStyleClass().add("statusLbl");
+		
+		// set to unpaid by default
+		statusLbl.setId("unpaid" + UnitRow.ID_STATUS_LBL);
+		
+//		headerHeight += CHILD_GAP;
+		
+		collectionInfoPane.getChildren().add(statusLbl);
+	}
+	
+	private void initTotalLbl(){
+		Label unitInfo = new Label("Total: ");
+		unitInfo.setLayoutX(LBL_WIDTH * 2);
+		unitInfo.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		unitInfo.setId("lblBold");
+		
+		totalLbl = new Label();
+		
+		totalLbl.setText("1234.56");
+		
+		totalLbl.setLayoutX(LBL_WIDTH * 2 + 50);
+		totalLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		
+		headerHeight += CHILD_GAP;
+		
+		numChildren++;
+		
+		collectionInfoPane.getChildren().add(totalLbl);
+		collectionInfoPane.getChildren().add(unitInfo);
+	}
+	
+	private void initDueLbl(){
+		Label unitInfo = new Label("Due: ");
+		unitInfo.setLayoutX(LBL_WIDTH * 2);
+		unitInfo.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		unitInfo.setId("lblBold");
+		
+		dueLbl = new Label();
+		
+		dueLbl.setText("1234.56");
+		
+		dueLbl.setLayoutX(LBL_WIDTH * 2 + 50);
+		dueLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
+		
+		dueLbl.setId("dueLbl");
+		
+		initPayBtn();
+		
+		headerHeight += CHILD_GAP;
+		
+		numChildren++;
+		
+		collectionInfoPane.getChildren().add(dueLbl);
+		collectionInfoPane.getChildren().add(unitInfo);
+	}
+	
+	private void initPayBtn(){
+		payBtn = new Button();
+		payBtn.setMinSize(25, 25);
+		payBtn.setLayoutX(LBL_WIDTH * 3 + 15);
+		payBtn.setLayoutY(CHILD_GAP * numChildren + headerHeight);
+		
+		payBtn.setId("payBtn");
+		
+		collectionInfoPane.getChildren().add(payBtn);
+	}
+	
+	private void initSaveBtn(){
+		saveBtn = new Button();
+		saveBtn.setText("SAVE");
+		saveBtn.setMinSize(Size.BTN_PREF_WIDTH, Size.BTN_PREF_HEIGHT);
+		
+		saveBtn.getStyleClass().add("btn");
+		
+		buttonContainerHBox.getChildren().add(saveBtn);
+	}
+	
+	private void initAddBtn(){
+		addBtn = new Button();
+		addBtn.setText("ADD EXPENSES");
+		addBtn.setMinSize(Size.BTN_PREF_WIDTH, Size.BTN_PREF_HEIGHT);
+		addBtn.getStyleClass().add("btn");
+
+		addBtn.setOnAction (event -> {
+			Popup p = new AddExpenses ();
+			p.show (mainStage);
+			p.setX (250);
+			p.setY (200);
+		});
+
+		buttonContainerHBox.getChildren().add(addBtn);
+	}
+	
+	private void initPrintBtn(){
+		printBtn = new Button();
+		printBtn.setText("PRINT");
+		printBtn.setMinSize(Size.BTN_PREF_WIDTH, Size.BTN_PREF_HEIGHT);
+		printBtn.getStyleClass().add("btn");
+		buttonContainerHBox.getChildren().add(printBtn);
 	}
 }

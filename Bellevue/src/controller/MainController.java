@@ -12,8 +12,8 @@ public abstract class MainController {
 	
 	public MainController (Stage stage) {
 		mainStage = stage;
-		mainStage.setMinWidth (1024);
-		mainStage.setMinHeight (768);
+		mainStage.setMinWidth (500);
+		mainStage.setMinHeight (500);
 		
 		scene = new Scene (new Group (), mainStage.getWidth (), mainStage.getHeight ());
 		

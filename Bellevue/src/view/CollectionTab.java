@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -71,11 +72,24 @@ public class CollectionTab extends BorderPane implements View{
 	}
 	
 	public void initTablesScroll(){
+		tablesScroll = new ScrollPane ();
+		tablesScroll.setFitToWidth(true);
+		tablesScroll.setId("scrollPane");
 		
+		tablesScroll.setOnScroll(e -> {
+			double deltaY = e.getDeltaY()*10; // *6 to make the scrolling a bit faster
+			double width = tablesScroll.getContent().getBoundsInLocal().getWidth();
+			double vvalue = tablesScroll.getVvalue();
+			tablesScroll.setVvalue(vvalue + -deltaY/width);
+		});
+		
+		initCollectionTables ();
+		setCenter (tablesScroll);
 	}
 	
 	public void initCollectionTables(){
-		
+		tablesView = new CollectionTablesView ();
+		tablesScroll.setContent (tablesView);
 	}
 	
 	public List<MenuItem> createMenuItems(){

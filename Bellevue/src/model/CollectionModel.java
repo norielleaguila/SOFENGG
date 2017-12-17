@@ -1,8 +1,11 @@
 package model;
 
+import javafx.beans.property.*;
+import javafx.collections.*;
 import model.beans.*;
 import model.database.*;
 
+import java.time.*;
 import java.util.*;
 
 public class CollectionModel extends Model {
@@ -17,6 +20,38 @@ public class CollectionModel extends Model {
 		feeTypeHelper = new FeeTypeHelper ();
 		incurredFeeHelper = new IncurredFeeHelper ();
 		monthlyCollectionHelper = new MonthlyCollectionHelper ();
+	}
+
+	public String getFeeTypeName (int feeTypeID) {
+		return feeTypeHelper.getFeeType (feeTypeID).getFeeType ();
+	}
+
+	public List<Fee> getAllFees () {
+		return feeHelper.getAllFees ();
+	}
+
+	public ObservableList<UnitFeeContainer> getUnitFee (String unitNo) {
+		ObservableList<UnitFeeContainer> observableList = FXCollections.observableArrayList ();
+
+		LocalDate todaydate = LocalDate.now();
+		String date = todaydate.withDayOfMonth (1).toString ();
+		int year = Integer.parseInt (date.substring (0, 4));
+		BillingMonth billingMonth = BillingMonth.getMonthByStart (date.substring (5));
+
+		System.out.println(billingMonth);
+		
+		List<IncurredFee> incurredFees = incurredFeeHelper.getUnitFeesByRange (unitNo, billingMonth.getStart (year), billingMonth.getEnd (year));
+
+		if (incurredFees != null && !incurredFees.isEmpty ()) {
+			for (IncurredFee incurredFee : incurredFees) {
+				Fee fee = feeHelper.getFee (incurredFee.getFeeID ());
+				UnitFeeContainer unitFeeContainer = new UnitFeeContainer (fee, incurredFee);
+
+				observableList.add (unitFeeContainer);
+			}
+		}
+
+		return observableList;
 	}
 
 	public CollectionContainer getCollection (String unitNo, int year, String date) {
@@ -94,19 +129,72 @@ public class CollectionModel extends Model {
 		}
 	}
 
+	public class UnitFeeContainer {
+		private StringProperty feeName;
+		private IntegerProperty count;
+		private DoubleProperty total;
+
+		private Fee fee;
+		private IncurredFee incurredFee;
+
+		public UnitFeeContainer (Fee fee, IncurredFee incurredFee) {
+			this.fee = fee;
+			this.incurredFee = incurredFee;
+			feeName = fee.feeNameProperty ();
+			count = incurredFee.countProperty ();
+			total = incurredFee.totalProperty ();
+		}
+
+		public String getFeeName () {
+			return feeName.get ();
+		}
+
+		public StringProperty feeNameProperty () {
+			return feeName;
+		}
+
+		public void setFeeName (String feeName) {
+			this.feeName.set (feeName);
+		}
+
+		public int getCount () {
+			return count.get ();
+		}
+
+		public IntegerProperty countProperty () {
+			return count;
+		}
+
+		public void setCount (int count) {
+			this.count.set (count);
+		}
+
+		public double getTotal () {
+			return total.get ();
+		}
+
+		public DoubleProperty totalProperty () {
+			return total;
+		}
+
+		public void setTotal (double total) {
+			this.total.set (total);
+		}
+	}
+
 	private static enum BillingMonth {
-		JANUARY ("1-1", "2-1"),
-		FEBRUARY ("2-1", "3-1"),
-		MARCH ("3-1", "4-1"),
-		APRIL ("4-1", "5-1"),
-		MAY ("5-1", "6-1"),
-		JUNE ("6-1", "7-1"),
-		JULY ("7-1", "8-1"),
-		AUGUST ("8-1", "9-1"),
-		SEPTEMBER ("9-1", "10-1"),
-		OCTOBER ("10-1", "11-1"),
-		NOVEMBER ("11-1", "12-1"),
-		DECEMBER ("12-1", "1-1");
+		JANUARY ("01-01", "02-01"),
+		FEBRUARY ("02-01", "03-01"),
+		MARCH ("03-01", "04-01"),
+		APRIL ("04-01", "05-01"),
+		MAY ("05-01", "06-01"),
+		JUNE ("06-01", "07-01"),
+		JULY ("07-01", "08-01"),
+		AUGUST ("08-01", "09-01"),
+		SEPTEMBER ("09-01", "10-01"),
+		OCTOBER ("10-01", "11-01"),
+		NOVEMBER ("11-01", "12-01"),
+		DECEMBER ("12-01", "01-01");
 
 		private final String start;
 		private final String end;
