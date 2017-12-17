@@ -25,6 +25,7 @@ public class DBaccess {
 	private static Connection conn = null;
 	private static Statement stmt = null;
 
+	
 	public static ArrayList<Unit> getUnitsData(){
 		ArrayList<Unit> retval= new ArrayList<Unit>();
 		try {
@@ -215,6 +216,25 @@ public class DBaccess {
 			String sql3 = "Update category SET type='"+name+"' where type='"+category+"' ;";
 			stmt.executeUpdate(sql2);
 			stmt.executeUpdate(sql3);
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	public static void editFeeType(String category, String Ncategory, String name, String nameN, float price){
+		System.out.println(category+" "+Ncategory+" "+name+" "+nameN+" "+price);
+		try {
+			connect();
+			stmt = conn.createStatement();
+			
+			String sql = "Update fee SET Type='"+Ncategory+"' , FeeName='"+nameN+"' , price="+price+
+					"  where FeeName='"+name+"';";
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			//stmt.executeUpdate(sql3);
 			connect();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
