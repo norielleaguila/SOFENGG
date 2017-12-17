@@ -177,6 +177,12 @@ public class CollectionTab extends Tabs{
 	public EditCategoryDialog getECD(){
 		return ecdialog;
 	}
+	public EditItemDialog getEID(){
+		return eidialog;
+	}
+	public CategoryItemDeleteDialog getCIDD(){
+		return ciddialog;
+	}
 	
 	public void update(){
 		tables.update();

@@ -223,6 +223,42 @@ public class DBaccess {
 			e.printStackTrace();
 		}
 	}
+	public static void deleteFeeType(String FeeName){
+		int id=getFeeID(FeeName);
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql2="Delete from feesincurred where FeeID="+id+";";
+			String sql = "Delete from fee where FeeName='"+FeeName+"'";
+			stmt.executeUpdate(sql);
+			stmt.executeUpdate(sql2);
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	private static int getFeeID(String FeeName){
+		int a=0;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT FeeID from fee where FeeName='"+FeeName+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next())
+				a=rs.getInt("FeeID");
+			
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return a;
+	}
 	public static void globalRemoveCategory(String category){
 		String afct=affectedFees(category);
 		System.out.println("notice me hahaha"+afct);
