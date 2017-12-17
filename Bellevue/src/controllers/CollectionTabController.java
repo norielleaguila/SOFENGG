@@ -8,6 +8,7 @@ import models.FeeList;
 import views.AddCategory;
 import views.AddCategory.OnAddEventHandler;
 import views.CategoryDeleteDialog;
+import views.CategoryItemDeleteDialog;
 import views.CollectionDialog;
 import views.CollectionTab;
 import views.EditCategoryDialog;
@@ -34,6 +35,8 @@ public class CollectionTabController extends Controller{
 		initCollectionDialog();
 		initCategoryDeleteDialog();
 		initEditCategoryDialog();
+		initCategoryItemDeleteDialog();
+		//initEditItemDialog();
 	}
 	
 	public void initAddCategory(){
@@ -101,6 +104,20 @@ public class CollectionTabController extends Controller{
 				
 			}
 		
+		});
+	}
+	public void initCategoryItemDeleteDialog(){
+		CategoryItemDeleteDialog cidd=view.getCIDD();
+		cidd.setOnAddEventHandler(new CategoryItemDeleteDialog.OnAddEventHandler() {
+			
+			@Override
+			public void onAction(String category) {
+				// TODO Auto-generated method stub
+				DBaccess.deleteFeeType(category);
+				cidd.hide();
+				view.update();
+				tcupate.update();
+			}
 		});
 	}
 	public void initCategoryDeleteDialog(){

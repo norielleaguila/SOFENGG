@@ -126,7 +126,7 @@ public class CategoryItemDeleteDialog  extends Popup {
 			double addWidth = 150;
 			
 			deleteBtn.setOnAction ((e) -> {
-				onAddEventHandler.onAction (categoryCB.getSelectionModel ().getSelectedItem ());
+				onAddEventHandler.onAction (itemCB.getSelectionModel ().getSelectedItem ());
 			});
 			
 			deleteBtn.setMinSize(addWidth, addHeight);
