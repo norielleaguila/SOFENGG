@@ -13,11 +13,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.print.PrinterJob;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -113,8 +115,33 @@ public class UnitTabController extends Controller{
 				row.setViewBtnListener(new UnitRow.viewBtnlistener() {
 					@Override
 					public void onAction(Unit unit) {
+						System.out.println(row.getUnitNum());
 						new UnitCollection(collectionModel, unit, row, account.getType(), window, view);
 						view.update();
+					}
+				});
+				row.setPrintBtnListener(new UnitRow.printBtnlistener() {
+					
+					@Override
+					public void onAction(Unit unit) {
+						// TODO Auto-generated method stub
+						PrinterJob printerJob = PrinterJob.createPrinterJob();
+						ListView<String> printList = new ListView<>();
+						ObservableList<String> items =FXCollections.observableArrayList ();
+						printList.setItems(items);
+						
+						//System.out.println("");
+						items.add(unit.getBilledTo());
+						items.add(Integer.toString(unit.getUnitNo()));
+						items.add("FEE NAME\t\t\tQUANTITY\t\t\tTOTAL PRICE");
+						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
+							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+							items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+						}
+						printList.setPrefWidth(1000);
+						//items.add(unitTable.rowFactoryProperty().getValue());
+						if(printerJob.showPrintDialog(window) && printerJob.printPage(printList))
+						       printerJob.endJob();
 					}
 				});
 			}

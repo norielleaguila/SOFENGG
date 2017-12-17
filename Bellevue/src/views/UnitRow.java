@@ -25,6 +25,7 @@ public class UnitRow extends HBox implements ViewInterface{
 	private Button printBtn;
 	
 	private viewBtnlistener vbl;
+	private printBtnlistener pbl;
 	
 	public UnitRow(int unitNum, String billedTo){
 		super();
@@ -89,6 +90,12 @@ public class UnitRow extends HBox implements ViewInterface{
 		printBtn.setMaxWidth(150);
 		printBtn.setId("printBtn");
 		
+		printBtn.setOnAction ((e) -> {
+			if(pbl != null){
+				pbl.onAction (unit);
+			}
+		});
+		
 		HBox.setMargin(viewBtn, new Insets(0, 10, 0, 5));
 		HBox.setMargin(printBtn, new Insets(0, 5, 0, 0));
 	}
@@ -110,9 +117,15 @@ public class UnitRow extends HBox implements ViewInterface{
 	public interface viewBtnlistener {
 		public void onAction (Unit unit);
 	}
+	public interface printBtnlistener {
+		public void onAction (Unit unit);
+	}
 
 	public void setViewBtnListener (viewBtnlistener vbl) {
 		this.vbl = vbl;
+	}
+	public void setPrintBtnListener (printBtnlistener pbl) {
+		this.pbl = pbl;
 	}
 	public String getTct(){
 		return unit.accessTCT();

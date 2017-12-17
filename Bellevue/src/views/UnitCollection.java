@@ -544,12 +544,14 @@ public class UnitCollection extends View{
 			ListView<String> printList = new ListView<>();
 			ObservableList<String> items =FXCollections.observableArrayList ();
 			printList.setItems(items);
+			
+			//System.out.println("");
 			items.add(unit.getBilledTo());
 			items.add(Integer.toString(unit.getUnitNo()));
 			items.add("FEE NAME\t\t\tQUANTITY\t\t\tTOTAL PRICE");
 			for(FeeIncurred fee:collection.getAllFee()){
 				//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
-				items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t" + fee.getPrice());
+				items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
 			}
 			printList.setPrefWidth(1000);
 			//items.add(unitTable.rowFactoryProperty().getValue());
