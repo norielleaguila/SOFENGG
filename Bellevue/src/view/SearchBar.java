@@ -18,6 +18,7 @@ public class SearchBar extends HBox implements View{
 	private SearchBox searchBox;
 	private FilterBox filterBox;
 	private OnSearchListener onSearchListener;
+	private OnFilterListener onFilterListener;
 	
 	public SearchBar(){
 		super();
@@ -49,8 +50,16 @@ public class SearchBar extends HBox implements View{
 		this.onSearchListener = onSearchListener;
 	}
 	
+	public void setOnFilterListener(OnFilterListener onFilterListener){
+		this.onFilterListener = onFilterListener;
+	}
+	
 	public interface OnSearchListener{
 		public void onAction(String query);
+	}
+	
+	public interface OnFilterListener{
+		public void onAction(int which);
 	}
 	
 	private class FilterBox extends HBox {
@@ -93,6 +102,14 @@ public class SearchBar extends HBox implements View{
 				radioBtnArr[i] = new RadioButton();
 				radioBtnArr[i].setToggleGroup(filterTglGrp);
 				radioBtnArr[i].setText(radioStringArr[i]);
+				
+				int temp = i;
+				radioBtnArr[i].setOnAction(e -> {
+					int which = temp;
+					
+					if(onFilterListener != null)
+						onFilterListener.onAction(which);
+				});
 			}
 			
 			radioBtnArr[0].setSelected(true);
@@ -105,9 +122,13 @@ public class SearchBar extends HBox implements View{
 	private class SearchBox extends HBox{
 		private TextField searchTF;
 		private Button searchBtn;
+		private boolean searching;
 		
 		public SearchBox(){
 			super();
+			
+			searching = false;
+			
 			this.init();
 		}
 		
@@ -127,9 +148,22 @@ public class SearchBar extends HBox implements View{
 			searchTF.setId("searchTF");
 			
 			searchTF.setOnKeyPressed(e -> {
-				if(searchBtn != null)
-					if(e.getCode() == KeyCode.ENTER)
-						searchBtn.fire();
+				if(searchBtn != null){
+					if(e.getCode() == KeyCode.ENTER){
+						
+						if(!searching){
+							searching = true;
+							searchBtn.setId("cancelBtn");
+						}
+						
+						if(searchTF.getText().equals("") && searching){
+							searching = false;
+							searchBtn.setId("searchBtn");
+						}
+							
+						search();
+					}
+				}
 			});
 			
 			getChildren().add(searchTF);
@@ -143,12 +177,22 @@ public class SearchBar extends HBox implements View{
 			searchBtn.setId("searchBtn");
 			
 			searchBtn.setOnAction(e -> {
-				if(onSearchListener != null){
-					onSearchListener.onAction(searchTF.getText());
+				if(onSearchListener != null && searching){
+					
+					searchBtn.setId("searchBtn");
+					searchTF.setText("");
+					
+					search();
+					
+					searching = !searching;
 				}
 			});
 			
 			getChildren().add(searchBtn);
+		}
+		
+		public void search(){
+			onSearchListener.onAction(searchTF.getText());
 		}
 		
 	}

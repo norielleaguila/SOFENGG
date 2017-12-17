@@ -29,6 +29,7 @@ public class UnitsTable extends VBox implements View{
 		super();
 		
 		this.unitRowController = unitRowController;
+		this.unitList = new ArrayList<>();
 		
 		init();
 	}
@@ -62,6 +63,7 @@ public class UnitsTable extends VBox implements View{
 	
 	public void setUnitList(List<Unit> list){
 		this.unitList = list;
+		unitListScrollPane.resetList();
 	}
 	
 	public UnitScroll getScrollPane(){
@@ -135,6 +137,19 @@ public class UnitsTable extends VBox implements View{
 			this.init();
 		}
 		
+		public void resetList(){
+			unitRowList = new ArrayList<UnitRow>();
+			
+			for(Unit unit: unitList){
+				UnitRow row = new UnitRow(unit.getUnitNo());
+				unitRowController.addListener(row);
+				unitRowList.add(row);
+			}
+			
+			unitListVBox.getChildren().clear();
+			unitListVBox.getChildren().addAll(unitRowList);
+		}
+		
 		private void init(){
 			this.setFitToWidth(true);
 			
@@ -164,7 +179,6 @@ public class UnitsTable extends VBox implements View{
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 }

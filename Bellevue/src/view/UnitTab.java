@@ -22,6 +22,7 @@ public class UnitTab extends BorderPane implements View{
 	
 	public void initUnitModel(){
 		unitModel = new UnitModel();
+		unitModel.attach(this);
 	}
 	
 	public void setSearchBar(SearchBar searchBar){
@@ -31,15 +32,19 @@ public class UnitTab extends BorderPane implements View{
 	
 	public void setUnitsTable(UnitsTable unitsTable){
 		this.unitsTable = unitsTable;
-		
-		this.unitsTable.setUnitList(unitModel.getUnits());
+
 		this.unitsTable.initUnitListScroll();
+		this.unitsTable.setUnitList(unitModel.getUnits());
 		
 		setCenter(this.unitsTable);
+	}
+	
+	public void search(String query){
+		unitModel.searchUnits(query);
 	}
 
 	@Override
 	public void update() {
-		
+		this.unitsTable.setUnitList(unitModel.getUnits());
 	}
 }

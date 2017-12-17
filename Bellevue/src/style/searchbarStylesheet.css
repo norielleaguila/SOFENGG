@@ -44,8 +44,17 @@
     -fx-padding: 1 3 1 3;
 }
 
-#searchBtn{
+#searchBtn, #cancelBtn{
 	-fx-background-color: transparent;
-	-fx-background-image: url('images/search.png'); 
 	-fx-background-repeat: no-repeat;
 }
+
+#searchBtn{
+	-fx-background-image: url('images/search.png'); 
+}
+
+#cancelBtn{
+	-fx-background-image: url('images/cancel.png'); 
+}
+
+
