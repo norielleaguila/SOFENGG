@@ -29,6 +29,23 @@ public class CollectionModel extends Model {
 	public List<Fee> getAllFees () {
 		return feeHelper.getAllFees ();
 	}
+	
+	public double getTotalFees(String unitNo){
+		double total = 0;
+		
+		LocalDate todaydate = LocalDate.now();
+		String date = todaydate.withDayOfMonth (1).toString ();
+		int year = Integer.parseInt (date.substring (0, 4));
+		BillingMonth billingMonth = BillingMonth.getMonthByStart (date.substring (5));
+		
+		List<IncurredFee> incurredFees = incurredFeeHelper.getUnitFeesByRange (unitNo, billingMonth.getStart (year), billingMonth.getEnd (year));
+		
+		for(IncurredFee fee : incurredFees){
+			total += fee.getTotal();
+		}
+		
+		return total;
+	}
 
 	public ObservableList<UnitFeeContainer> getUnitFee (String unitNo) {
 		ObservableList<UnitFeeContainer> observableList = FXCollections.observableArrayList ();
@@ -37,8 +54,6 @@ public class CollectionModel extends Model {
 		String date = todaydate.withDayOfMonth (1).toString ();
 		int year = Integer.parseInt (date.substring (0, 4));
 		BillingMonth billingMonth = BillingMonth.getMonthByStart (date.substring (5));
-
-		System.out.println(billingMonth);
 		
 		List<IncurredFee> incurredFees = incurredFeeHelper.getUnitFeesByRange (unitNo, billingMonth.getStart (year), billingMonth.getEnd (year));
 
@@ -179,6 +194,9 @@ public class CollectionModel extends Model {
 
 		public void setTotal (double total) {
 			this.total.set (total);
+		}
+		public IncurredFee getIncurredFee(){
+			return incurredFee;
 		}
 	}
 

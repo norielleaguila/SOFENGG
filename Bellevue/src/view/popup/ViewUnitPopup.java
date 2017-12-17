@@ -4,13 +4,16 @@ import javafx.collections.*;
 import javafx.event.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.print.PrinterJob;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.*;
 import model.CollectionModel;
+import model.CollectionModel.UnitFeeContainer;
 import model.UnitModel.UnitContainer;
 import model.beans.*;
 import model.database.FeeHelper;
@@ -55,6 +58,8 @@ public class ViewUnitPopup extends Popup{
 	
 	private boolean changed;
 	private UnitContainer unit;
+	
+	private ObservableList<CollectionModel.UnitFeeContainer> unitFeeContainers;
 	
 	public ViewUnitPopup(UnitContainer unit, Stage mainStage){
 		super();
@@ -249,7 +254,7 @@ public class ViewUnitPopup extends Popup{
 		tableView = new TableView<> ();
 		collectionModel = new CollectionModel ();
 
-		ObservableList<CollectionModel.UnitFeeContainer> unitFeeContainers = collectionModel.getUnitFee (unit.getUnit ().getUnitNo ());
+		unitFeeContainers = collectionModel.getUnitFee (unit.getUnit ().getUnitNo ());
 
 		TableColumn<CollectionModel.UnitFeeContainer, String> feeName = new TableColumn<> (Fee.COL_FEE_NAME);
 		TableColumn<CollectionModel.UnitFeeContainer, String > count = new TableColumn<> (IncurredFee.COL_COUNT);
@@ -269,10 +274,11 @@ public class ViewUnitPopup extends Popup{
 		tableView.setLayoutX(CHILD_GAP);
 		tableView.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
 		
-		tableView.setPrefHeight(200);
+		tableView.setMinHeight(200);
+		tableView.setMaxHeight(200);
 		tableView.setPrefWidth(WIDTH - CHILD_GAP * 2);
 
-		headerHeight += CHILD_GAP + (unitFeeContainers.size() + 1) * 50 + 3;
+		headerHeight += CHILD_GAP + 200;
 //		numChildren++;
 
 		collectionInfoPane.getChildren ().add (tableView);
@@ -307,7 +313,7 @@ public class ViewUnitPopup extends Popup{
 		
 		totalLbl = new Label();
 		
-		totalLbl.setText("1234.56");
+		totalLbl.setText(collectionModel.getTotalFees(unit.getUnit().getUnitNo()) + "");
 		
 		totalLbl.setLayoutX(LBL_WIDTH * 2 + 50);
 		totalLbl.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
@@ -391,7 +397,9 @@ public class ViewUnitPopup extends Popup{
 				
 				IncurredFeeHelper ifh = new IncurredFeeHelper();
 				System.out.println(ifh.addIncurredFee(infee));
-				
+				unitFeeContainers.removeAll(unitFeeContainers);
+				unitFeeContainers = collectionModel.getUnitFee (unit.getUnit().getUnitNo ());
+				tableView.setItems(unitFeeContainers);
 				collectionInfoPane.getChildren().remove(tableView);
 				collectionInfoPane.getChildren ().add (tableView);
 				
@@ -407,5 +415,89 @@ public class ViewUnitPopup extends Popup{
 		printBtn.setMinSize(Size.BTN_PREF_WIDTH, Size.BTN_PREF_HEIGHT);
 		printBtn.getStyleClass().add("btn");
 		buttonContainerHBox.getChildren().add(printBtn);
+		
+		printBtn.setOnAction(e->{
+			PrinterJob printerJob = PrinterJob.createPrinterJob();
+			
+			VBox printOutput = new VBox();
+			printOutput.setPrefWidth(475);
+			
+			VBox header = new VBox();
+			Label header1 = new Label("BELLEVUE HOMEOWNER ASSOCIATION");
+			header.setStyle("-fx-font-weight:bold;");
+			Label header2 = new Label("Apolonio Samson Road , The Bellevue QC");
+			header.getChildren().addAll(header1,header2);
+			
+			HBox billingDate = new HBox();
+			billingDate.setPrefWidth(475);
+			billingDate.setAlignment(Pos.CENTER_RIGHT);
+			Label billLabel = new Label("Billing Date: ");
+			billLabel.setStyle("-fx-font-size:10px;");
+			Label billDate = new Label(java.time.LocalDateTime.now().toString().split("T")[0]);
+			billDate.setStyle("-fx-font-size:10px;");
+			billingDate.getChildren().addAll(billLabel, billDate);
+			
+			VBox unitInfo = new VBox();
+			Label nameofOwner = new Label("Name of Homeowner: " + unit.getBillingInfo().getBilledTo());
+			nameofOwner.setStyle("-fx-font-size:10px;");
+			Label unitNum = new Label("Unit Number: " + unit.getBillingInfo().getUnitNo());
+			unitNum.setStyle("-fx-font-size:10px;");
+			unitInfo.getChildren().addAll(nameofOwner, unitNum);
+			
+			HBox feeTable = new HBox();
+			feeTable.setPrefWidth(475);
+			
+			VBox feeNameCol = new VBox();
+			feeNameCol.setStyle("-fx-font-size:10px;");
+			feeNameCol.setPrefWidth(150);
+			Label feeNameLabel = new Label("FEE NAME");
+			feeNameLabel.setStyle("-fx-font-weight:bold;-fx-font-size:10px;");
+			feeNameCol.getChildren().add(feeNameLabel);
+			for(UnitFeeContainer fee:collectionModel.getUnitFee(unit.getUnit().getUnitNo ())){
+				//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+				//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+				feeNameCol.getChildren().add(new Label(fee.getFeeName()));
+			}
+			
+			VBox quantityCol = new VBox();
+			quantityCol.setStyle("-fx-font-size:10px;");
+			quantityCol.setPrefWidth(150);
+			Label quantityLabel = new Label("QUANTITY");
+			quantityLabel.setStyle("-fx-font-weight:bold;");
+			quantityCol.getChildren().add(quantityLabel);
+			for(UnitFeeContainer fee:collectionModel.getUnitFee(unit.getUnit().getUnitNo ())){
+				//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+				//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+				quantityCol.getChildren().add(new Label(Integer.toString(fee.getCount())));
+			}
+			
+			VBox priceCol = new VBox();
+			priceCol.setStyle("-fx-font-size:10px;");
+			priceCol.setPrefWidth(150);
+			Label priceLabel = new Label("PRICE");
+			priceLabel.setStyle("-fx-font-weight:bold;");
+			priceCol.getChildren().add(priceLabel);
+			for(UnitFeeContainer fee:collectionModel.getUnitFee(unit.getUnit().getUnitNo ())){
+				//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+				//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
+				priceCol.getChildren().add(new Label(Double.toString(fee.getTotal())));
+			}
+			
+			feeTable.getChildren().addAll(feeNameCol,quantityCol,priceCol);
+			
+			HBox totalPrice = new HBox();
+			totalPrice.setStyle("-fx-font-size:10px;");
+			totalPrice.setPrefWidth(475);
+			totalPrice.setAlignment(Pos.CENTER_RIGHT);
+			Label totalPriceLabel = new Label("TOTAL PHP " + collectionModel.getTotalFees(unit.getUnit().getUnitNo()));
+			totalPriceLabel.setStyle("-fx-font-weight:bold;");
+			totalPrice.getChildren().addAll(totalPriceLabel);
+			printOutput.getChildren().addAll(header,billingDate,unitInfo,feeTable,totalPrice);
+			
+			//items.add(unitTable.rowFactoryProperty().getValue());
+			if(printerJob.showPrintDialog(mainStage) && printerJob.printPage(printOutput))
+			       printerJob.endJob();
+			
+		});
 	}
 }
