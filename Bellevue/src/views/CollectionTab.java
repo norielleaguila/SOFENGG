@@ -33,7 +33,9 @@ public class CollectionTab extends Tabs{
 	
 	private AddCategory acdialog;
 	private CollectionDialog cddialog;
+	private EditItemDialog eidialog;
 	private CategoryDeleteDialog cdddialog;
+	private CategoryItemDeleteDialog ciddialog;
 	private EditCategoryDialog ecdialog;
 	
 	private CollectionTable tables;
@@ -52,7 +54,9 @@ public class CollectionTab extends Tabs{
 		acdialog = new AddCategory();
 		cddialog = new CollectionDialog();
 		cdddialog=new CategoryDeleteDialog();
+		ciddialog = new CategoryItemDeleteDialog();
 		ecdialog= new EditCategoryDialog();
+		eidialog = new EditItemDialog();
 		initLayout();
 	}
 	
@@ -127,6 +131,10 @@ public class CollectionTab extends Tabs{
 			acdialog.setY(200);
 			break;
 		case 2:
+			eidialog.updateCat();
+			eidialog.show(window);
+			eidialog.setX(200);
+			eidialog.setY(200);
 			break;
 		case 3:
 			ecdialog.updateCat();
@@ -135,7 +143,10 @@ public class CollectionTab extends Tabs{
 			ecdialog.setY(200);
 			break;
 		case 4:
-			//EditCategoryDialog();
+			ciddialog.updateCat();
+			ciddialog.show(window);
+			ciddialog.setX(200);
+			ciddialog.setY(200);
 			break;
 		case 5:
 			cdddialog.updateCat();
@@ -144,6 +155,7 @@ public class CollectionTab extends Tabs{
 			cdddialog.setY(200);
 			break;
 		case 6:
+			
 			break;
 		}
 	}

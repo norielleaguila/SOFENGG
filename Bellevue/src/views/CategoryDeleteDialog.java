@@ -97,7 +97,7 @@ public class CategoryDeleteDialog  extends Popup {
 		}
 		
 		private void initDelete () {
-			deleteBtn = new Button ("Add");
+			deleteBtn = new Button ("Delete");
 			
 			double addHeight = 25;
 			double addWidth = 150;
