@@ -130,6 +130,7 @@ public class CollectionTab extends Tabs{
 		case 3:
 			break;
 		case 4:
+			//EditCategoryDialog();
 			break;
 		case 5:
 			cdddialog.updateCat();
