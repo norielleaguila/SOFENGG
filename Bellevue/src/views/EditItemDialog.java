@@ -56,7 +56,7 @@ public class EditItemDialog extends Popup {
 	private class EditItemDialogLayout extends Pane{
 		
 		private static final double WIDTH = 500;
-		private static final double HEIGHT = 300;
+		private static final double HEIGHT = 500;
 		private static final double CHILD_PADDING = 20;
 		private int multiplier = 1;
 		private final double fieldWidth = 200;
@@ -70,6 +70,8 @@ public class EditItemDialog extends Popup {
 		
 		private Label nameLbl;
 		private TextField nameTf;
+		private Label priceLbl;
+		private TextField priceTf;
 		
 		private Button edtBtn;
 			
@@ -92,6 +94,7 @@ public class EditItemDialog extends Popup {
 			initCategory ();
 			initItem();
 			initName ();
+			initPrice();
 			initEdit ();
 			initCBListener();
 			//initErrorDisplay();
@@ -135,6 +138,7 @@ public class EditItemDialog extends Popup {
 			categoryCB.getSelectionModel().selectFirst();
 			categoryCB.setId("catCB");
 			nameTf = new TextField ();
+			priceTf = new TextField ();
 			categoryLbl.setLayoutX(CHILD_PADDING);
 			categoryLbl.setLayoutY(CHILD_PADDING * multiplier);
 			categoryLbl.setId("lblPopup");
@@ -170,7 +174,12 @@ public class EditItemDialog extends Popup {
 			multiplier += 1;
 			itemCB.valueProperty().addListener(new ChangeListener<String>() {
 		        @Override public void changed(ObservableValue ov, String t, String t1) {
-		        	nameTf.setText(t1);;
+		        	nameTf.setText(t1);
+		        	for(Fee fee: DBaccess.getFees()){
+		        		if(fee.getFeeName().equals(t1)){
+		        			priceTf.setText(Double.toString(fee.getPrice()));
+		        		}
+		        	}
 		        	System.out.println(ov);
 		            System.out.println(t);
 		            System.out.println(t1);
@@ -187,7 +196,7 @@ public class EditItemDialog extends Popup {
 		}
 		private void initName () {
 			multiplier += 1;
-			nameLbl = new Label ("Category Name");
+			nameLbl = new Label ("Item Name");
 			nameLbl.setLayoutX(CHILD_PADDING);
 			nameLbl.setLayoutY(CHILD_PADDING * multiplier);
 			nameLbl.setId("lblPopup");
@@ -203,7 +212,24 @@ public class EditItemDialog extends Popup {
 			getChildren ().add (nameLbl);
 			getChildren ().add (nameTf);
 		}
-		
+		private void initPrice () {
+			multiplier += 1;
+			priceLbl = new Label ("Price");
+			priceLbl.setLayoutX(CHILD_PADDING);
+			priceLbl.setLayoutY(CHILD_PADDING * multiplier);
+			priceLbl.setId("lblPopup");
+			multiplier += 1;
+			
+			priceTf.setMinWidth(fieldWidth);
+			priceTf.setMaxWidth(fieldWidth);
+			priceTf.setLayoutX(CHILD_PADDING);
+			priceTf.setLayoutY(CHILD_PADDING * multiplier);
+			priceTf.setId("tfPopup");
+			multiplier += 1;
+			
+			getChildren ().add (priceLbl);
+			getChildren ().add (priceTf);
+		}
 		
 		
 		
