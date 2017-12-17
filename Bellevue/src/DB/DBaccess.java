@@ -204,6 +204,25 @@ public class DBaccess {
 			e.printStackTrace();
 		}
 	}
+	public static void globalEditCategory(String category, String name){
+		String afct=affectedFees(category);
+		System.out.println("notice me hahaha"+afct);
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql2 = "Update fee SET Type='"+name+"' where FeeID in "+
+					afct+";";
+			String sql3 = "Update category SET type='"+name+"' where type='"+category+"' ;";
+			stmt.executeUpdate(sql2);
+			stmt.executeUpdate(sql3);
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
 	public static void globalRemoveCategory(String category){
 		String afct=affectedFees(category);
 		System.out.println("notice me hahaha"+afct);

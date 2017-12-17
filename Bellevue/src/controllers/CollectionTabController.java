@@ -10,6 +10,7 @@ import views.AddCategory.OnAddEventHandler;
 import views.CategoryDeleteDialog;
 import views.CollectionDialog;
 import views.CollectionTab;
+import views.EditCategoryDialog;
 import views.TabContainer;
 
 public class CollectionTabController extends Controller{
@@ -31,8 +32,8 @@ public class CollectionTabController extends Controller{
 	public void setUpButtons() {
 		initAddCategory();
 		initCollectionDialog();
-		 initCategoryDeleteDialog();
-		
+		initCategoryDeleteDialog();
+		initEditCategoryDialog();
 	}
 	
 	public void initAddCategory(){
@@ -77,6 +78,27 @@ public class CollectionTabController extends Controller{
 					cd.update();
 					view.update();
 				}
+			}
+		
+		});
+	}
+	public void initEditCategoryDialog(){
+		System.out.println("------able to init EDIT-----");
+		EditCategoryDialog ecd = view.getECD();
+		ecd.setOnAddEventHandler(new EditCategoryDialog.OnAddEventHandler() {
+			
+
+			@Override
+			public void onAction(String category, String name) {
+				// TODO Auto-generated methediod stub
+				System.out.println("Edit val is val is "+category);
+				Fee.replaceType(category, name);
+				DBaccess.globalEditCategory(category,name);
+				ecd.hide();
+				view.update();
+				//tcupate.update();
+				
+				
 			}
 		
 		});

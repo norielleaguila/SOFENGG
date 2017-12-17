@@ -34,6 +34,7 @@ public class CollectionTab extends Tabs{
 	private AddCategory acdialog;
 	private CollectionDialog cddialog;
 	private CategoryDeleteDialog cdddialog;
+	private EditCategoryDialog ecdialog;
 	
 	private CollectionTable tables;
 	
@@ -51,7 +52,7 @@ public class CollectionTab extends Tabs{
 		acdialog = new AddCategory();
 		cddialog = new CollectionDialog();
 		cdddialog=new CategoryDeleteDialog();
-		
+		ecdialog= new EditCategoryDialog();
 		initLayout();
 	}
 	
@@ -128,6 +129,10 @@ public class CollectionTab extends Tabs{
 		case 2:
 			break;
 		case 3:
+			ecdialog.updateCat();
+			ecdialog.show(window);
+			ecdialog.setX(200);
+			ecdialog.setY(200);
 			break;
 		case 4:
 			//EditCategoryDialog();
@@ -156,6 +161,9 @@ public class CollectionTab extends Tabs{
 	}
 	public CategoryDeleteDialog getCDD(){
 		return cdddialog;
+	}
+	public EditCategoryDialog getECD(){
+		return ecdialog;
 	}
 	
 	public void update(){
