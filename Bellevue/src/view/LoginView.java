@@ -11,6 +11,7 @@ public class LoginView extends VBox implements View {
 	private VBox loginVBox;
 	
 	private Label appName;
+	private Label notifLabel;
 	private TextField usernameTF;
 	private PasswordField passwordPF;
 	private Button loginBtn;
@@ -50,11 +51,21 @@ public class LoginView extends VBox implements View {
 		
 		loginVBox.setId("loginVBox");
 		
+		initNotifLabel();
 		initAppName();
 		initLoginTF();
 		initLoginBtn();
 	}
 	
+	private void initNotifLabel(){
+		notifLabel = new Label();
+		
+		notifLabel.setText("");
+		
+		notifLabel.setId("notifLbl");
+		
+		loginVBox.getChildren().add(notifLabel);
+	}
 	private void initAppName(){
 		appName = new Label();
 		
@@ -110,6 +121,10 @@ public class LoginView extends VBox implements View {
 	
 	public void setOnLoginListener(OnLoginListener onLoginListener){
 		this.onLoginListener = onLoginListener;
+	}
+	
+	public void setNotif(String notif){
+		notifLabel.setText(notif);
 	}
 	
 	

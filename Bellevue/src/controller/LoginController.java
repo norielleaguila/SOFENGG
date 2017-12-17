@@ -20,6 +20,21 @@ public class LoginController extends Controller<LoginView, ApplicationController
 
 			if (successful)
 				mainController.programController.setAsScene ();
+			else{
+				if(user.equals("") || user == null){
+					view.setNotif("Username cannot be empty!");
+				}
+				else if(pass.equals("") || pass == null){
+					view.setNotif("Password cannot be empty!");
+				}
+				/*else if(!AccountModel.getInstance().login(user, pass)){
+					view.setNotif("User does not exist.");
+				}*/
+				else {
+					/* invalid credentials condition */
+					view.setNotif("Invalid login.");
+				}
+			}
 		});
 	}
 }
