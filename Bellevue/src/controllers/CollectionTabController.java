@@ -12,6 +12,7 @@ import views.CategoryItemDeleteDialog;
 import views.CollectionDialog;
 import views.CollectionTab;
 import views.EditCategoryDialog;
+import views.EditItemDialog;
 import views.TabContainer;
 
 public class CollectionTabController extends Controller{
@@ -36,7 +37,7 @@ public class CollectionTabController extends Controller{
 		initCategoryDeleteDialog();
 		initEditCategoryDialog();
 		initCategoryItemDeleteDialog();
-		//initEditItemDialog();
+		initEditItemDialog();
 	}
 	
 	public void initAddCategory(){
@@ -83,6 +84,20 @@ public class CollectionTabController extends Controller{
 				}
 			}
 		
+		});
+	}
+	public void initEditItemDialog(){
+		EditItemDialog eid=view.getEID();
+		eid.setOnAddEventHandler(new EditItemDialog.OnAddEventHandler() {
+			
+			@Override
+			public void onAction(String category, String Ncategory, String name, String nameN, float price) {
+				// TODO Auto-generated method stub
+				DBaccess.editFeeType(category,Ncategory,name,nameN,price);
+				eid.hide();
+				view.update();
+				tcupate.update();
+			}
 		});
 	}
 	public void initEditCategoryDialog(){

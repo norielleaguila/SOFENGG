@@ -33,7 +33,7 @@ public class EditItemDialog extends Popup {
 	private OnAddEventHandler onAddEventHandler;
 	
 	public interface OnAddEventHandler {
-		public void onAction (String category,String name );
+		public void onAction (String category,String Ncategory,String name,String nameN,float price );
 	}
 	
 	public void setOnAddEventHandler (OnAddEventHandler onAddEventHandler) {
@@ -65,6 +65,8 @@ public class EditItemDialog extends Popup {
 		
 		private Label categoryLbl;
 		private ComboBox <String> categoryCB;
+		private Label changelbl;
+		private ComboBox <String> changeCB;
 		private Label itemLbl;
 		private ComboBox <String> itemCB;
 		
@@ -133,10 +135,14 @@ public class EditItemDialog extends Popup {
 		
 		private void initCategory () {
 			multiplier += 1;
+			
+			changelbl= new Label ("CATEGORY");
 			categoryLbl = new Label ("CATEGORY");
+			changeCB= new ComboBox<> ();
 			categoryCB = new ComboBox<> ();
 			categoryCB.getSelectionModel().selectFirst();
 			categoryCB.setId("catCB");
+			changeCB.setId("cngCB");
 			nameTf = new TextField ();
 			priceTf = new TextField ();
 			categoryLbl.setLayoutX(CHILD_PADDING);
@@ -151,14 +157,33 @@ public class EditItemDialog extends Popup {
 		            System.out.println(t1);
 		        }    
 		    });*/
+			categoryCB.valueProperty().addListener(new ChangeListener<String>() {
+		        @Override public void changed(ObservableValue ov, String t, String t1) {
+		        	changeCB.getSelectionModel().select(t1);
+		        }    
+		    });
 			categoryCB.setMinWidth(fieldWidth);
 			categoryCB.setMaxWidth(fieldWidth);
 			categoryCB.setLayoutX(CHILD_PADDING);
 			categoryCB.setLayoutY(CHILD_PADDING * multiplier);
 			multiplier += 1;
+			multiplier += 1;
+			changelbl.setLayoutX(CHILD_PADDING);
+			changelbl.setLayoutY(CHILD_PADDING * multiplier);
+			changelbl.setId("lblPopup");
+			multiplier += 1;
+			
+			changeCB.setMinWidth(fieldWidth);
+			changeCB.setMaxWidth(fieldWidth);
+			changeCB.setLayoutX(CHILD_PADDING);
+			changeCB.setLayoutY(CHILD_PADDING * multiplier);
+
+			multiplier += 1;
 			
 			getChildren ().add (categoryLbl);
 			getChildren ().add (categoryCB);
+			getChildren ().add (changelbl);
+			getChildren ().add (changeCB);
 		}
 		
 		private void initItem () {
@@ -248,7 +273,10 @@ public class EditItemDialog extends Popup {
 			
 			edtBtn.setOnAction ((e) -> {
 				onAddEventHandler.onAction(
-						itemCB.getSelectionModel ().getSelectedItem (),nameTf.getText());
+						categoryCB.getSelectionModel().getSelectedItem(),
+						changeCB.getSelectionModel().getSelectedItem(),
+						itemCB.getSelectionModel().getSelectedItem(),
+						nameTf.getText(),Float.valueOf(priceTf.getText()));
 			});
 			multiplier += 1;
 			
@@ -280,6 +308,11 @@ public class EditItemDialog extends Popup {
 						temp.getItems().clear();
 						temp.getItems().addAll(Fee.FEETYPE);
 						temp.getSelectionModel().selectFirst();
+					}else if(child.getId().equals("cngCB")){
+						ComboBox<String> temp=((ComboBox)child);
+						temp.getItems().clear();
+						temp.getItems().clear();
+						temp.getItems().addAll(Fee.FEETYPE);
 					}
 				}
 			}
