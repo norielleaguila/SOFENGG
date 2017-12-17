@@ -69,6 +69,34 @@ public class UnitTabController extends Controller{
 		setUpButtons();
 	}
 	
+	public void reset(){
+		view=new UnitTab(getUnitsModel());
+		this.collectionModel = getCollectionModel();
+		resetPaid = true;
+		setOverdue = true;
+		setUpButtons();
+	}
+	public CollectionList getCollectionModel(){
+		// query db
+		CollectionList model = new CollectionList(DB.DBaccess.getCollectionData());
+		return model;
+	}
+	public UnitList getUnitsModel(){
+		// query db
+		
+		UnitList model = new UnitList(DBaccess.getUnitsData());
+		
+		CollectionList colModel = getCollectionModel();
+		
+		for(Unit unit: model.getUnits()){
+			if(colModel.getUnit(unit.getUnitNo())!= null){
+				unit.setPaid(colModel.getUnit(unit.getUnitNo()).isPaid());
+				unit.setOverdue(colModel.getUnit(unit.getUnitNo()).isOverdue());
+			}
+		}
+		
+		return model;
+	}
 	public UnitTab getView(){
 		return view;
 	}
@@ -150,4 +178,5 @@ public class UnitTabController extends Controller{
 		}
 		return true;
 	}
+	
 }

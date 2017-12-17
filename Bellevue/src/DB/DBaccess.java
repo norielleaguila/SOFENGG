@@ -204,6 +204,56 @@ public class DBaccess {
 			e.printStackTrace();
 		}
 	}
+	public static void globalRemoveCategory(String category){
+		String afct=affectedFees(category);
+		System.out.println("notice me hahaha"+afct);
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "Delete from feesincurred where FeeID in "+
+					afct+";";
+			String sql2 = "Delete from fee where FeeID in "+
+					afct+";";
+			String sql3 = "Delete from category where type='"+
+					category+"' ;";
+			stmt.executeUpdate(sql);
+			stmt.executeUpdate(sql2);
+			stmt.executeUpdate(sql3);
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	private static String affectedFees(String category){
+		String finval="(";
+		ArrayList<Integer> retval= new ArrayList<Integer>();
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT FeeID from fee where Type='"+category+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				retval.add(rs.getInt("FeeID"));
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		System.out.println("notice me hahaha score of "+retval.size());
+		for(int i:retval){
+			String temp=finval;
+			finval=temp+i+",";
+		}
+		String temp=finval;
+		finval=temp+0+")";
+		return finval;
+	}
 	
 	public static void editFee(FeeIncurred prev,FeeIncurred post){
 		try {

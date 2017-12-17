@@ -33,6 +33,7 @@ public class CollectionTab extends Tabs{
 	
 	private AddCategory acdialog;
 	private CollectionDialog cddialog;
+	private CategoryDeleteDialog cdddialog;
 	
 	private CollectionTable tables;
 	
@@ -49,6 +50,7 @@ public class CollectionTab extends Tabs{
 		this.window = window;
 		acdialog = new AddCategory();
 		cddialog = new CollectionDialog();
+		cdddialog=new CategoryDeleteDialog();
 		
 		initLayout();
 	}
@@ -130,6 +132,10 @@ public class CollectionTab extends Tabs{
 		case 4:
 			break;
 		case 5:
+			cdddialog.updateCat();
+			cdddialog.show(window);
+			cdddialog.setX(200);
+			cdddialog.setY(200);
 			break;
 		case 6:
 			break;
@@ -146,6 +152,9 @@ public class CollectionTab extends Tabs{
 	
 	public CollectionDialog getCD(){
 		return cddialog;
+	}
+	public CategoryDeleteDialog getCDD(){
+		return cdddialog;
 	}
 	
 	public void update(){

@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import DB.DBaccess;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,8 +109,14 @@ public class CollectionTable extends ScrollPane implements ViewInterface{
 	public void update(){
 		
 		tableContainer.getChildren().clear();
-		
+		model=getFeesModel();
 		updateTables();
 		
+	}
+	private FeeList getFeesModel(){
+		// query db
+		FeeList modelF = new FeeList(DBaccess.getFees());
+		
+		return modelF;
 	}
 }

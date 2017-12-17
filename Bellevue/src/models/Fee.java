@@ -80,7 +80,16 @@ public class Fee{
 	public void setPrice (double price) { this.price.set (price); }
 	public double getPrice () { return price.get (); }
 	public DoubleProperty priceProperty () { return price; }
-	
+	public static void removeType(String type){
+		int val=-1;
+		for(int i=0;i<FEETYPE.size();i++){
+			if(FEETYPE.get(i).equals(type))
+				val=i;
+		}
+		if(val>=0)
+			FEETYPE.remove(val);
+		
+	}
 	public static void addType(String type){
 		DBaccess.addType(type);
 		FEETYPE.add(type);

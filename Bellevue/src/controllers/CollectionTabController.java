@@ -7,17 +7,19 @@ import models.Fee;
 import models.FeeList;
 import views.AddCategory;
 import views.AddCategory.OnAddEventHandler;
+import views.CategoryDeleteDialog;
 import views.CollectionDialog;
 import views.CollectionTab;
+import views.TabContainer;
 
 public class CollectionTabController extends Controller{
 	private CollectionTab view;
 	private FeeList model;
-	
-	public CollectionTabController(FeeList model, Stage window){
+	private TabContainer tcupate;
+	public CollectionTabController(TabContainer tcupate,FeeList model, Stage window){
 		this.model = model;
 		view = new CollectionTab(model, window);
-		
+		this.tcupate=tcupate;
 		setUpButtons();
 	}
 	
@@ -29,6 +31,8 @@ public class CollectionTabController extends Controller{
 	public void setUpButtons() {
 		initAddCategory();
 		initCollectionDialog();
+		 initCategoryDeleteDialog();
+		
 	}
 	
 	public void initAddCategory(){
@@ -71,9 +75,25 @@ public class CollectionTabController extends Controller{
 					DBaccess.addFee(f);
 					cd.hide();
 					cd.update();
-					
 					view.update();
 				}
+			}
+		
+		});
+	}
+	public void initCategoryDeleteDialog(){
+		CategoryDeleteDialog cdd = view.getCDD();
+		cdd.setOnAddEventHandler(new CategoryDeleteDialog.OnAddEventHandler(){
+
+			@Override
+			public void onAction(String category) {
+				//Fee.addType(category);
+				System.out.println("deleted val is "+category);
+				Fee.removeType(category);
+				DBaccess.globalRemoveCategory(category);
+				cdd.hide();
+				view.update();
+				tcupate.update();
 			}
 		
 		});

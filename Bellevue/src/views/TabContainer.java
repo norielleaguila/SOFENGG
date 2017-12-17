@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import DB.DBaccess;
 import controllers.CollectionTabController;
 import controllers.UnitTabController;
 import javafx.scene.control.Tab;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.CollectionList;
 import models.FeeList;
+import models.Unit;
 import models.UnitList;
 
 /**
@@ -24,12 +26,13 @@ public class TabContainer extends TabPane implements ViewInterface{
 	private ArrayList<Tab> tabs;
 	private UnitTabController unitTabController;
 	private CollectionTabController collectionTabController;
+	private Stage window;
 	
 	public TabContainer(FeeList feesModel, UnitList unitsModel, CollectionList collectionModel, Stage window){
 		super();
-		
+		this.window=window;
 		unitTabController = new UnitTabController(unitsModel, collectionModel, window);
-		collectionTabController = new CollectionTabController(feesModel, window);
+		collectionTabController = new CollectionTabController(this,feesModel, window);
 				
 		initTabs();
 		
@@ -54,8 +57,9 @@ public class TabContainer extends TabPane implements ViewInterface{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+		unitTabController.reset();
 	}
+	
 	
 	
 }
