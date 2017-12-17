@@ -90,6 +90,15 @@ public class Fee{
 			FEETYPE.remove(val);
 		
 	}
+	public static void replaceType(String typeo,String typen){
+		int val=-1;
+		for(int i=0;i<FEETYPE.size();i++){
+			if(FEETYPE.get(i).equals(typeo))
+				val=i;
+		}
+		if(val>=0)
+			FEETYPE.set(val, typen);
+	}
 	public static void addType(String type){
 		DBaccess.addType(type);
 		FEETYPE.add(type);
