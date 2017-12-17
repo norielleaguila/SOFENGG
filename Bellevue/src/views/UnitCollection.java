@@ -8,8 +8,10 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -536,6 +538,24 @@ public class UnitCollection extends View{
 			deletedFee=new ArrayList<FeeIncurred>();
 			sequence=new ArrayList<Integer>();
 //			view.update();
+		});
+		printButton.setOnAction(e->{
+			PrinterJob printerJob = PrinterJob.createPrinterJob();
+			ListView<String> printList = new ListView<>();
+			ObservableList<String> items =FXCollections.observableArrayList ();
+			printList.setItems(items);
+			items.add(unit.getBilledTo());
+			items.add(Integer.toString(unit.getUnitNo()));
+			items.add("FEE NAME\t\t\tQUANTITY\t\t\tTOTAL PRICE");
+			for(FeeIncurred fee:collection.getAllFee()){
+				//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
+				items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t" + fee.getPrice());
+			}
+			printList.setPrefWidth(1000);
+			//items.add(unitTable.rowFactoryProperty().getValue());
+			if(printerJob.showPrintDialog(window) && printerJob.printPage(printList))
+			       printerJob.endJob();
+			
 		});
 		buttonsHBox.getChildren().addAll(editButton,deleteButton,saveButton,addButton,printButton);
 		buttonsHBox.setSpacing(10);
