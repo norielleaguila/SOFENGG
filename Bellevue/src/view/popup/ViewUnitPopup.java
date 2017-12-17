@@ -269,7 +269,7 @@ public class ViewUnitPopup extends Popup{
 		tableView.setLayoutX(CHILD_GAP);
 		tableView.setLayoutY(CHILD_GAP * numChildren + headerHeight + 5);
 		
-		tableView.setPrefHeight((unitFeeContainers.size() + 1) * 50 + 3);
+		tableView.setPrefHeight(200);
 		tableView.setPrefWidth(WIDTH - CHILD_GAP * 2);
 
 		headerHeight += CHILD_GAP + (unitFeeContainers.size() + 1) * 50 + 3;
@@ -391,6 +391,9 @@ public class ViewUnitPopup extends Popup{
 				
 				IncurredFeeHelper ifh = new IncurredFeeHelper();
 				System.out.println(ifh.addIncurredFee(infee));
+				
+				collectionInfoPane.getChildren().remove(tableView);
+				collectionInfoPane.getChildren ().add (tableView);
 				
 			});
 		});

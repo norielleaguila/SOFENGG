@@ -73,7 +73,7 @@ public class MySQLDatabase extends DatabaseManager {
 			for (int i = 0; i < contentValues.length; i++) {
 				preparedStatement.setObject (i + 1, contentValues[i]);
 			}
-
+			System.out.println(preparedStatement.toString());
 			result = preparedStatement.executeUpdate ();
 			connection.commit ();
 			savepoint = connection.setSavepoint ();
@@ -91,7 +91,7 @@ public class MySQLDatabase extends DatabaseManager {
 	@Override
 	public boolean executeUpdate (String[] query, Object[][] contentValues) {
 		boolean result = false;
-
+		
 		try {
 			for (int i = 0; i < query.length; i++) {
 				preparedStatement = connection.prepareStatement (query[i]);
@@ -99,7 +99,6 @@ public class MySQLDatabase extends DatabaseManager {
 				for (int j = 0; j < contentValues[i].length; j++) {
 					preparedStatement.setObject (j + 1, contentValues[i][j]);
 				}
-
 				preparedStatement.executeUpdate ();
 			}
 
