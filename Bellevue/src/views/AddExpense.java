@@ -177,7 +177,7 @@ public class AddExpense extends Popup{
 		*/
 		private void initTimes () {
 			multiplier += 1;
-			timesLbl = new Label ("EXPENSE COST");
+			timesLbl = new Label ("QUANTITY");
 			timesTf = new TextField ();
 			
 			timesLbl.setLayoutX(CHILD_PADDING);

@@ -47,11 +47,13 @@ public class CollectionTabController extends Controller{
 
 			@Override
 			public void onAction(String category) {
-				Fee.addType(category);
-				
-				ac.hide();
-				
-				view.update();
+				if(!category.equals("")){
+					Fee.addType(category);
+					
+					ac.hide();
+					
+					view.update();
+				}
 			}
 		
 		});
@@ -64,23 +66,25 @@ public class CollectionTabController extends Controller{
 
 			@Override
 			public void onAction(String name, String cost, String category) {
-				boolean costNaN = false;
-				try{Double.parseDouble(cost);}
-				catch(NumberFormatException e){costNaN = true;}
-				
-				if(name == "")
-					cd.error(1);
-				else if(costNaN)
-					cd.error(2);
-				else if(category == null)
-					cd.error(3);
-				else{
-					Fee f=new Fee(name, category, Double.parseDouble(cost));
-					model.addFee(f);
-					DBaccess.addFee(f);
-					cd.hide();
-					cd.update();
-					view.update();
+				if((name!=null && cost!=null && category!=null) && !(name.equals("") || cost.equals("") || category.equals(""))){
+					boolean costNaN = false;
+					try{Double.parseDouble(cost);}
+					catch(NumberFormatException e){costNaN = true;}
+					
+					if(name == "")
+						cd.error(1);
+					else if(costNaN)
+						cd.error(2);
+					else if(category == null)
+						cd.error(3);
+					else{
+						Fee f=new Fee(name, category, Double.parseDouble(cost));
+						model.addFee(f);
+						DBaccess.addFee(f);
+						cd.hide();
+						cd.update();
+						view.update();
+					}
 				}
 			}
 		
@@ -93,10 +97,13 @@ public class CollectionTabController extends Controller{
 			@Override
 			public void onAction(String category, String Ncategory, String name, String nameN, float price) {
 				// TODO Auto-generated method stub
-				DBaccess.editFeeType(category,Ncategory,name,nameN,price);
-				eid.hide();
-				view.update();
-				tcupate.update();
+				if((category!=null && Ncategory!=null && name!=null && nameN!=null) &&
+						!(category.equals("") || Ncategory.equals("") || name.equals("") || nameN.equals(""))){
+					DBaccess.editFeeType(category,Ncategory,name,nameN,price);
+					eid.hide();
+					view.update();
+					tcupate.update();
+				}
 			}
 		});
 	}

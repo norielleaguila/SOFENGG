@@ -107,20 +107,20 @@ public class CategoryItemDeleteDialog  extends Popup {
 			itemLbl = new Label ("NAME OF ITEM");
 			itemCB = new ComboBox<> ();
 			
-			itemLbl.setLayoutY(CHILD_PADDING * 4 + 25);
+			itemLbl.setLayoutY(CHILD_PADDING * 5 + 25);
 			itemLbl.setLayoutX(CHILD_PADDING);
 			itemLbl.setId("lblPopup");
 			
 			itemCB.setId("itemPopup");
 			itemCB.setLayoutX(CHILD_PADDING);
-			itemCB.setLayoutY(CHILD_PADDING * 5 + 25);
+			itemCB.setLayoutY(CHILD_PADDING * 6 + 25);
 			
 			
 			getChildren ().addAll (itemLbl, itemCB);
 		}
 		
 		private void initDelete () {
-			deleteBtn = new Button ("Add");
+			deleteBtn = new Button ("Delete");
 			
 			double addHeight = 25;
 			double addWidth = 150;

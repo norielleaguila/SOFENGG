@@ -502,6 +502,7 @@ public class UnitCollection extends View{
 					preEditFee.remove(0);
 					postEditFee.remove(0);
 				}
+				
 			}
 			
 			;
@@ -531,6 +532,8 @@ public class UnitCollection extends View{
 						row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
 				}
 			}
+			//totalfeeLabel2 = new Label(collection.getTotal()+"");
+			totalfeeLabel2.setText(collection.getTotal()+"");
 			saveButton.setDisable(true);
 			addedFee = new ArrayList<FeeIncurred>();
 			preEditFee=new ArrayList<FeeIncurred>();
