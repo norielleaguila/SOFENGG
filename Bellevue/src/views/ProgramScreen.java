@@ -60,10 +60,9 @@ public class ProgramScreen extends View{
 		
 		initLayout();
 		
-//		initScreen();
+		initScreen();
 		
 		scene = new Scene(layout, WIDTH, HEIGHT);
-		
 	}
 
 	@Override
@@ -122,17 +121,21 @@ public class ProgramScreen extends View{
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
+
 	public void initHeader(){
 		header = new FlowPane(Orientation.VERTICAL);
 		header.setColumnHalignment(HPos.RIGHT); // align labels on left
 		header.setPrefWrapLength(30); // preferred height = 200
 		header.setAlignment(Pos.TOP_RIGHT);
 		header.setPadding(new Insets(20));
-		header.setStyle("-fx-background-color:#FC9586;");
+		header.setStyle("-fx-background-color: linear-gradient(to top right, #EF6461 0%, #EF6461 70%, #f7bb97 100%)");
 		
 		logoutBtn = new Button("LOGOUT");
 		logoutBtn.setStyle("-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-font:15px 'Segoe UI';");
 		logoutBtn.setPrefSize(100, 30);
+		
+		logoutBtn.setId("logout");
+		
 		header.getChildren().addAll(logoutBtn);
 		
 	}

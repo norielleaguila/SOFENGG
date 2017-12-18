@@ -8,7 +8,7 @@
 }
 
 .button, .text-field{
-	-fx-font-size: 11pt;
+	-fx-font-size: 12pt;
 }
 
 .button{
@@ -29,6 +29,19 @@
 }
 
 #loginVBox{
-	/* -fx-background-color: #393E4155; */
 	-fx-padding: 50;
+}
+
+#notifLbl, #notifLbl2{
+	-fx-background-color: transparent;
+	-fx-padding: 10;
+	-fx-background-radius: 4px;
+}
+
+#notifLbl2{
+	-fx-background-color: white;
+	-fx-border-radius: 3px;
+	-fx-border-color: #c0c0c0;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
 }

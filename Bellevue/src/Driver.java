@@ -24,7 +24,7 @@ public class Driver extends Application{
 		window = primaryStage;
 		window.show();
 		window.setTitle(View.APP_NAME);
-		window.setMaximized(true);
+//		window.setMaximized(true);
 //		window.setFullScreen(true);
 		
 		LoginScreen loginScreen = new LoginScreen();

@@ -45,7 +45,7 @@ public class LoginScreen extends View {
 		layout.setPadding(new Insets(25, 25, 25, 25));
 		layout.setAlignment(Pos.CENTER);
 		
-		layout.getStylesheets().add("style.css");
+		layout.getStylesheets().add("style/loginStylesheet.css");
 	}
 	
 	/**
@@ -66,21 +66,21 @@ public class LoginScreen extends View {
 		// create username field
 		usernameField = new TextField();
 		usernameField.setPromptText("Username");
-		usernameField.setMinSize(200, 25);
-		usernameField.setMaxSize(200, 25);
+		usernameField.setMinSize(200, 30);
+		usernameField.setMaxSize(200, 30);
 		usernameField.setFont(new Font(14));
 		
 		// create password field
 		passwordField = new PasswordField();
 		passwordField.setPromptText("Password");
-		passwordField.setMinSize(200, 25);
-		passwordField.setMaxSize(200, 25);
+		passwordField.setMinSize(200, 30);
+		passwordField.setMaxSize(200, 30);
 		passwordField.setFont(new Font(14));
 		
 		// create login button
 		loginBtn = new Button("LOGIN");
-		loginBtn.setMinSize(200, 25);
-		loginBtn.setMaxSize(200, 25);
+		loginBtn.setMinSize(200, 30);
+		loginBtn.setMaxSize(200, 30);
 		loginBtn.setId("loginBtn");
 	}
 	

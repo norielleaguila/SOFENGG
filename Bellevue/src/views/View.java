@@ -40,19 +40,22 @@ public abstract class View implements ViewInterface{
 	}
 	
 	public void initScreen(){
-		gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+//		gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+//		
+//		Rectangle bounds = gd.getDefaultConfiguration().getBounds();
+//		Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(gd.getDefaultConfiguration());
+//		
+//		Rectangle safeBounds = new Rectangle(bounds);
+//		safeBounds.x += insets.left;
+//		safeBounds.y += insets.top;
+//		safeBounds.width -= (insets.left + insets.right);
+//		safeBounds.height -= (insets.top + insets.bottom);
+//		
+//		WIDTH = gd.getDisplayMode().getWidth();
+//		HEIGHT = gd.getDisplayMode().getHeight() ;
 		
-		Rectangle bounds = gd.getDefaultConfiguration().getBounds();
-		Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(gd.getDefaultConfiguration());
-		
-		Rectangle safeBounds = new Rectangle(bounds);
-		safeBounds.x += insets.left;
-		safeBounds.y += insets.top;
-		safeBounds.width -= (insets.left + insets.right);
-		safeBounds.height -= (insets.top + insets.bottom);
-		
-		WIDTH = gd.getDisplayMode().getWidth();
-		HEIGHT = gd.getDisplayMode().getHeight() ;
+		WIDTH = 1024;
+		HEIGHT = 768;
 	}
 	
 }

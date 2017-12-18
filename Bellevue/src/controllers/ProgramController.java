@@ -18,8 +18,9 @@ public class ProgramController extends Controller{
 		this.view = view;
 		super.window = window;
 		this.setScene(view.getScene());
-//		this.window.setFullScreen(true);
-//		System.out.println("Logged in: " + account.getUsername());
+
+		this.window.setMaximized(false);
+		this.window.setMaximized(true);
 		this.accountModel = accountModel;
 		
 	}
