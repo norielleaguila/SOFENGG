@@ -213,3 +213,13 @@
 	-fx-border-width: 0px;
 }
 
+#logout{
+	-fx-background-color: #BDD358;
+	-fx-text-fill: #4b4b4b;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 2);
+	-fx-padding: 5;
+}
+
+#header{
+	-fx-background-color: linear-gradient(to top right, #EF6461 0%, #EF6461 70%, #f7bb97 100%);
+}

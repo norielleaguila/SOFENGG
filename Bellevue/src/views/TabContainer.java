@@ -36,7 +36,7 @@ public class TabContainer extends TabPane implements ViewInterface{
 				
 		initTabs();
 		
-		this.getStylesheets().add("style.css");
+		this.getStylesheets().add("style/style.css");
 	}
 
 	
