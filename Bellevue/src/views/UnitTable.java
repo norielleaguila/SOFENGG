@@ -96,8 +96,12 @@ public class UnitTable implements ViewInterface{
 	 * When a unit is updated in the db, call this method to update the table
 	 */
 	public void updateRow(Unit unit){
-		units.resetLayout();
-		units.getRow(unit).update();
+		if(units.getRow(unit)!=null){
+			System.out.println("1 " + (units.getRow(unit)!=null));
+			units.resetLayout();
+			System.out.println("2 " + (units.getRow(unit)!=null));
+			units.getRow(unit).update();
+		}
 	}
 
 	@Override
