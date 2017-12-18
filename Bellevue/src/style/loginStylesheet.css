@@ -1,0 +1,34 @@
+.root{
+	-fx-background-color: #86BA90;
+	-fx-background-color: linear-gradient(to top, #EF6461 0%, #f7bb97 100%);
+}
+
+.root *{
+	-fx-font-family: "Segoe UI";
+}
+
+.button, .text-field{
+	-fx-font-size: 11pt;
+}
+
+.button{
+	-fx-background-color: linear-gradient(to top, #88D18A 0%, #8fe892 100%);
+	-fx-background-color: #BDD358;
+	-fx-text-fill: #4b4b4b;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 2);
+	-fx-padding: 5;
+}
+
+.text-field{
+	-fx-prompt-text-fill: #4b4b4b;
+}
+
+#appNameLbl{
+	-fx-text-fill: white;
+	-fx-font-size: 25pt;
+}
+
+#loginVBox{
+	/* -fx-background-color: #393E4155; */
+	-fx-padding: 50;
+}

@@ -1,5 +1,7 @@
 package views;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -28,13 +30,15 @@ public class UnitTable implements ViewInterface{
 	}
 	
 	public void initHeader(){
-		Label[] labels = new Label[]{new Label("Status"), new Label("Unit #"), new Label("Name"), new Label("Actions")};
+		Label[] labels = new Label[]{new Label("Status"), new Label("Unit Num"), new Label("Actions")};
 		
-		labels[0].setMinWidth(100);
-		labels[1].setMinWidth(120);
-		labels[2].setMinWidth(520);
-		labels[3].setMinWidth(350);
+		labels[0].setMinWidth(50);
+		labels[1].setMinWidth(150);
+		labels[2].setMinWidth(300);
 		
+		labels[0].setPadding(new Insets(0, 30, 0, 0));
+		labels[1].setPadding(new Insets(0, 30, 0, 0));
+		labels[2].setPadding(new Insets(0, 60, 0, 0));
 		
 		for(int i = 0; i < labels.length; i++){
 			labels[i].setId("tableHeaderLbl");
@@ -78,6 +82,16 @@ public class UnitTable implements ViewInterface{
 		return units;
 	}
 	
+	public void setRows(ArrayList<Unit> units){
+		ArrayList<UnitRow> unitRows = new ArrayList<UnitRow>();
+		
+		for(Unit unit: units){
+			unitRows.add(new UnitRow(unit));
+		}
+		
+		this.units.setRows(unitRows);
+	}
+	
 	/*
 	 * When a unit is updated in the db, call this method to update the table
 	 */
@@ -88,6 +102,7 @@ public class UnitTable implements ViewInterface{
 
 	@Override
 	public void update() {
+		units.resetLayout();
 		this.getUnitList().getChildren().clear();
 	}
 }

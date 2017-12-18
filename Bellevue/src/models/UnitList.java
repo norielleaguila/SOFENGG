@@ -55,17 +55,6 @@ public class UnitList extends Model{
 	public ArrayList<Unit> searchForUnits(String searchParameter){
 		ArrayList<Unit> searchResults = new ArrayList<Unit>();
 		
-		try{
-			if(getUnit(Integer.parseInt(searchParameter)) != null)
-				searchResults.add(getUnit(Integer.parseInt(searchParameter)));
-		}
-		catch(NumberFormatException e){
-			// display error (Please enter a valid unit number)
-			
-			// return null, signifying that this exception was triggered.
-			return null;
-		}
-		
 		// Look for all units that contain the given search parameter
 		for(Unit unit: units){
 			String unitNumberString = unit.getUnitNo() + "";
@@ -88,27 +77,21 @@ public class UnitList extends Model{
 	 * 			<p>	{@code ArrayList} of {@code Units} that match the given filter parameter.</p>
 	 * 
 	 */
-	public ArrayList<Unit> filterUnits(String filterParameter){
+	public ArrayList<Unit> filterUnits(int filterParameter){
 		ArrayList<Unit> filterResults = new ArrayList<Unit>();
 		
-		// if units are to be filtered by more than 1, the String will be split with a space as its delimiter
-		String[] filterByList =  filterParameter.split(" ");
-		
-		for(String filterBy : filterByList){
-			switch(filterBy){
-			case "paid":
-				filterResults.addAll(getAllPaidUnits());
+			switch(filterParameter){
+			case 0:
+				filterResults = DBaccess.getUnitsData();
 				break;
-			case "unpaid":
-				filterResults.addAll(getAllUnpaidUnits());
+			case 1:
+				filterResults = getAllPaidUnits();
 				break;
-			case "overdue":
-				// unsure if logical to still have this
+			case 2:
+				filterResults = getAllUnpaidUnits();
 				break;
 			default:
-				// error, filter parameter incorrect
 			}
-		}
 		
 		return filterResults;
 	}

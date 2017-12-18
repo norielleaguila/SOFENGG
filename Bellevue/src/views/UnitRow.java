@@ -18,7 +18,7 @@ public class UnitRow extends HBox implements ViewInterface{
 	private Unit unit;
 
 	private Label unitNumLbl;
-	private Label billedToLbl;
+//	private Label billedToLbl;
 	private Label statusLbl;
 	
 	private Button viewBtn;
@@ -36,7 +36,7 @@ public class UnitRow extends HBox implements ViewInterface{
 		rowNum++;
 		
 		unitNumLbl = new Label(unitNum + "");
-		billedToLbl = new Label(billedTo);
+//		billedToLbl = new Label(billedTo);
 		statusLbl = new Label();
 		
 		this.getStylesheets().add("style.css");
@@ -65,12 +65,12 @@ public class UnitRow extends HBox implements ViewInterface{
 		unitNumLbl.setMaxWidth(100);
 	}
 	
-	public void initBilledTo(){
-		billedToLbl.setId("unitOwnerLbl");
-		HBox.setMargin(billedToLbl, new Insets(0, 10, 0, 10));
-		billedToLbl.setMinWidth(500);
-		billedToLbl.setMaxWidth(500);
-	}
+//	public void initBilledTo(){
+//		billedToLbl.setId("unitOwnerLbl");
+//		HBox.setMargin(billedToLbl, new Insets(0, 10, 0, 10));
+//		billedToLbl.setMinWidth(500);
+//		billedToLbl.setMaxWidth(500);
+//	}
 	
 	public void initButtons(){
 		viewBtn = new Button("View");
@@ -104,12 +104,12 @@ public class UnitRow extends HBox implements ViewInterface{
 		
 		initStatus();
 		initUnitNum();
-		initBilledTo();
+//		initBilledTo();
 		initButtons();
 		
 		getChildren().add(statusLbl);
 		getChildren().add(unitNumLbl);
-		getChildren().add(billedToLbl);
+//		getChildren().add(billedToLbl);
 		getChildren().add(viewBtn);
 		getChildren().add(printBtn);
 	}
@@ -136,9 +136,9 @@ public class UnitRow extends HBox implements ViewInterface{
 		return Integer.parseInt(unitNumLbl.getText());
 	}
 	
-	public String getBilledTo(){
-		return billedToLbl.getText();
-	}
+//	public String getBilledTo(){
+//		return billedToLbl.getText();
+//	}
 	
 	public String getStatus(){
 		return statusLbl.getText();

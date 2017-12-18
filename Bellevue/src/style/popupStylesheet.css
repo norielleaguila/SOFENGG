@@ -1,0 +1,97 @@
+.root * {
+	-fx-font-family: "Segoe UI";
+}
+
+.container{
+	-fx-padding: 20;
+	-fx-background-color: white;
+	-fx-border-radius: 0 0 10 10;
+	-fx-background-radius: 0 0 10 10;
+}
+
+.label{
+	-fx-font-size: 12pt;
+	-fx-font-weight: lighter;
+	-fx-text-fill: #EF6461;
+}
+
+#lblBold{
+	-fx-font-wieght: normal;
+	-fx-text-fill: #4b4b4b;
+}
+
+#exitBtn:hover{
+	-fx-background-color: linear-gradient(to bottom, #ff0000 0%, #ff8000 100%);
+}
+
+#popup{
+	-fx-background-color: #fbfbfb;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 2, 0.0 , 0 , 5);
+	-fx-border-radius: 0 0 10 10;
+	-fx-background-radius: 0 0 10 10;
+}
+
+#popupHeader{
+	-fx-background-color: linear-gradient(to bottom, lightgrey 0%, #c0c0c0 100%);
+	-fx-background-color: linear-gradient(to right, #EF6461 0%, #f7bb97 100%);
+}
+
+#unitNumLbl{
+	-fx-font-size: 14pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: #EF6461;
+}
+
+#exitBtn{
+	-fx-border-radius: 200px;
+	-fx-border-width: 1px;
+	-fx-border-color: #fb1d04;
+	-fx-background-radius: 200px;
+	-fx-background-color: linear-gradient(to bottom, #ff8000 0%, #ff0000 100%);
+}
+
+.statusLbl{
+	-fx-border-radius: 200px;
+	-fx-background-radius: 200px;
+}
+
+#paid_StatusLbl{
+	-fx-background-color: #3F561E;
+}
+
+#unpaid_StatusLbl{
+	-fx-background-color: #95989A;
+}
+
+#overdue_StatusLbl{
+	-fx-background-color: #FF0606;
+}
+
+#dueLbl{
+	-fx-border-radius: 5;
+	-fx-text-fill: #FF0606;
+}
+
+#payBtn{
+	-fx-background-radius: 50;
+	-fx-border-radius: 50;
+	-fx-background-color: #BDD358;
+	-fx-background-image: url('images/edit.png');
+	-fx-background-repeat: no-repeat;
+}
+
+.button{
+	-fx-background-color: linear-gradient(to top, #88D18A 0%, #8fe892 100%);
+	-fx-background-color: #BDD358;
+	-fx-text-fill: #4b4b4b;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.3) , 2, 0.0 , 0 , 1);
+	-fx-padding: 5;
+	-fx-background-radius: 5;
+	-fx-border-radius: 5;
+}
+
+#qtyBtn{
+	-fx-background-radius: 50;
+	-fx-border-radius: 50;
+	-fx-font-size: 12pt;
+}

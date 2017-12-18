@@ -20,7 +20,7 @@ public class DBaccess {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/bellevuedb?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	static final String USER = "root";
-	static final String PASS = "none";
+	static final String PASS = "0825";
 	public static Account UserAccount=null;
 	private static Connection conn = null;
 	private static Statement stmt = null;

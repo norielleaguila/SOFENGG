@@ -34,43 +34,21 @@ public class UnitRowList extends VBox {
 		
 	}
 	
+	public void setRows(ArrayList<UnitRow> units){
+		this.units.clear();
+		this.units.addAll(units);
+		
+		resetLayout();
+	}
+	
 	public void addRow(UnitRow unit){
 		this.units.add(unit);
 		
-		sortList();
 		resetLayout();
 	}
 	
 	public void addRows(ArrayList<UnitRow> units){
 		this.units.addAll(units);
-		
-		sortList();
-		resetLayout();
-	}
-	
-	/**
-	 * !!UNFINISHED
-	 * sorts the list by unit number
-	 */
-	public void sortList(){
-		ArrayList<UnitRow> temp  = units;
-		ArrayList<UnitRow> newList;
-		
-		resetLayout();
-		
-	}
-	
-	/**
-	 * !!UNFINISHED
-	 * displays only the rows that match the given search filter
-	 * @param filterBy
-	 */
-	public void filter(String filterBy){
-		/*
-		 * TO-DO:
-		 * 1. filter
-		 * 2. sort
-		 */
 		
 		resetLayout();
 	}

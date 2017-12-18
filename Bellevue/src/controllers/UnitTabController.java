@@ -221,6 +221,15 @@ public class UnitTabController extends Controller{
 				});
 			}
 		}
+		
+		view.getToolBar().setOnSearchListener(query -> {
+			view.search(query);
+		});
+		
+		view.getToolBar().setOnFilterListener(which -> {
+			view.filter(which);
+		});
+		
 		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
 			if(!checkEqual(collectionModel.getCollection(),DB.DBaccess.getCollectionData())){
 				collectionModel = new CollectionList(DB.DBaccess.getCollectionData());
@@ -280,5 +289,6 @@ public class UnitTabController extends Controller{
 		}
 		return true;
 	}
+	
 	
 }
