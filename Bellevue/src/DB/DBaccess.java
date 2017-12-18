@@ -503,7 +503,7 @@ public class DBaccess {
 			
 			e.printStackTrace();
 		}
-		
+		System.out.println("value is " + retval);
 		return retval;
 	}
 	

@@ -1,6 +1,7 @@
 
 import controllers.LoginController;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import models.AccountList;
 import views.LoginScreen;
@@ -26,6 +27,8 @@ public class Driver extends Application{
 		window.setTitle(View.APP_NAME);
 //		window.setMaximized(true);
 //		window.setFullScreen(true);
+		
+		window.getIcons().add(new Image("/style/images/bellevue.png"));
 		
 		LoginScreen loginScreen = new LoginScreen();
 		AccountList accounts = new AccountList();

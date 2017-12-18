@@ -100,7 +100,8 @@ public class Fee{
 			FEETYPE.set(val, typen);
 	}
 	public static void addType(String type){
-		DBaccess.addType(type);
+		
+		if(DBaccess.addType(type))
 		FEETYPE.add(type);
 	}
 }

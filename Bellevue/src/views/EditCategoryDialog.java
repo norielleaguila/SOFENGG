@@ -190,8 +190,10 @@ public class EditCategoryDialog extends Popup {
 			
 			
 			edtBtn.setOnAction ((e) -> {
-				onAddEventHandler.onAction(
-						categoryCB.getSelectionModel ().getSelectedItem (),nameTf.getText());
+				if(!nameTf.getText().equals("")){
+					onAddEventHandler.onAction(
+							categoryCB.getSelectionModel ().getSelectedItem (),nameTf.getText());
+				}
 			});
 			multiplier += 1;
 			
