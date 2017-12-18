@@ -151,8 +151,8 @@ public class DBaccess {
 		try {
 			connect();
 			stmt = conn.createStatement();
-			String sql = "SELECT AccountNo,Type,Username FROM account where Username='"+username
-					+"' and Password='"+password+"'";
+			String sql = "SELECT AccountNo,Type,Username FROM account where BINARY Username='"+username
+					+"' and BINARY Password='"+password+"'";
 			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()){
 				retval = new Account();

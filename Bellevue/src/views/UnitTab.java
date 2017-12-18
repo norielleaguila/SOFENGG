@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 import DB.DBaccess;
+import controllers.UnitTabController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,6 +32,7 @@ public class UnitTab extends Tabs{
 	private UnitTable table;
 	private UnitList model;
 	private ToolBar toolBar;
+	private UnitTabController controller;
 	
 	public interface OnSearchListener{
 		public void onAction(String query);
@@ -50,7 +52,7 @@ public class UnitTab extends Tabs{
 		initLayout();
 	}
 	
-	public UnitTab(UnitList model){
+	public UnitTab(UnitList model, UnitTabController controller){
 		super();
 		
 		this.setSpacing(5);
@@ -58,6 +60,7 @@ public class UnitTab extends Tabs{
 		table = new UnitTable();
 		
 		this.model = model;
+		this.controller = controller;
 		
 		initLayout();
 	}
@@ -106,18 +109,20 @@ public class UnitTab extends Tabs{
 		
 		if(units == null)
 			units = model.getUnits();
-		
 		table.setRows(units);
+		controller.setUpButtons();
 	}
 	
 	public void filter(int which){
 		ArrayList<Unit> units = model.filterUnits(which);
 		
 		table.setRows(units);
+		controller.setUpButtons();
 	}
 	
 	public void updateRow(Unit unit){
 		table.updateRow(unit);
+		controller.setUpButtons();
 	}
 	
 	public class ToolBar extends HBox{

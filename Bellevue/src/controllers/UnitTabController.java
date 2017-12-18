@@ -63,7 +63,7 @@ public class UnitTabController extends Controller{
 	boolean resetPaid, setOverdue;
 	
 	public UnitTabController(UnitList model, CollectionList collectionModel, Stage window){
-		view = new UnitTab(model);
+		view = new UnitTab(model, this);
 		this.window = window;
 		this.collectionModel = collectionModel;
 		resetPaid = true;
@@ -72,7 +72,7 @@ public class UnitTabController extends Controller{
 	}
 	
 	public void reset(){
-		view=new UnitTab(getUnitsModel());
+		view=new UnitTab(getUnitsModel(), this);
 		this.collectionModel = getCollectionModel();
 		resetPaid = true;
 		setOverdue = true;
@@ -162,8 +162,6 @@ public class UnitTabController extends Controller{
 						feeNameLabel.setStyle("-fx-font-weight:bold;-fx-font-size:10px;");
 						feeNameCol.getChildren().add(feeNameLabel);
 						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
-							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
-							//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
 							feeNameCol.getChildren().add(new Label(fee.getName()));
 						}
 						
@@ -174,8 +172,6 @@ public class UnitTabController extends Controller{
 						quantityLabel.setStyle("-fx-font-weight:bold;");
 						quantityCol.getChildren().add(quantityLabel);
 						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
-							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
-							//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
 							quantityCol.getChildren().add(new Label(Integer.toString(fee.getTimes())));
 						}
 						
@@ -186,8 +182,6 @@ public class UnitTabController extends Controller{
 						priceLabel.setStyle("-fx-font-weight:bold;");
 						priceCol.getChildren().add(priceLabel);
 						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
-							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
-							//items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
 							priceCol.getChildren().add(new Label(Double.toString(fee.getPrice())));
 						}
 						
@@ -201,20 +195,6 @@ public class UnitTabController extends Controller{
 						totalPriceLabel.setStyle("-fx-font-weight:bold;");
 						totalPrice.getChildren().addAll(totalPriceLabel);
 						printOutput.getChildren().addAll(header,billingDate,unitInfo,feeTable,totalPrice);
-						/*ListView<String> printList = new ListView<>();
-						ObservableList<String> items =FXCollections.observableArrayList ();
-						printList.setItems(items);
-						
-						//System.out.println("");
-						items.add(unit.getBilledTo());
-						items.add(Integer.toString(unit.getUnitNo()));
-						items.add("FEE NAME\t\t\tQUANTITY\t\t\tTOTAL PRICE");
-						for(FeeIncurred fee:collectionModel.getUnit(unit.getUnitNo()).getAllFee()){
-							//displayList.add(new displayval(fee.getName(),fee.getTimes(),fee.getPrice()));
-							items.add(fee.getName() + "\t\t\t" + fee.getTimes() + "\t\t\t\t" + fee.getPrice());
-						}
-						printList.setPrefWidth(1000);
-						//items.add(unitTable.rowFactoryProperty().getValue());*/
 						if(printerJob.showPrintDialog(window) && printerJob.printPage(printOutput))
 						       printerJob.endJob();
 					}

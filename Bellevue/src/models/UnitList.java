@@ -82,7 +82,7 @@ public class UnitList extends Model{
 		
 			switch(filterParameter){
 			case 0:
-				filterResults = DBaccess.getUnitsData();
+				filterResults = units;
 				break;
 			case 1:
 				filterResults = getAllPaidUnits();
