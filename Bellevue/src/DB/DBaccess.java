@@ -469,7 +469,7 @@ public class DBaccess {
 		try {
 			connect();
 			stmt = conn.createStatement();
-			String sql = "SELECT * from fee where feename = " + f;
+			String sql = "SELECT * from fee where feename = '" + f.getFeeName() + "';";
 			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()){
 				retval = true;
@@ -491,7 +491,7 @@ public class DBaccess {
 		try {
 			connect();
 			stmt = conn.createStatement();
-			String sql = "SELECT * from category where type = " + type;
+			String sql = "SELECT * from category where type = '" + type+"';";
 			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()){
 				retval = true;
