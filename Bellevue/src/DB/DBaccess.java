@@ -439,6 +439,10 @@ public class DBaccess {
 	public static Boolean addType(String type){
 		if(Fee.FEETYPE.contains(type))
 			return false;
+		
+		if(categoryExists(type))
+			return false;
+		
 		boolean retval=false;
 		try {
 			connect();
@@ -458,8 +462,58 @@ public class DBaccess {
 		
 		return retval;
 	}
+	
+	public static boolean feeExists(Fee f){
+		boolean retval=false;
+		
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT * from fee where feename = " + f;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				retval = true;
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return retval;
+	}
+	
+	public static boolean categoryExists(String type){
+		boolean retval=false;
+		
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "SELECT * from category where type = " + type;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				retval = true;
+			}
+			connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return retval;
+	}
+	
 	public static boolean addFee(Fee f){
 		boolean retval=false;
+		
+		if(feeExists(f)){
+			return false;
+		}
+		
 		try {
 			connect();
 			stmt = conn.createStatement();
