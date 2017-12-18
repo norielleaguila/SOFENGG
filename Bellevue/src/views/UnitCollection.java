@@ -113,37 +113,37 @@ public class UnitCollection extends View{
 		displayList = new ArrayList<displayval>();
 		
 		unitnumLabel = new Label("UNIT#" + unit.getUnitNo());
-		unitnumLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
+		unitnumLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;-fx-padding: 5px;-fx-border-insets:5px;-fx-background-insets: 5px;");
 		
 		ownerLabel = new Label("Owner: ");
-		ownerLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+		ownerLabel.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:#F5C58F;");
 		
 		tctLabel = new Label("TCT: ");
-		tctLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+		tctLabel.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:#F5C58F;");
 		
 		lotsizeLabel = new Label("Lot size: ");
-		lotsizeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+		lotsizeLabel.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:#F5C58F;");
 		
 		addressLabel = new Label("Address");
-		addressLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+		addressLabel.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:#F5C58F;");
 		
 		ownerLabel2 = new Label(unit.getBilledTo());
-		ownerLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+		ownerLabel2.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:white;");
 		
 		tctLabel2 = new Label(unit.accessTCT() + " sqm");
-		tctLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+		tctLabel2.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:white;");
 		
 		lotsizeLabel2 = new Label(String.valueOf(unit.accessLotArea()));
-		lotsizeLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+		lotsizeLabel2.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:white;");
 		
 		addressLabel2 = new Label(unit.getAddressNo() + " " + unit.getStreet());
-		addressLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
+		addressLabel2.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:white;");
 		
 		totalfeeLabel = new Label("Total Fee");
-		totalfeeLabel.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:#F5C58F;");
+		totalfeeLabel.setStyle("-fx-font:bold 15px 'Segoe UI';-fx-text-fill:#F5C58F;");
 		
 		totalfeeLabel2 = new Label(collection.getTotal()+"");
-		totalfeeLabel2.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:white;");
+		totalfeeLabel2.setStyle("-fx-font:bold 20px 'Segoe UI';-fx-text-fill:white;");
 		
 		close = new Button("X");
 		close.getStylesheets().add("style.css");
@@ -182,14 +182,14 @@ public class UnitCollection extends View{
 		
 		unitHeader.getChildren().addAll(unitnumLabel,ownerlotsizeVBox,ownerlotsizeVBox2,headerDivider,rightSide);
 		unitHeader.setStyle("-fx-background-color: #AA6B5A;-fx-padding:10px;");
-		unitHeader.setPrefWidth(1250);
+		unitHeader.setPrefWidth(700);
 		unitHeader.setPrefHeight(100);
 		unitHeader.setAlignment(Pos.BOTTOM_LEFT);
 		unitPane.getChildren().addAll(unitHeader);
 		
 		unitContent = new VBox();
-		unitContent.setPrefWidth(1250);
-		unitContent.setPrefHeight(600);
+		unitContent.setPrefWidth(700);
+		unitContent.setPrefHeight(550);
 		unitContent.setStyle("-fx-background-color:white;");
 		unitTable = new TableView();
 		tablePane = new VBox();
@@ -231,12 +231,12 @@ public class UnitCollection extends View{
 		itemCol.getStyleClass().add("popupTable");
 		feeCol.getStyleClass().add("popupTable");
 		
-		tablePane.setPrefWidth(650);
-		tablePane.setMinWidth(650);
-		tablePane.setMaxWidth(650);
-		unitTable.setPrefWidth(650);
-		unitTable.setMinWidth(650);
-		unitTable.setMaxWidth(650);
+		tablePane.setPrefWidth(700);
+		tablePane.setMinWidth(700);
+		tablePane.setMaxWidth(700);
+		unitTable.setPrefWidth(700);
+		unitTable.setMinWidth(700);
+		unitTable.setMaxWidth(700);
 		tablePane.setStyle("-fx-background-color: #AA6B5A;");
 		unitTable.setItems(itemsList);
 		tablePane.getChildren().add(unitTable);
@@ -248,7 +248,7 @@ public class UnitCollection extends View{
 		buttonsVBox = new VBox();
 		paidHBox = new HBox();
 		paidLabel = new Label("PAID");
-		paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#618E21;");
+		paidLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:#618E21;");
 		paidToggle = new ToggleGroup();
 		paidRadio = new RadioButton("Paid");
 		unpaidRadio = new RadioButton("Unpaid");
@@ -259,17 +259,17 @@ public class UnitCollection extends View{
 		
 		if(collectionModel.getUnit(unit.getUnitNo()).isPaid()){
 			paidLabel.setText("PAID");
-			paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#618E21;");
+			paidLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:#618E21;");
 			row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#3F561E");
 		}
 		else if(collectionModel.getUnit(unit.getUnitNo()).isOverdue()){
 			paidLabel.setText("OVERDUE");
-			paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#F95959;");
+			paidLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:#F95959;");
 			row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#FF0606");
 		}
 		else{
 			paidLabel.setText("UNPAID");
-			paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");	
+			paidLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:#ABAEAF;");	
 			row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#95989A");
 		}
 		
@@ -285,60 +285,60 @@ public class UnitCollection extends View{
 		deleteButton = new Button("Delete Expense");
 		editButton=new Button("Edit Expense");
 		saveButton.setDisable(true);
-		saveButton.setPrefWidth(200);
+		saveButton.setPrefWidth(150);
 		saveButton.setPrefHeight(20);
 		
-		addButton.setPrefWidth(200);
+		addButton.setPrefWidth(150);
 		
-		printButton.setPrefWidth(200);
+		printButton.setPrefWidth(100);
 		
 		editButton.setDisable(true);
 		deleteButton.setDisable(true);
 		
-		saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
-		addButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
-		printButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
-		deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
-		editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+		saveButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+		addButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+		printButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#F95959;-fx-text-fill:white;");
+		deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+		editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		
 		unpaidRadio.setOnAction(e -> {
 			saveButton.setDisable(false);
-	        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+	        saveButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 	        
 	        editButton.setDisable(true);
-	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+	        editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 	        
 	        deleteButton.setDisable(true);
-			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		
 		paidRadio.setOnAction(e -> {
 			saveButton.setDisable(false);
-	        saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+	        saveButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 	        
 	        editButton.setDisable(true);
-	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+	        editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 	        
 	        deleteButton.setDisable(true);
-			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		
 		unitTable.setOnMouseClicked(event -> {
 			if(unitTable.getSelectionModel().getSelectedItem() != null){
 				
 				editButton.setDisable(false);
-		        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+		        editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 				
 				deleteButton.setDisable(false);
-				deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+				deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 			}
 		});
 		unitTable.setOnMouseReleased(event -> {
 			editButton.setDisable(true);
-	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+	        editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 			
 			deleteButton.setDisable(true);
-			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		
 		if(accountType != 1)
@@ -401,15 +401,15 @@ public class UnitCollection extends View{
 						ee.update();
 						view.update();
 						saveButton.setDisable(false);
-						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+						saveButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 					}
 				}
 				
 			});
 			deleteButton.setDisable(true);
-			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 			editButton.setDisable(true);
-	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+	        editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		deleteButton.setOnAction(e ->{
 			sequence.add(1);
@@ -423,11 +423,11 @@ public class UnitCollection extends View{
 				}
 			}
 			saveButton.setDisable(false);
-			saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+			saveButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 			deleteButton.setDisable(true);
-			deleteButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+			deleteButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 			editButton.setDisable(true);
-	        editButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
+	        editButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#EFF2E3;-fx-text-fill:white;-fx-border-insets:10px;");
 		});
 		addButton.setOnAction(e ->{
 			System.out.println("add button pushed");
@@ -457,7 +457,7 @@ public class UnitCollection extends View{
 					
 						//collection.getCollectionID();
 						saveButton.setDisable(false);
-						saveButton.setStyle("-fx-font:25px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
+						saveButton.setStyle("-fx-font:17px 'Segoe UI';-fx-background-color:#A6BC3F;-fx-text-fill:white;-fx-border-insets:10px;");
 						FeeIncurred feeincurred= new FeeIncurred(FeeList.getFee(FeeName),num,
 								java.time.LocalDateTime.now().toString().split("T")[0],
 								collection.getCollectionID(),collection.getUnitNo()); 
@@ -510,7 +510,7 @@ public class UnitCollection extends View{
 				collectionModel.getUnit(unit.getUnitNo()).setDatePaid(java.time.LocalDateTime.now().toString().split("T")[0]);
 				unit.setPaid(true);
 				paidLabel.setText("PAID");
-				paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#618E21;");
+				paidLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:#618E21;");
 				row.getStatusLabel().setStyle("-fx-border-radius: 200px;-fx-background-radius: 200px;-fx-background-color:#3F561E");
 				DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
 			}
@@ -519,7 +519,7 @@ public class UnitCollection extends View{
 					collectionModel.getUnit(unit.getUnitNo()).setDatePaid(null);
 					unit.setPaid(false);
 					paidLabel.setText("UNPAID");
-					paidLabel.setStyle("-fx-font:bold 50px 'Segoe UI';-fx-text-fill:#ABAEAF;");
+					paidLabel.setStyle("-fx-font:bold 30px 'Segoe UI';-fx-text-fill:#ABAEAF;");
 					
 					DB.DBaccess.changeStatus(collectionModel.getUnit(unit.getUnitNo()));
 					
